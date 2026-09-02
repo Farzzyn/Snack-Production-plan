@@ -274,6 +274,15 @@ export const INITIAL_SKUS = [
     "is_active": true
   },
   {
+    "id": "sku-28b",
+    "sku_id": "RGSKVTY200B",
+    "sku_name": "RG SHARKARAVARATTY 200 GM BOTTLE",
+    "base_product": "RG SHARKARAVARATTY",
+    "pack_size_g": 200,
+    "packet_per_box": 20,
+    "is_active": true
+  },
+  {
     "id": "sku-29",
     "sku_id": "RGRPV150",
     "sku_name": "RG RIBBON PAKKAVADA 150 GM PKT",

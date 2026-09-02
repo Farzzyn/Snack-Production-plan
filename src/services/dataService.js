@@ -348,10 +348,11 @@ export const dataService = {
     };
 
     if (!isUsingMock() && supabase) {
-      const { data: savedPlan, error } = await supabase.from('production_plans').upsert([{
-        id: newId,
+      const isValidUuid = (val) => typeof val === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val);
+
+      const dbPayload = {
         plan_number: planNumber,
-        country_id: plan.country_id,
+        country_id: isValidUuid(plan.country_id) ? plan.country_id : null,
         country_name: plan.country_name,
         sku_id: plan.sku_id,
         sku_name: plan.sku_name,
@@ -372,13 +373,25 @@ export const dataService = {
         estimated_packaging_cost: plan.estimated_packaging_cost,
         total_material_cost: plan.total_material_cost,
         notes: plan.notes
-      }]).select();
+      };
 
-      if (!error && savedPlan) {
+      if (isValidUuid(plan.id)) {
+        dbPayload.id = plan.id;
+      }
+
+      const { data: savedPlan, error } = await supabase
+        .from('production_plans')
+        .upsert([dbPayload])
+        .select();
+
+      if (!error && savedPlan && savedPlan.length > 0) {
+        const planDbId = savedPlan[0].id;
+        planRecord.id = planDbId;
+
         // Save snapshots
         if (plan.raw_material_snapshots?.length) {
           const rawItems = plan.raw_material_snapshots.map(r => ({
-            production_plan_id: newId,
+            production_plan_id: planDbId,
             raw_material: r.raw_material,
             quantity: r.quantity,
             uom: r.uom,
@@ -390,7 +403,7 @@ export const dataService = {
 
         if (plan.packaging_snapshots?.length) {
           const packItems = plan.packaging_snapshots.map(p => ({
-            production_plan_id: newId,
+            production_plan_id: planDbId,
             packaging_material: p.packaging_material,
             quantity: p.quantity,
             uom: p.uom,
@@ -401,6 +414,8 @@ export const dataService = {
         }
 
         return planRecord;
+      } else if (error) {
+        console.warn('Supabase plan save error, falling back to local storage:', error);
       }
     }
 

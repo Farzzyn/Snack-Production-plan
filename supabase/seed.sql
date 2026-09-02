@@ -1,27 +1,28 @@
 -- ============================================================================
 -- SNACK PRODUCTION PLANNER - SEED DATA (FROM GOOGLE SHEETS)
 -- Source: https://docs.google.com/spreadsheets/d/1o8n-sYenrBWNsSmBSnkp-cRdIcuXvwXyV8Ap9tPhuMI/
+-- Safe for repeated runs with ON CONFLICT DO NOTHING
 -- ============================================================================
 
 -- 1. COUNTRIES
-INSERT INTO countries (id, country_code, country_name, is_active) VALUES
-('cnt-01', 'UAE', 'United Arab Emirates', true),
-('cnt-02', 'SAU', 'Saudi Arabia', true),
-('cnt-03', 'QAT', 'Qatar', true),
-('cnt-04', 'OMN', 'Oman', true),
-('cnt-05', 'IND', 'India', true),
-('cnt-06', 'KWT', 'Kuwait', true),
-('cnt-07', 'BHR', 'Bahrain', true)
+INSERT INTO countries (country_code, country_name, is_active) VALUES
+('UAE', 'United Arab Emirates', true),
+('SAU', 'Saudi Arabia', true),
+('QAT', 'Qatar', true),
+('OMN', 'Oman', true),
+('IND', 'India', true),
+('KWT', 'Kuwait', true),
+('BHR', 'Bahrain', true)
 ON CONFLICT (country_code) DO NOTHING;
 
 -- 2. APP USERS
-INSERT INTO app_users (id, full_name, email, role, is_active) VALUES
-('usr-01', 'David Miller', 'admin@snackplanner.com', 'admin', true),
-('usr-02', 'Sarah Jenkins', 'manager@snackplanner.com', 'production_manager', true),
-('usr-03', 'Raj Patel', 'viewer@snackplanner.com', 'viewer', true)
+INSERT INTO app_users (full_name, email, role, is_active) VALUES
+('David Miller', 'admin@snackplanner.com', 'admin', true),
+('Sarah Jenkins', 'manager@snackplanner.com', 'production_manager', true),
+('Raj Patel', 'viewer@snackplanner.com', 'viewer', true)
 ON CONFLICT (email) DO NOTHING;
 
--- 3. SKU_PACK_SIZE_MASTER (34 SKUs)
+-- 3. SKU_PACK_SIZE_MASTER (35 SKUs)
 INSERT INTO sku_pack_size_master (sku_id, sku_name, base_product, pack_size_g, packet_per_box, is_active) VALUES
 ('RGHMIX150', 'RG HOT MIXTURE 150 GM PKT', 'RG HOT MIXTURE', 150, 30, true),
 ('RGHMIX454', 'RG HOT MIXTURE 454 GM PKT', 'RG HOT MIXTURE', 454, 24, true),
@@ -51,6 +52,7 @@ INSERT INTO sku_pack_size_master (sku_id, sku_name, base_product, pack_size_g, p
 ('RGSCAS150', 'RG SPICY CASSAVA STICK 150 GM PKT', 'RG SPICY CASSAVA STICK', 150, 30, true),
 ('RGSCAS200', 'RG SPICY CASSAVA STICK 200 GM PKT', 'RG SPICY CASSAVA STICK', 200, 20, true),
 ('RGSKVTY200', 'RG SHARKARAVARATTY 200 GM PKT', 'RG SHARKARAVARATTY', 200, 20, true),
+('RGSKVTY200B', 'RG SHARKARAVARATTY 200 GM BOTTLE', 'RG SHARKARAVARATTY', 200, 20, true),
 ('RGRPV150', 'RG RIBBON PAKKAVADA 150 GM PKT', 'RG RIBBON PAKKAVADA', 150, 30, true),
 ('RGRPV200', 'RG RIBBON PAKKAVADA 200 GM PKT', 'RG RIBBON PAKKAVADA', 200, 20, true),
 ('RGSBNC150', 'RG SWEET BANANA CHIPS 150 GM PKT', 'RG SWEET BANANA CHIPS', 150, 30, true),
