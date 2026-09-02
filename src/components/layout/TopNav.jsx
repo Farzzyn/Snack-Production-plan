@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, RotateCcw, Shield, LogOut, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Database, RotateCcw, Shield, LogOut, ChevronRight } from 'lucide-react';
 import { isSupabaseConfigured, isUsingMock } from '../../services/dataService';
 
 export default function TopNav({ 
@@ -11,18 +11,18 @@ export default function TopNav({
   onLogout 
 }) {
   const routeTitles = {
-    dashboard: 'Manufacturing Dashboard',
+    dashboard: 'Operations Dashboard',
     'create-plan': 'Create Production Plan',
-    'production-plans': 'Production Plans & Schedule',
-    'plan-details': 'Production Plan Dossier',
-    'sku-master': 'SKU & Pack Configuration Master',
-    'recipe-bom': 'Recipe Bill of Materials (BOM)',
-    'packaging-bom': 'Packaging Bill of Materials (BOM)',
-    'capacity-master': 'Plant & Chef Capacity Master',
-    'staff-summary': 'Labor & Staff Directory',
-    countries: 'Destination Countries',
-    'import-data': 'CSV Master Data Importer',
-    'users-roles': 'User Access & Permissions'
+    'production-plans': 'Production Plans Register',
+    'plan-details': 'Production Dossier',
+    'sku-master': 'SKU Master',
+    'recipe-bom': 'Recipe BOM',
+    'packaging-bom': 'Packaging BOM',
+    'capacity-master': 'Capacity Master',
+    'staff-summary': 'Staff Directory',
+    countries: 'Export Countries',
+    'import-data': 'CSV Importer',
+    'users-roles': 'Users & Permissions'
   };
 
   const isConfigured = isSupabaseConfigured();
@@ -31,21 +31,26 @@ export default function TopNav({
   return (
     <header className="top-navbar no-print">
       <div className="top-nav-left">
-        <h1 className="page-title-badge">
-          {routeTitles[currentRoute] || 'Snack Production Planner'}
-        </h1>
+        {/* Minimal Breadcrumb */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Snack MRP</span>
+          <ChevronRight size={14} color="var(--text-muted)" />
+          <h1 className="page-title-badge">
+            {routeTitles[currentRoute] || 'Overview'}
+          </h1>
+        </div>
 
-        {/* Database Mode Pill */}
+        {/* Database Mode Indicator */}
         <div 
           className={`db-mode-indicator ${usingMock ? 'db-mode-mock' : 'db-mode-supabase'}`}
-          title={usingMock ? 'Running on Local Mock Storage (Zero latency, persistent)' : 'Connected to Supabase PostgreSQL'}
+          title={usingMock ? 'Running on Local Storage. Changes persist in your browser.' : 'Connected to Supabase PostgreSQL'}
           style={{ cursor: isConfigured ? 'pointer' : 'default' }}
           onClick={isConfigured ? onToggleDbMode : undefined}
         >
-          <Database size={13} />
-          <span>{usingMock ? 'Demo Mode (Local)' : 'Supabase Live DB'}</span>
+          <Database size={12} />
+          <span>{usingMock ? 'Local Demo' : 'Supabase Live'}</span>
           {isConfigured && (
-            <span style={{ fontSize: '10px', textDecoration: 'underline', marginLeft: '2px' }}>
+            <span style={{ fontSize: '10px', textDecoration: 'underline', opacity: 0.8 }}>
               (switch)
             </span>
           )}
@@ -53,29 +58,29 @@ export default function TopNav({
       </div>
 
       <div className="top-nav-right">
-        {/* Quick Role Switcher for Testing PRD Roles */}
+        {/* Role Switcher */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <Shield size={14} color="var(--slate-500)" />
-          <span style={{ fontSize: '12px', color: 'var(--slate-500)', fontWeight: 500 }}>Active Role:</span>
+          <Shield size={13} color="var(--text-muted)" />
           <select 
             className="role-switch-select"
             value={currentUser?.role || 'admin'}
             onChange={e => onRoleChange(e.target.value)}
+            title="Switch user role to simulate Admin, Manager, or Viewer access"
           >
-            <option value="admin">Admin (Full CRUD)</option>
-            <option value="production_manager">Production Manager (Planning & Orders)</option>
-            <option value="viewer">Floor Staff / Viewer (Read-Only)</option>
+            <option value="admin">Admin (Full Access)</option>
+            <option value="production_manager">Production Manager</option>
+            <option value="viewer">Viewer (Read Only)</option>
           </select>
         </div>
 
-        {/* Reset Mock Data Button */}
+        {/* Reset Mock Data */}
         {usingMock && (
           <button 
             className="btn btn-secondary btn-sm"
             onClick={onResetData}
-            title="Reset demo data to initial factory state"
+            title="Reset data back to factory default seed"
           >
-            <RotateCcw size={13} />
+            <RotateCcw size={12} />
             Reset Data
           </button>
         )}
@@ -84,9 +89,9 @@ export default function TopNav({
         <button 
           className="btn btn-secondary btn-sm"
           onClick={onLogout}
-          title="Sign out"
+          title="Sign Out"
         >
-          <LogOut size={13} />
+          <LogOut size={12} />
         </button>
       </div>
     </header>
