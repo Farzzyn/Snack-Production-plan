@@ -11,8 +11,8 @@ import {
   INITIAL_PLANS
 } from './mockData';
 
-// Local storage keys
-const STORAGE_PREFIX = 'snack_planner_';
+// Local storage keys (v2 with real Google Sheets master data)
+const STORAGE_PREFIX = 'snack_planner_v2_';
 const STORAGE_KEYS = {
   COUNTRIES: `${STORAGE_PREFIX}countries`,
   USERS: `${STORAGE_PREFIX}users`,

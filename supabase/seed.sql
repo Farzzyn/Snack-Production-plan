@@ -1,123 +1,261 @@
 -- ============================================================================
--- SNACK PRODUCTION PLANNER - SEED DATA
+-- SNACK PRODUCTION PLANNER - SEED DATA (FROM GOOGLE SHEETS)
+-- Source: https://docs.google.com/spreadsheets/d/1o8n-sYenrBWNsSmBSnkp-cRdIcuXvwXyV8Ap9tPhuMI/
 -- ============================================================================
 
 -- 1. COUNTRIES
 INSERT INTO countries (id, country_code, country_name, is_active) VALUES
-('a0000000-0000-0000-0000-000000000001', 'UAE', 'United Arab Emirates', true),
-('a0000000-0000-0000-0000-000000000002', 'SAU', 'Saudi Arabia', true),
-('a0000000-0000-0000-0000-000000000003', 'QAT', 'Qatar', true),
-('a0000000-0000-0000-0000-000000000004', 'OMN', 'Oman', true),
-('a0000000-0000-0000-0000-000000000005', 'IND', 'India', true),
-('a0000000-0000-0000-0000-000000000006', 'KWT', 'Kuwait', true),
-('a0000000-0000-0000-0000-000000000007', 'BHR', 'Bahrain', true)
+('cnt-01', 'UAE', 'United Arab Emirates', true),
+('cnt-02', 'SAU', 'Saudi Arabia', true),
+('cnt-03', 'QAT', 'Qatar', true),
+('cnt-04', 'OMN', 'Oman', true),
+('cnt-05', 'IND', 'India', true),
+('cnt-06', 'KWT', 'Kuwait', true),
+('cnt-07', 'BHR', 'Bahrain', true)
 ON CONFLICT (country_code) DO NOTHING;
 
 -- 2. APP USERS
 INSERT INTO app_users (id, full_name, email, role, is_active) VALUES
-('b0000000-0000-0000-0000-000000000001', 'David Miller (Plant Director)', 'admin@snackplanner.com', 'admin', true),
-('b0000000-0000-0000-0000-000000000002', 'Sarah Jenkins (Production Head)', 'manager@snackplanner.com', 'production_manager', true),
-('b0000000-0000-0000-0000-000000000003', 'Raj Patel (Floor Supervisor)', 'viewer@snackplanner.com', 'viewer', true)
+('usr-01', 'David Miller', 'admin@snackplanner.com', 'admin', true),
+('usr-02', 'Sarah Jenkins', 'manager@snackplanner.com', 'production_manager', true),
+('usr-03', 'Raj Patel', 'viewer@snackplanner.com', 'viewer', true)
 ON CONFLICT (email) DO NOTHING;
 
--- 3. SKU_PACK_SIZE_MASTER
-INSERT INTO sku_pack_size_master (id, sku_id, sku_name, base_product, pack_size_g, packet_per_box, is_active) VALUES
-('c0000000-0000-0000-0000-000000000001', 'RGHMIX150', 'Roasted Gram Healthy Mix 150g', 'Roasted Gram Healthy Mix', 150, 20, true),
-('c0000000-0000-0000-0000-000000000002', 'RGHMIX200', 'Roasted Gram Healthy Mix 200g', 'Roasted Gram Healthy Mix', 200, 20, true),
-('c0000000-0000-0000-0000-000000000003', 'RGHMIX50', 'Roasted Gram Healthy Mix 50g Pocket', 'Roasted Gram Healthy Mix', 50, 40, true),
-('c0000000-0000-0000-0000-000000000004', 'MPNUT100', 'Masala Peanut Crunch 100g', 'Masala Peanut Crunch', 100, 24, true),
-('c0000000-0000-0000-0000-000000000005', 'MPNUT200', 'Masala Peanut Crunch 200g Share Pack', 'Masala Peanut Crunch', 200, 16, true),
-('c0000000-0000-0000-0000-000000000006', 'CSSCHP120', 'Spiced Cassava Pepper Chips 120g', 'Spiced Cassava Chips', 120, 20, true),
-('c0000000-0000-0000-0000-000000000007', 'MKHNA70', 'Roasted Peri-Peri Makhana 70g', 'Roasted Makhana', 70, 20, true),
-('c0000000-0000-0000-0000-000000000008', 'BANCHP150', 'Kerala Golden Banana Crisps 150g', 'Golden Banana Crisps', 150, 20, true)
+-- 3. SKU_PACK_SIZE_MASTER (34 SKUs)
+INSERT INTO sku_pack_size_master (sku_id, sku_name, base_product, pack_size_g, packet_per_box, is_active) VALUES
+('RGHMIX150', 'RG HOT MIXTURE 150 GM PKT', 'RG HOT MIXTURE', 150, 30, true),
+('RGHMIX454', 'RG HOT MIXTURE 454 GM PKT', 'RG HOT MIXTURE', 454, 24, true),
+('RGHMIX908', 'RG HOT MIXTURE 908 GM PKT', 'RG HOT MIXTURE', 908, 12, true),
+('RGHMIX300', 'RG HOT MIXTURE 300 GM PKT', 'RG HOT MIXTURE', 300, 20, true),
+('RGKMIX150', 'RG KERALA MIXTURE 150 GM PKT', 'RG KERALA MIXTURE', 150, 30, true),
+('RGKMIX454', 'RG KERALA MIXTURE 454 GM PKT', 'RG KERALA MIXTURE', 454, 24, true),
+('RGKMIX908', 'RG KERALA MIXTURE 908 GM PKT', 'RG KERALA MIXTURE', 908, 12, true),
+('RGKMIX300', 'RG KERALA MIXTURE 300 GM PKT', 'RG KERALA MIXTURE', 300, 20, true),
+('RGBNC150', 'RG BANANA CHIPS 150 GM PKT', 'RG BANANA CHIPS', 150, 30, true),
+('RGBNC400', 'RG BANANA CHIPS 400 GM PKT', 'RG BANANA CHIPS', 400, 24, true),
+('RGBNC800', 'RG BANANA CHIPS 800 GM PKT', 'RG BANANA CHIPS', 800, 12, true),
+('RGBNC200', 'RG BANANA CHIPS 200 GM PKT', 'RG BANANA CHIPS', 200, 20, true),
+('RGPLK454', 'RG PALAK MURUKKU 454 GM PKT', 'RG PALAK MURUKKU', 454, 24, true),
+('RGPLK250', 'RG PALAK MURUKKU 250 GM PKT', 'RG PALAK MURUKKU', 250, 20, true),
+('RGMUK150', 'RG MURUKKU 150 GM PKT', 'RG MURUKKU', 150, 30, true),
+('RGMUK454', 'RG MURUKKU 454 GM PKT', 'RG MURUKKU', 454, 24, true),
+('RGMUK250', 'RG MURUKKU 250 GM PKT', 'RG MURUKKU', 250, 20, true),
+('RGBBMUK454', 'RG BABY MURUKKU 454 GM PKT', 'RG BABY MURUKKU', 454, 24, true),
+('RGBBMUK250', 'RG BABY MURUKKU 250 GM PKT', 'RG BABY MURUKKU', 250, 20, true),
+('RGCAC150', 'RG CASSAVA CHIPS 150 GM PKT', 'RG CASSAVA CHIPS', 150, 30, true),
+('RGCAC125', 'RG CASSAVA CHIPS 125 GM PKT', 'RG CASSAVA CHIPS', 125, 20, true),
+('RGSCAC150', 'RG SPICY CASSAVA CHIPS 150 GM PKT', 'RG SPICY CASSAVA CHIPS', 150, 30, true),
+('RGSCAC125', 'RG SPICY CASSAVA CHIPS 125 GM PKT', 'RG SPICY CASSAVA CHIPS', 125, 20, true),
+('RGCAS150', 'RG CASSAVA STICK 150 GM PKT', 'RG CASSAVA STICK', 150, 30, true),
+('RGCAS200', 'RG CASSAVA STICK 200 GM PKT', 'RG CASSAVA STICK', 200, 20, true),
+('RGSCAS150', 'RG SPICY CASSAVA STICK 150 GM PKT', 'RG SPICY CASSAVA STICK', 150, 30, true),
+('RGSCAS200', 'RG SPICY CASSAVA STICK 200 GM PKT', 'RG SPICY CASSAVA STICK', 200, 20, true),
+('RGSKVTY200', 'RG SHARKARAVARATTY 200 GM PKT', 'RG SHARKARAVARATTY', 200, 20, true),
+('RGRPV150', 'RG RIBBON PAKKAVADA 150 GM PKT', 'RG RIBBON PAKKAVADA', 150, 30, true),
+('RGRPV200', 'RG RIBBON PAKKAVADA 200 GM PKT', 'RG RIBBON PAKKAVADA', 200, 20, true),
+('RGSBNC150', 'RG SWEET BANANA CHIPS 150 GM PKT', 'RG SWEET BANANA CHIPS', 150, 30, true),
+('RGSBNC200', 'RG SWEET BANANA CHIPS 200 GM PKT', 'RG SWEET BANANA CHIPS', 200, 30, true),
+('RGANM250', 'RG ANDHRA MURUKKU 250 GM BOTTLE', 'RG ANDHRA MURUKKU', 250, 20, true),
+('RGMMIX300', 'RG MALABAR MIXTURE 300 GM BOTTLE', 'RG MALABAR MIXTURE', 300, 20, true)
 ON CONFLICT (sku_id) DO NOTHING;
 
--- 4. CAPACITY_MASTER
--- PRD Example: Roasted Gram Healthy Mix base capacity 2 chefs = 500 KG/day, 8 operating hours, 4 batches
-INSERT INTO capacity_master (id, base_product, max_capacity_per_day, uom, batch_count, operating_hours, count_of_chef, count_of_staff, capacity_per_batch, hours_per_batch) VALUES
-('d0000000-0000-0000-0000-000000000001', 'Roasted Gram Healthy Mix', 500, 'KG', 4, 8, 2, 4, 125, 2.0),
-('d0000000-0000-0000-0000-000000000002', 'Masala Peanut Crunch', 600, 'KG', 6, 8, 2, 4, 100, 1.33),
-('d0000000-0000-0000-0000-000000000003', 'Spiced Cassava Chips', 400, 'KG', 4, 8, 2, 5, 100, 2.0),
-('d0000000-0000-0000-0000-000000000004', 'Roasted Makhana', 250, 'KG', 5, 8, 2, 3, 50, 1.6),
-('d0000000-0000-0000-0000-000000000005', 'Golden Banana Crisps', 450, 'KG', 3, 8, 2, 4, 150, 2.67)
+-- 4. CAPACITY_MASTER (15 Base Product Lines)
+INSERT INTO capacity_master (base_product, max_capacity_per_day, uom, batch_count, operating_hours, count_of_chef, count_of_staff, capacity_per_batch, hours_per_batch) VALUES
+('RG HOT MIXTURE', 266.7, 'KG', 10, 9.15, 1, 14, 26.67, 0.92),
+('RG KERALA MIXTURE', 266.7, 'KG', 10, 10.15, 1, 14, 26.67, 1.02),
+('RG BANANA CHIPS', 288.2, 'KG', 8, 9.15, 1, 14, 36.02, 1.14),
+('RG PALAK MURUKKU', 216, 'KG', 18, 9.45, 1, 14, 12, 0.52),
+('RG MURUKKU', 285.2, 'KG', 23, 9.45, 1, 14, 12.4, 0.41),
+('RG BABY MURUKKU', 216, 'KG', 18, 9.45, 1, 14, 12, 0.52),
+('RG CASSAVA CHIPS', 185, 'KG', 6, 9.15, 1, 14, 30.83, 1.53),
+('RG SPICY CASSAVA CHIPS', 185, 'KG', 6, 9.15, 1, 14, 30.83, 1.53),
+('RG CASSAVA STICK', 185, 'KG', 6, 9.15, 1, 14, 30.83, 1.53),
+('RG SPICY CASSAVA STICK', 185, 'KG', 6, 9.15, 1, 14, 30.83, 1.53),
+('RG SHARKARAVARATTY', 471, 'KG', 21, 6, 1, 14, 22.43, 0.29),
+('RG RIBBON PAKKAVADA', 195, 'KG', 15, 9.3, 1, 14, 13, 0.62),
+('RG SWEET BANANA CHIPS', 181, 'KG', 6, 9.3, 1, 14, 30.17, 1.55),
+('RG MALABAR MIXTURE', 266.7, 'KG', 10, 9.15, 1, 14, 26.67, 0.92),
+('RG ANDHRA MURUKKU', 181, 'KG', 16, 9.15, 1, 14, 11.31, 0.57)
 ON CONFLICT (base_product) DO NOTHING;
 
--- 5. RECIPE_BOM (Raw material quantities per batch)
+-- 5. RECIPE_BOM (125 Ingredient Specifications)
 INSERT INTO recipe_bom (base_product, raw_material, quantity, uom, unit_cost, wastage_percentage) VALUES
--- Roasted Gram Healthy Mix (per 125 KG batch)
-('Roasted Gram Healthy Mix', 'Roasted Bengal Gram', 85, 'KG', 2.80, 1.5),
-('Roasted Gram Healthy Mix', 'Cold-Pressed Rice Bran Oil', 8, 'LTR', 2.20, 2.0),
-('Roasted Gram Healthy Mix', 'Pink Himalayan Rock Salt', 2, 'KG', 0.60, 0.0),
-('Roasted Gram Healthy Mix', 'Signature Spice & Herb Blend', 5, 'KG', 8.50, 1.0),
-('Roasted Gram Healthy Mix', 'Crispy Curry Leaves & Cashews', 25, 'KG', 6.00, 2.0),
+('RG HOT MIXTURE', 'Kadala mavu', 9, 'KG', 89, 1),
+('RG HOT MIXTURE', 'Rice powder', 4, 'KG', 36, 1),
+('RG HOT MIXTURE', 'Turmeric', 10, 'G', 0.21, 1),
+('RG HOT MIXTURE', 'Paal kayam', 120, 'G', 0.6, 1),
+('RG HOT MIXTURE', 'Vattal Mulak', 100, 'KG', 335, 1),
+('RG HOT MIXTURE', 'Kayam powder', 112, 'G', 0.77, 1),
+('RG HOT MIXTURE', 'Kadala', 2.5, 'KG', 140, 1),
+('RG HOT MIXTURE', 'Curry Leaves', 500, 'G', 0.09, 1),
+('RG HOT MIXTURE', 'Pottukadala', 2.6, 'KG', 90, 1),
+('RG HOT MIXTURE', 'Kashmiri Chilli', 400, 'G', 0.504, 1),
+('RG HOT MIXTURE', 'Chilli powder', 400, 'G', 0.261, 1),
+('RG HOT MIXTURE', 'Meat Masala', 350, 'G', 0.315, 1),
+('RG HOT MIXTURE', 'Salt', 328, 'G', 0.025, 1),
+('RG HOT MIXTURE', 'Pink salt', 10, 'G', 0.05, 1),
+('RG KERALA MIXTURE', 'Kadala mavu', 9, 'KG', 89, 1),
+('RG KERALA MIXTURE', 'Rice powder', 4, 'KG', 36, 1),
+('RG KERALA MIXTURE', 'Turmeric', 10, 'G', 0.21, 1),
+('RG KERALA MIXTURE', 'Paal kayam', 120, 'G', 0.6, 1),
+('RG KERALA MIXTURE', 'Vattal Mulak', 100, 'G', 0.335, 1),
+('RG KERALA MIXTURE', 'Kayam powder', 86, 'G', 0.77, 1),
+('RG KERALA MIXTURE', 'Kadala', 2.5, 'KG', 140, 1),
+('RG KERALA MIXTURE', 'Garlic', 300, 'G', 0.17, 1),
+('RG KERALA MIXTURE', 'Curry Leaves', 500, 'G', 0.09, 1),
+('RG KERALA MIXTURE', 'Pottukadala', 2.6, 'KG', 90, 1),
+('RG KERALA MIXTURE', 'Kashmiri Chilli', 300, 'G', 0.504, 1),
+('RG KERALA MIXTURE', 'Chilli powder', 430, 'G', 0.261, 1),
+('RG KERALA MIXTURE', 'Meat Masala', 270, 'G', 0.315, 1),
+('RG KERALA MIXTURE', 'Salt', 142, 'G', 0.025, 1),
+('RG KERALA MIXTURE', 'Pink salt', 10, 'G', 0.05, 1),
+('RG BANANA CHIPS', 'Raw banana', 1012.7, 'KG', 59, 1),
+('RG BANANA CHIPS', 'Turmeric', 2.95, 'KG', 210, 1),
+('RG BANANA CHIPS', 'Stone salt', 2.42, 'KG', 23, 1),
+('RG PALAK MURUKKU', 'uzhunnu', 600, 'G', 0.118, 1),
+('RG PALAK MURUKKU', 'Rice powder', 7, 'KG', 36, 1),
+('RG PALAK MURUKKU', 'Kadala mavu', 1.8, 'KG', 89, 1),
+('RG PALAK MURUKKU', 'chilli powder', 86, 'G', 0.261, 1),
+('RG PALAK MURUKKU', 'Cumin', 106, 'G', 0.239, 1),
+('RG PALAK MURUKKU', 'Salt', 184, 'G', 0.025, 1),
+('RG PALAK MURUKKU', 'Paal kayam', 50, 'G', 0.6, 1),
+('RG PALAK MURUKKU', 'Pottukadala podi', 100, 'G', 0.13, 1),
+('RG PALAK MURUKKU', 'Food color (symega color)', 15, 'G', 1.98, 1),
+('RG PALAK MURUKKU', 'Food color(tiger apple green)', 10, 'G', 1.5, 1),
+('RG PALAK MURUKKU', 'Karim jeerakam', 35, 'G', 0.25, 1),
+('RG PALAK MURUKKU', 'Hot oil', 0.7, 'G', 0.16, 1),
+('RG MURUKKU', 'Uzhunnu', 1.3, 'KG', 118, 1),
+('RG MURUKKU', 'Rice powder', 7.6, 'KG', 36, 1),
+('RG MURUKKU', 'Kadala mavu', 1.9, 'KG', 89, 1),
+('RG MURUKKU', 'Chilli powder', 0.09, 'KG', 261, 1),
+('RG MURUKKU', 'Kashmiri chilli powder', 28, 'G', 0.504, 1),
+('RG MURUKKU', 'Salt', 205, 'G', 0.025, 1),
+('RG MURUKKU', 'Sesame', 0.06, 'KG', 250, 1),
+('RG MURUKKU', 'Meat masala', 28, 'G', 0.315, 1),
+('RG MURUKKU', 'Cumin', 0.06, 'KG', 239, 1),
+('RG MURUKKU', 'Karim jeerakam', 0.07, 'KG', 250, 1),
+('RG MURUKKU', 'Hot oil', 0.7, 'G', 0.16, 1),
+('RG BABY MURUKKU', 'uzhunnu', 0.8, 'KG', 118, 1),
+('RG BABY MURUKKU', 'Rice powder', 7.6, 'KG', 36, 1),
+('RG BABY MURUKKU', 'Kadala mavu', 1.9, 'KG', 89, 1),
+('RG BABY MURUKKU', 'Kashmiri Chilli powder', 28, 'G', 0.504, 1),
+('RG BABY MURUKKU', 'Karim jeerakam', 0.07, 'KG', 250, 1),
+('RG BABY MURUKKU', 'sesame', 0.07, 'KG', 250, 1),
+('RG BABY MURUKKU', 'Meat masala', 28, 'G', 0.315, 1),
+('RG BABY MURUKKU', 'Hot oil', 0.7, 'G', 0.16, 1),
+('RG BABY MURUKKU', 'Salt', 200, 'G', 0.025, 1),
+('RG CASSAVA CHIPS', 'Raw cassava', 500, 'KG', 25, 1),
+('RG CASSAVA CHIPS', 'Salt Crystal', 4, 'G', 0.023, 1),
+('RG SPICY CASSAVA CHIPS', 'Raw cassava', 500, 'KG', 25, 1),
+('RG SPICY CASSAVA CHIPS', 'Asafoetida', 185, 'G', 0.77, 1),
+('RG SPICY CASSAVA CHIPS', 'Chilly powder', 2.78, 'KG', 261, 1),
+('RG SPICY CASSAVA CHIPS', 'Kashmiri chilly powder', 1.85, 'KG', 504, 1),
+('RG SPICY CASSAVA CHIPS', 'Salt', 375, 'G', 0.025, 1),
+('RG SPICY CASSAVA CHIPS', 'Salt Crystal', 4, 'KG', 0.023, 1),
+('RG CASSAVA STICK', 'Raw cassava', 500, 'KG', 25, 1),
+('RG CASSAVA STICK', 'Salt Crystal', 4, 'KG', 0.023, 1),
+('RG SPICY CASSAVA STICK', 'Raw cassava', 500, 'KG', 25, 1),
+('RG SPICY CASSAVA STICK', 'Asafoetida', 185, 'KG', 0.77, 1),
+('RG SPICY CASSAVA STICK', 'Chilly powder', 2.78, 'KG', 261, 1),
+('RG SPICY CASSAVA STICK', 'Kashmiri chilly powder', 1.85, 'KG', 504, 1),
+('RG SPICY CASSAVA STICK', 'Salt', 375, 'G', 0.025, 1),
+('RG SPICY CASSAVA STICK', 'Salt Crystal', 4, 'KG', 0.023, 1),
+('RG SHARKARAVARATTY', 'Banana chips', 12, 'KG', 140, 1),
+('RG SHARKARAVARATTY', 'Sharkara', 10, 'KG', 53, 1),
+('RG SHARKARAVARATTY', 'Chukkupodi', 0.375, 'KG', 600, 1),
+('RG SHARKARAVARATTY', 'Pepper', 165, 'G', 1, 1),
+('RG SHARKARAVARATTY', 'Cumin', 165, 'G', 0.239, 1),
+('RG RIBBON PAKKAVADA', 'Rice powder', 5, 'KG', 36, 1),
+('RG RIBBON PAKKAVADA', 'Tapioca powder', 1, 'KG', 34, 1),
+('RG RIBBON PAKKAVADA', 'Kadala podi', 3, 'KG', 89, 1),
+('RG RIBBON PAKKAVADA', 'Ayamodhakam', 50, 'G', 0.23, 1),
+('RG RIBBON PAKKAVADA', 'Kashmiri powder', 200, 'G', 0.504, 1),
+('RG RIBBON PAKKAVADA', 'Chilli powder', 250, 'G', 0.261, 1),
+('RG RIBBON PAKKAVADA', 'Turmeric', 20, 'G', 0.21, 1),
+('RG RIBBON PAKKAVADA', 'Salt', 250, 'G', 0.025, 1),
+('RG RIBBON PAKKAVADA', 'Pottukadala powder', 1, 'KG', 0.13, 1),
+('RG RIBBON PAKKAVADA', 'Paalkayam', 150, 'G', 0.6, 1),
+('RG RIBBON PAKKAVADA', 'Hot oil', 0.7, 'G', 0.16, 1),
+('RG RIBBON PAKKAVADA', 'Cumin powder', 50, 'G', 0.28, 1),
+('RG SWEET BANANA CHIPS', 'Sweet banana', 508, 'KG', 55, 1),
+('RG MALABAR MIXTURE', 'Kadala mavu', 9, 'KG', 89, 1),
+('RG MALABAR MIXTURE', 'Rice powder', 4, 'KG', 36, 1),
+('RG MALABAR MIXTURE', 'Turmeric', 10, 'G', 0.21, 1),
+('RG MALABAR MIXTURE', 'Paal kayam', 120, 'G', 0.6, 1),
+('RG MALABAR MIXTURE', 'Vattal Mulak', 100, 'G', 0.335, 1),
+('RG MALABAR MIXTURE', 'Kayam powder', 86, 'G', 0.77, 1),
+('RG MALABAR MIXTURE', 'Kadala', 1, 'KG', 140, 1),
+('RG MALABAR MIXTURE', 'Garlic', 300, 'G', 0.17, 1),
+('RG MALABAR MIXTURE', 'Curry Leaves', 500, 'G', 0.09, 1),
+('RG MALABAR MIXTURE', 'Pottukadala', 2.6, 'KG', 90, 1),
+('RG MALABAR MIXTURE', 'Kashmiri Chilli', 350, 'G', 0.504, 1),
+('RG MALABAR MIXTURE', 'Chilli powder', 480, 'G', 0.261, 1),
+('RG MALABAR MIXTURE', 'Meat Masala', 570, 'G', 0.315, 1),
+('RG MALABAR MIXTURE', 'Salt', 405, 'G', 0.025, 1),
+('RG MALABAR MIXTURE', 'Pink salt', 10, 'G', 0.05, 1),
+('RG MALABAR MIXTURE', 'masoor dal', 2.5, 'KG', 66, 1),
+('RG ANDHRA MURUKKU', 'Rice flour', 7, 'KG', 36, 1),
+('RG ANDHRA MURUKKU', 'kadala mavu', 1.5, 'KG', 89, 1),
+('RG ANDHRA MURUKKU', 'uzhunnu powder', 800, 'G', 0.158, 1),
+('RG ANDHRA MURUKKU', 'kashmiri chilli powder', 100, 'G', 0.504, 1),
+('RG ANDHRA MURUKKU', 'Chilli powder', 200, 'G', 0.261, 1),
+('RG ANDHRA MURUKKU', 'meat masala', 26, 'G', 0.315, 1),
+('RG ANDHRA MURUKKU', 'sesame black', 30, 'G', 0.25, 1),
+('RG ANDHRA MURUKKU', 'sesame white', 30, 'G', 0.45, 1),
+('RG ANDHRA MURUKKU', 'jeerakam', 76, 'G', 0.239, 1),
+('RG ANDHRA MURUKKU', 'hot oil', 700, 'G', 0.164, 1),
+('RG ANDHRA MURUKKU', 'salt', 196, 'G', 0.025, 1);
 
--- Masala Peanut Crunch (per 100 KG batch)
-('Masala Peanut Crunch', 'Premium Raw Peanuts', 80, 'KG', 2.10, 2.0),
-('Masala Peanut Crunch', 'Gram Flour (Besan)', 12, 'KG', 1.40, 1.0),
-('Masala Peanut Crunch', 'Sunflower Oil', 10, 'LTR', 2.00, 2.5),
-('Masala Peanut Crunch', 'Chili Pepper & Cumin Seasoning', 4, 'KG', 7.20, 1.0),
-('Masala Peanut Crunch', 'Iodized Salt', 1.5, 'KG', 0.40, 0.0),
-
--- Spiced Cassava Chips (per 100 KG batch)
-('Spiced Cassava Chips', 'Fresh Farm Cassava Roots', 180, 'KG', 0.90, 8.0),
-('Spiced Cassava Chips', 'Palm Frying Oil', 18, 'LTR', 1.70, 3.0),
-('Spiced Cassava Chips', 'Black Pepper & Sea Salt Seasoning', 3.5, 'KG', 9.00, 0.5),
-
--- Roasted Makhana (per 50 KG batch)
-('Roasted Makhana', 'Raw Jumbo Fox Nuts (Phool Makhana)', 45, 'KG', 14.00, 3.0),
-('Roasted Makhana', 'Pure Olive Oil Mist', 3, 'LTR', 6.50, 1.0),
-('Roasted Makhana', 'Peri-Peri Spice Mix', 3, 'KG', 11.00, 0.5),
-
--- Golden Banana Crisps (per 150 KG batch)
-('Golden Banana Crisps', 'Raw Green Nendran Bananas', 320, 'KG', 0.85, 10.0),
-('Golden Banana Crisps', 'Pure Coconut Oil', 28, 'LTR', 3.40, 2.0),
-('Golden Banana Crisps', 'Turmeric Infused Salt Water', 4, 'LTR', 0.50, 0.0);
-
--- 6. PACKAGING_BOM
+-- 6. PACKAGING_BOM (34 Packaging Specifications)
 INSERT INTO packaging_bom (sku_id, packaging_material, quantity, uom, unit_cost, wastage_percentage) VALUES
--- RGHMIX150 (per packet/box basis)
-('RGHMIX150', 'Metallized Barrier Pouch (150g Matte Finish)', 1.0, 'PCS', 0.14, 3.0),
-('RGHMIX150', 'Master Corrugated Shipper Carton (20 Packets)', 0.05, 'PCS', 0.85, 1.0),
-('RGHMIX150', 'Holographic Tamper Seal Label', 1.0, 'PCS', 0.03, 2.0),
-('RGHMIX150', 'Heavy Duty Carton Packing Tape', 0.002, 'ROLL', 3.20, 0.0),
+('RGHMIX150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.05, 2),
+('RGHMIX454', 'Printed Pouches: BOPP / PP', 1, 'PCS', 2.05, 2),
+('RGHMIX908', 'Printed Pouches: BOPP / PP', 1, 'PCS', 2.48, 2),
+('RGHMIX300', 'PET Bottle 300g with Seal', 1, 'PCS', 13.05, 2),
+('RGKMIX150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.05, 2),
+('RGKMIX454', 'Printed Pouches: BOPP / PP', 1, 'PCS', 2.05, 2),
+('RGKMIX908', 'Printed Pouches: BOPP / PP', 1, 'PCS', 2.44, 2),
+('RGKMIX300', 'PET Bottle 300g with Seal', 1, 'PCS', 13.05, 2),
+('RGBNC150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.33, 2),
+('RGBNC400', 'Printed Pouches: BOPP / PP', 1, 'PCS', 2.04, 2),
+('RGBNC800', 'Printed Pouches: BOPP / PP', 1, 'PCS', 2.92, 2),
+('RGBNC200', 'PET Bottle 200g with Seal', 1, 'PCS', 13.05, 2),
+('RGPLK454', 'Printed Pouches: BOPP / PP', 1, 'PCS', 2.04, 2),
+('RGPLK250', 'PET Bottle 250g with Seal', 1, 'PCS', 13.05, 2),
+('RGMUK150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.03, 2),
+('RGMUK454', 'Printed Pouches: BOPP / PP', 1, 'PCS', 2.03, 2),
+('RGMUK250', 'PET Bottle 250g with Seal', 1, 'PCS', 13.05, 2),
+('RGBBMUK454', 'Printed Pouches: BOPP / PP', 1, 'PCS', 2.06, 2),
+('RGBBMUK250', 'PET Bottle 250g with Seal', 1, 'PCS', 13.05, 2),
+('RGCAC150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.62, 2),
+('RGCAC125', 'PET Bottle 125g with Seal', 1, 'PCS', 13.05, 2),
+('RGSCAC150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.62, 2),
+('RGSCAC125', 'PET Bottle 125g with Seal', 1, 'PCS', 13.05, 2),
+('RGCAS150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.48, 2),
+('RGCAS200', 'PET Bottle 200g with Seal', 1, 'PCS', 13.05, 2),
+('RGSCAS150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.46, 2),
+('RGSCAS200', 'PET Bottle 200g with Seal', 1, 'PCS', 13.05, 2),
+('RGSKVTY200', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.46, 2),
+('RGSKVTY200B', 'PET Bottle 200g with Seal', 1, 'PCS', 10.54, 2),
+('RGRPV150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.63, 2),
+('RGRPV200', 'PET Bottle 200g with Seal', 1, 'PCS', 13.05, 2),
+('RGSBNC150', 'Printed Pouches: BOPP / PP', 1, 'PCS', 1.34, 2),
+('RGMMIX300', 'PET Bottle 300g with Seal', 1, 'PCS', 13.05, 2),
+('RGANM250', 'PET Bottle 250g with Seal', 1, 'PCS', 13.05, 2);
 
--- RGHMIX200
-('RGHMIX200', 'Metallized Barrier Pouch (200g Matte Finish)', 1.0, 'PCS', 0.16, 3.0),
-('RGHMIX200', 'Master Corrugated Shipper Carton (20 Packets)', 0.05, 'PCS', 0.90, 1.0),
-('RGHMIX200', 'Holographic Tamper Seal Label', 1.0, 'PCS', 0.03, 2.0),
-('RGHMIX200', 'Heavy Duty Carton Packing Tape', 0.002, 'ROLL', 3.20, 0.0),
-
--- RGHMIX50
-('RGHMIX50', 'Pocket Pillow Pouch (50g)', 1.0, 'PCS', 0.09, 4.0),
-('RGHMIX50', 'Master Corrugated Shipper Carton (40 Packets)', 0.025, 'PCS', 0.75, 1.0),
-('RGHMIX50', 'Carton Shipping Label', 0.025, 'PCS', 0.04, 1.0),
-
--- MPNUT100
-('MPNUT100', 'Nitrogen-Flushed Standup Pouch (100g)', 1.0, 'PCS', 0.13, 3.0),
-('MPNUT100', 'Master Corrugated Shipper Carton (24 Packets)', 0.0417, 'PCS', 0.85, 1.0),
-('MPNUT100', 'Heavy Duty Carton Packing Tape', 0.002, 'ROLL', 3.20, 0.0),
-
--- CSSCHP120
-('CSSCHP120', 'Pillow Foil Pouch (120g)', 1.0, 'PCS', 0.12, 3.0),
-('CSSCHP120', 'Master Corrugated Shipper Carton (20 Packets)', 0.05, 'PCS', 0.85, 1.0),
-
--- MKHNA70
-('MKHNA70', 'Zip-Lock Resealable Kraft Pouch (70g)', 1.0, 'PCS', 0.22, 2.0),
-('MKHNA70', 'Master Corrugated Shipper Carton (20 Packets)', 0.05, 'PCS', 0.95, 1.0),
-
--- BANCHP150
-('BANCHP150', 'Printed Poly Pouch (150g)', 1.0, 'PCS', 0.11, 3.0),
-('BANCHP150', 'Master Corrugated Shipper Carton (20 Packets)', 0.05, 'PCS', 0.85, 1.0);
-
--- 7. STAFF_SUMMARY
+-- 7. STAFF_SUMMARY (14 Factory Personnel)
 INSERT INTO staff_summary (staff_name, role, salary, wage_per_day, is_active) VALUES
-('Ramesh Kumar', 'Master Chef', 4500, 150, true),
-('Suresh Menon', 'Executive Fryer Chef', 4200, 140, true),
-('Vikram Singh', 'Senior Roasting Chef', 4200, 140, true),
-('Abdul Rahman', 'Assistant Chef', 3200, 110, true),
-('Anil Verma', 'Floor Packaging Operator', 2500, 85, true),
-('Sunil Sharma', 'Packaging & Sealing Operator', 2500, 85, true),
-('Devi Prasad', 'Quality Control Inspector', 3000, 100, true),
-('Manoj Tiwari', 'Material Handler & Loader', 2200, 75, true),
-('Kishore Nair', 'Machine Maintenance Technician', 3500, 120, true),
-('Farhan Akhtar', 'Sanitation & Hygiene Lead', 2100, 70, true);
+('RATHEESH', 'Master Chef', 36400, 1400, true),
+('NASEEMA', 'Production Floor Staff', 10000, 400, true),
+('JYOTHI', 'Production Floor Staff', 10400, 400, true),
+('BINDU', 'Production Floor Staff', 10000, 400, true),
+('BAVINA', 'Production Floor Staff', 10400, 400, true),
+('PRAVEENA', 'Production Floor Staff', 10000, 400, true),
+('SUJINA', 'Production Floor Staff', 10000, 400, true),
+('SHEEJA', 'Production Floor Staff', 10000, 400, true),
+('TEJ BAHADUR', 'Senior Chef', 16000, 650, true),
+('SUHARA', 'Production Floor Staff', 10000, 400, true),
+('NIMITHA', 'Production Floor Staff', 10000, 400, true),
+('VIKASE', 'Senior Chef', 16000, 650, true),
+('UNNI', 'Master Chef', 36400, 1400, true),
+('BABY', 'Production Floor Staff', 10000, 400, true);
