@@ -29,7 +29,9 @@ export default function App() {
     role: 'admin',
     avatar: 'DM'
   });
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return sessionStorage.getItem('snack_auth') === 'true';
+  });
 
   // Selected Plan for PlanDetailsPage
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -391,6 +393,7 @@ export default function App() {
     return <LoginPage onLoginSuccess={(user) => {
       setCurrentUser(user);
       setIsAuthenticated(true);
+      sessionStorage.setItem('snack_auth', 'true');
       addToast(`Welcome back, ${user.full_name}!`, 'success');
     }} />;
   }
@@ -416,6 +419,7 @@ export default function App() {
           onResetData={handleResetData}
           onToggleDbMode={handleToggleDbMode}
           onLogout={() => {
+            sessionStorage.removeItem('snack_auth');
             setIsAuthenticated(false);
             addToast('Signed out of session.', 'info');
           }}
