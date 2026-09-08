@@ -12,6 +12,7 @@ INSERT INTO countries (country_code, country_name, is_active) VALUES
 ('OMN', 'Oman', true),
 ('IND', 'India', true),
 ('KWT', 'Kuwait', true),
+
 ('BHR', 'Bahrain', true)
 ON CONFLICT (country_code) DO NOTHING;
 

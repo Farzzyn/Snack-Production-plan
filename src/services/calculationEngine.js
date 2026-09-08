@@ -12,6 +12,7 @@ export function calculateProductionPlan({
   capacityMaster,
   recipeBOM = [],
   packagingBOM = [],
+  staffList = [],
   country = null,
   productionDate = ''
 }) {
@@ -125,7 +126,53 @@ export function calculateProductionPlan({
     };
   });
 
-  // 9. Cost Summaries
+  // 9. Staff Cost Calculations (Labor Cost Breakdown)
+  // Derive average daily wages from staff master or standard industry baseline
+  let chefDailyWage = 1400; // Baseline Master Chef daily wage (₹1,400)
+  let staffDailyWage = 400; // Baseline Production Floor Staff daily wage (₹400)
+
+  if (Array.isArray(staffList) && staffList.length > 0) {
+    const chefStaff = staffList.filter(s => (s.role || '').toLowerCase().includes('chef') && Number(s.wage_per_day) > 0);
+    const floorStaff = staffList.filter(s => !(s.role || '').toLowerCase().includes('chef') && Number(s.wage_per_day) > 0);
+    
+    if (chefStaff.length > 0) {
+      chefDailyWage = chefStaff.reduce((sum, s) => sum + Number(s.wage_per_day), 0) / chefStaff.length;
+    }
+    if (floorStaff.length > 0) {
+      staffDailyWage = floorStaff.reduce((sum, s) => sum + Number(s.wage_per_day), 0) / floorStaff.length;
+    }
+  }
+
+  // Hourly rates derived from daily wage and plant operating hours per shift
+  const shiftHours = operatingHours > 0 ? operatingHours : 8;
+  const chefHourlyRate = Number((chefDailyWage / shiftHours).toFixed(2));
+  const staffHourlyRate = Number((staffDailyWage / shiftHours).toFixed(2));
+
+  // Staff labor costs proportional to planned production operating hours
+  const chefLaborCost = Number((chefs * production_hours * chefHourlyRate).toFixed(2));
+  const supportStaffLaborCost = Number((support_staff * production_hours * staffHourlyRate).toFixed(2));
+  const estimated_staff_cost = Number((chefLaborCost + supportStaffLaborCost).toFixed(2));
+
+  const staff_cost_breakdown = [
+    {
+      role: 'Master Chef / Section Lead',
+      headcount: chefs,
+      hours: production_hours,
+      daily_wage: Number(chefDailyWage.toFixed(2)),
+      hourly_rate: chefHourlyRate,
+      estimated_cost: chefLaborCost
+    },
+    {
+      role: 'Production & Packaging Floor Crew',
+      headcount: support_staff,
+      hours: production_hours,
+      daily_wage: Number(staffDailyWage.toFixed(2)),
+      hourly_rate: staffHourlyRate,
+      estimated_cost: supportStaffLaborCost
+    }
+  ];
+
+  // 10. Cost Summaries
   const estimated_raw_material_cost = Number(
     raw_material_requirements.reduce((sum, item) => sum + item.estimated_cost, 0).toFixed(2)
   );
@@ -135,8 +182,12 @@ export function calculateProductionPlan({
   const total_material_cost = Number(
     (estimated_raw_material_cost + estimated_packaging_cost).toFixed(2)
   );
+  // Comprehensive manufacturing cost (Materials + Direct Labor)
+  const total_production_cost = Number(
+    (estimated_raw_material_cost + estimated_packaging_cost + estimated_staff_cost).toFixed(2)
+  );
 
-  // 10. Warnings
+  // 11. Warnings
   let capacity_warning = null;
   if (is_capacity_exceeded) {
     capacity_warning = `⚠ Production capacity exceeded! Required: ${finished_goods_weight_kg.toLocaleString()} KG, but available capacity with ${chefs} chef(s) is only ${available_capacity_per_day.toLocaleString()} KG. Recommended minimum: ${recommended_chefs} chefs (${(recommended_chefs * capacity_per_chef).toLocaleString()} KG capacity).`;
@@ -168,6 +219,13 @@ export function calculateProductionPlan({
     estimated_raw_material_cost,
     estimated_packaging_cost,
     total_material_cost,
+    estimated_staff_cost,
+    total_production_cost,
+    staff_cost_breakdown,
+    chef_daily_wage: Number(chefDailyWage.toFixed(2)),
+    staff_daily_wage: Number(staffDailyWage.toFixed(2)),
+    chef_hourly_rate: chefHourlyRate,
+    staff_hourly_rate: staffHourlyRate,
     capacity_warning
   };
 }

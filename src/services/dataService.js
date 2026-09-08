@@ -10,6 +10,7 @@ import {
   INITIAL_STAFF,
   INITIAL_PLANS
 } from './mockData';
+import { hashPassword } from './authService';
 
 // Local storage keys (v2 with real Google Sheets master data)
 const STORAGE_PREFIX = 'snack_planner_v2_';
@@ -22,8 +23,28 @@ const STORAGE_KEYS = {
   PACKAGING_BOM: `${STORAGE_PREFIX}packaging_bom`,
   STAFF: `${STORAGE_PREFIX}staff`,
   PLANS: `${STORAGE_PREFIX}plans`,
-  FORCE_MOCK: `${STORAGE_PREFIX}force_mock`
+  FORCE_MOCK: `${STORAGE_PREFIX}force_mock`,
+  CREDENTIALS: `${STORAGE_PREFIX}credentials`
 };
+
+export const DEFAULT_CREDENTIALS = {
+  'admin@snackplanner.com': 'ad89b64d66caa8e30e5d5ce4a9763f4ecc205814c412175f3e2c50027471426d', // Admin@123456
+  'manager@snackplanner.com': 'dab7d42d92ec776106b87e867d0d0c8a55b62d8bf04aff87cf75ac5fca64572e', // Editor@123456
+  'viewer@snackplanner.com': '3e9d68599f64d77ce16d4cb1d93f8fa2e3b8d5a5b77d4e3541235174a51c13a4', // Viewer@123456
+  'admin121@gmail.com': 'ad89b64d66caa8e30e5d5ce4a9763f4ecc205814c412175f3e2c50027471426d' // Admin@123456
+};
+
+export function getCredentialStore() {
+  const existing = getLocal(STORAGE_KEYS.CREDENTIALS, DEFAULT_CREDENTIALS);
+  // Ensure defaults are populated if missing
+  return { ...DEFAULT_CREDENTIALS, ...existing };
+}
+
+export function setCredential(email, hash) {
+  const store = getCredentialStore();
+  store[(email || '').trim().toLowerCase()] = hash;
+  setLocal(STORAGE_KEYS.CREDENTIALS, store);
+}
 
 // Helper to initialize or get localStorage array
 function getLocal(key, defaultData) {
@@ -60,8 +81,10 @@ export const setForceMock = (force) => {
 export const resetLocalDatabase = () => {
   setLocal(STORAGE_KEYS.COUNTRIES, INITIAL_COUNTRIES);
   setLocal(STORAGE_KEYS.USERS, INITIAL_USERS);
+  setLocal(STORAGE_KEYS.CREDENTIALS, DEFAULT_CREDENTIALS);
   setLocal(STORAGE_KEYS.SKUS, INITIAL_SKUS);
   setLocal(STORAGE_KEYS.CAPACITY, INITIAL_CAPACITY);
+
   setLocal(STORAGE_KEYS.RECIPE_BOM, INITIAL_RECIPE_BOM);
   setLocal(STORAGE_KEYS.PACKAGING_BOM, INITIAL_PACKAGING_BOM);
   setLocal(STORAGE_KEYS.STAFF, INITIAL_STAFF);
@@ -454,39 +477,126 @@ export const dataService = {
 
   // ==================== USERS & ROLES ====================
   async getUsers() {
+    let rawList = [];
     if (!isUsingMock() && supabase) {
-      const { data, error } = await supabase.from('app_users').select('*').order('full_name');
-      if (!error && data) return data;
+      try {
+        const { data, error } = await supabase.from('app_users').select('*').order('full_name');
+        if (!error && data && data.length > 0) {
+          rawList = data;
+        }
+      } catch (err) {
+        console.warn('Error querying Supabase app_users:', err);
+      }
     }
-    return getLocal(STORAGE_KEYS.USERS, INITIAL_USERS);
+
+    if (rawList.length === 0) {
+      rawList = getLocal(STORAGE_KEYS.USERS, INITIAL_USERS);
+    }
+
+    // Ensure factory initial accounts are always present in the returned list
+    for (const init of INITIAL_USERS) {
+      if (!rawList.some(u => (u.email || '').trim().toLowerCase() === init.email.trim().toLowerCase())) {
+        rawList.push(init);
+      }
+    }
+
+    // Attach password_hash to each user from the credential store or defaults
+    const credStore = getCredentialStore();
+    const resolved = rawList.map(u => {
+      const emailKey = (u.email || '').trim().toLowerCase();
+      const hash = credStore[emailKey] || u.password_hash || DEFAULT_CREDENTIALS[emailKey] || '';
+      return {
+        ...u,
+        password_hash: hash,
+        avatar: u.avatar || (u.full_name || 'U').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
+      };
+    });
+
+    return resolved;
   },
 
   async saveUser(user) {
-    if (!isUsingMock() && supabase) {
-      const { data, error } = await supabase.from('app_users').upsert([user]).select();
-      if (!error && data) return data[0];
+    const userPayload = { ...user };
+    const emailKey = (userPayload.email || '').trim().toLowerCase();
+    
+    // Hash password if plain password was supplied and save into credentials store
+    if (userPayload.password && userPayload.password.trim()) {
+      const newHash = await hashPassword(userPayload.password.trim());
+      setCredential(emailKey, newHash);
+      userPayload.password_hash = newHash;
+      delete userPayload.password;
+    } else if (userPayload.password_hash) {
+      setCredential(emailKey, userPayload.password_hash);
     }
+
+    // When saving to Supabase, omit password and password_hash to prevent schema column error
+    if (!isUsingMock() && supabase) {
+      const supabasePayload = {
+        full_name: userPayload.full_name,
+        email: userPayload.email,
+        role: userPayload.role,
+        is_active: userPayload.is_active !== false
+      };
+      if (userPayload.id && !userPayload.id.startsWith('usr-')) {
+        supabasePayload.id = userPayload.id;
+      }
+      try {
+        const { data, error } = await supabase.from('app_users').upsert([supabasePayload]).select();
+        if (!error && data && data[0]) {
+          userPayload.id = data[0].id;
+        }
+      } catch (err) {
+        console.warn('Supabase app_users upsert warning:', err);
+      }
+    }
+
     const list = getLocal(STORAGE_KEYS.USERS, INITIAL_USERS);
     let updated;
-    const existingIndex = list.findIndex(u => u.id === user.id || u.email === user.email);
+    const existingIndex = list.findIndex(u => u.id === userPayload.id || (u.email || '').toLowerCase() === emailKey);
+    
     if (existingIndex >= 0) {
+      const existing = list[existingIndex];
+      const preservedHash = userPayload.password_hash || existing.password_hash || getCredentialStore()[emailKey];
       updated = [...list];
-      updated[existingIndex] = { ...updated[existingIndex], ...user };
+      updated[existingIndex] = {
+        ...existing,
+        ...userPayload,
+        password_hash: preservedHash
+      };
     } else {
-      const initials = (user.full_name || 'U').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-      const newUser = { ...user, id: `usr-${Date.now()}`, avatar: initials };
+      const initials = (userPayload.full_name || 'U').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+      const newUser = { 
+        ...userPayload, 
+        id: userPayload.id || `usr-${Date.now()}`, 
+        avatar: initials,
+        is_active: userPayload.is_active !== false,
+        password_hash: userPayload.password_hash || getCredentialStore()[emailKey]
+      };
       updated = [newUser, ...list];
     }
+
     setLocal(STORAGE_KEYS.USERS, updated);
-    return user;
+    return userPayload;
   },
 
   async deleteUser(id) {
+    const list = getLocal(STORAGE_KEYS.USERS, INITIAL_USERS);
+    const userToDelete = list.find(u => u.id === id);
+
+    // Prevent deleting the last remaining admin
+    if (userToDelete?.role === 'admin') {
+      const remainingAdmins = list.filter(u => u.role === 'admin' && u.id !== id && u.is_active !== false);
+      if (remainingAdmins.length === 0) {
+        throw new Error('Cannot delete the last active Administrator account.');
+      }
+    }
+
     if (!isUsingMock() && supabase) {
       await supabase.from('app_users').delete().eq('id', id);
     }
-    const list = getLocal(STORAGE_KEYS.USERS, INITIAL_USERS);
+
     setLocal(STORAGE_KEYS.USERS, list.filter(u => u.id !== id));
     return true;
   }
+
 };

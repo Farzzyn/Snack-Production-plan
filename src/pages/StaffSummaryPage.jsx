@@ -109,7 +109,7 @@ export default function StaffSummaryPage({
       }
     },
     {
-      header: 'Daily Wage ($)',
+      header: 'Daily Wage (₹)',
       key: 'wage_per_day',
       numeric: true,
       align: 'right',
@@ -125,11 +125,11 @@ export default function StaffSummaryPage({
             />
           );
         }
-        return <strong>${val} / day</strong>;
+        return <strong>₹{val} / day</strong>;
       }
     },
     {
-      header: 'Monthly Base ($)',
+      header: 'Monthly Base (₹)',
       key: 'salary',
       numeric: true,
       align: 'right',
@@ -145,7 +145,7 @@ export default function StaffSummaryPage({
             />
           );
         }
-        return <span>${Number(val).toLocaleString()}</span>;
+        return <span>₹{Number(val).toLocaleString()}</span>;
       }
     },
     {
@@ -264,7 +264,7 @@ export default function StaffSummaryPage({
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div className="form-group">
-              <label className="form-label">Daily Wage ($) *</label>
+              <label className="form-label">Daily Wage (₹) *</label>
               <input
                 type="number"
                 min="0"
@@ -276,7 +276,7 @@ export default function StaffSummaryPage({
             </div>
 
             <div className="form-group">
-              <label className="form-label">Monthly Salary ($) *</label>
+              <label className="form-label">Monthly Salary (₹) *</label>
               <input
                 type="number"
                 min="0"

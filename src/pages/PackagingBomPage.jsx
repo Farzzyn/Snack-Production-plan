@@ -30,6 +30,27 @@ export default function PackagingBomPage({
     return packagingBom.filter(p => p.sku_id === selectedSkuFilter);
   }, [packagingBom, selectedSkuFilter]);
 
+  const skuMap = useMemo(() => {
+    const map = new Map();
+    skus.forEach(s => {
+      if (s.sku_id) {
+        map.set(s.sku_id.trim().toUpperCase(), s);
+        map.set(s.sku_id, s);
+      }
+    });
+    return map;
+  }, [skus]);
+
+  const enrichedBom = useMemo(() => {
+    return filteredBom.map(item => {
+      const skuObj = skuMap.get(item.sku_id) || (item.sku_id ? skuMap.get(item.sku_id.trim().toUpperCase()) : null);
+      return {
+        ...item,
+        sku_name: skuObj?.sku_name || item.sku_name || ''
+      };
+    });
+  }, [filteredBom, skuMap]);
+
   const startEdit = (item) => {
     setEditingId(item.id);
     setEditForm({ ...item });
@@ -59,7 +80,12 @@ export default function PackagingBomPage({
     {
       header: 'SKU Code',
       key: 'sku_id',
-      render: (val) => <strong style={{ color: 'var(--primary-600)' }}>{val}</strong>
+      render: (val) => <strong style={{ color: 'var(--brand-700, #047857)', fontFamily: 'monospace' }}>{val}</strong>
+    },
+    {
+      header: 'SKU Name',
+      key: 'sku_name',
+      render: (val) => <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{val || '—'}</span>
     },
     {
       header: 'Packaging Material',
@@ -144,7 +170,7 @@ export default function PackagingBomPage({
       }
     },
     {
-      header: 'Unit Cost ($)',
+      header: 'Unit Cost (₹)',
       key: 'unit_cost',
       numeric: true,
       align: 'right',
@@ -161,7 +187,7 @@ export default function PackagingBomPage({
             />
           );
         }
-        return <span>${Number(val || 0).toFixed(2)}</span>;
+        return <span>₹{Number(val || 0).toFixed(2)}</span>;
       }
     },
     ...(canEdit ? [{
@@ -233,9 +259,9 @@ export default function PackagingBomPage({
         title="Packaging Bill of Materials (BOM)"
         description="Foil pouches, outer shipper boxes, tamper-evident labels, and sealing tape definitions"
         columns={columns}
-        data={filteredBom}
+        data={enrichedBom}
         searchable={true}
-        searchPlaceholder="Filter packaging materials..."
+        searchPlaceholder="Filter by SKU code, SKU name, or packaging materials..."
       />
 
       {/* Add Modal */}
@@ -308,7 +334,7 @@ export default function PackagingBomPage({
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div className="form-group">
-              <label className="form-label">Unit Cost ($) *</label>
+              <label className="form-label">Unit Cost (₹) *</label>
               <input
                 type="number"
                 step="0.01"

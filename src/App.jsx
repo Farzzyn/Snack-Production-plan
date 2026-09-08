@@ -18,20 +18,18 @@ import ImportDataPage from './pages/ImportDataPage';
 import UsersRolesPage from './pages/UsersRolesPage';
 
 import { dataService, resetLocalDatabase, isUsingMock, setForceMock } from './services/dataService';
+import { getSessionUser, clearSession } from './services/authService';
 
 export default function App() {
   // Navigation & Auth State
   const [currentRoute, setCurrentRoute] = useState('dashboard');
-  const [currentUser, setCurrentUser] = useState({
-    id: 'usr-01',
-    full_name: 'David Miller',
-    email: 'admin@snackplanner.com',
-    role: 'admin',
-    avatar: 'DM'
+  const [currentUser, setCurrentUser] = useState(() => {
+    return getSessionUser() || null;
   });
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return sessionStorage.getItem('snack_auth') === 'true';
+    return !!getSessionUser();
   });
+
 
   // Selected Plan for PlanDetailsPage
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -187,19 +185,32 @@ export default function App() {
   };
 
   // Recipe BOM Actions
-  const handleSaveRecipeItem = async (item) => {
+  const handleSaveRecipeItem = async (itemOrItems) => {
     try {
-      await dataService.saveRecipeBomItem(item);
+      const items = Array.isArray(itemOrItems) ? itemOrItems : [itemOrItems];
+      const savedList = [];
+      for (const item of items) {
+        const saved = await dataService.saveRecipeBomItem(item);
+        savedList.push(saved || item);
+      }
       setRecipeBom(prev => {
-        const idx = prev.findIndex(r => r.id === item.id);
-        if (idx >= 0) {
-          const arr = [...prev];
-          arr[idx] = { ...arr[idx], ...item };
-          return arr;
+        let arr = [...prev];
+        for (const item of savedList) {
+          const idx = arr.findIndex(r => r.id === item.id);
+          if (idx >= 0) {
+            arr[idx] = { ...arr[idx], ...item };
+          } else {
+            arr = [item, ...arr];
+          }
         }
-        return [item, ...prev];
+        return arr;
       });
-      addToast(`Ingredient "${item.raw_material}" saved.`, 'success');
+      addToast(
+        items.length > 1
+          ? `Added ${items.length} ingredients to "${items[0]?.base_product}" successfully!`
+          : `Ingredient "${items[0]?.raw_material}" saved.`,
+        'success'
+      );
     } catch (err) {
       addToast(err.message || 'Error saving recipe item', 'error');
     }
@@ -389,11 +400,23 @@ export default function App() {
     }
   };
 
-  if (!isAuthenticated) {
+  // Role-guarded route navigation
+  const handleNavigate = useCallback((route) => {
+    if ((route === 'users-roles' || route === 'import-data') && currentUser?.role !== 'admin') {
+      addToast('Restricted: Administrator privileges required.', 'error');
+      return;
+    }
+    if (route === 'create-plan' && currentUser?.role === 'viewer') {
+      addToast('Restricted: View-only accounts cannot create production plans.', 'error');
+      return;
+    }
+    setCurrentRoute(route);
+  }, [currentUser, addToast]);
+
+  if (!isAuthenticated || !currentUser) {
     return <LoginPage onLoginSuccess={(user) => {
       setCurrentUser(user);
       setIsAuthenticated(true);
-      sessionStorage.setItem('snack_auth', 'true');
       addToast(`Welcome back, ${user.full_name}!`, 'success');
     }} />;
   }
@@ -405,7 +428,7 @@ export default function App() {
       {/* Sidebar Navigation */}
       <Sidebar
         currentRoute={currentRoute}
-        onNavigate={setCurrentRoute}
+        onNavigate={handleNavigate}
         currentUser={currentUser}
         pendingPlansCount={pendingPlansCount}
       />
@@ -419,11 +442,14 @@ export default function App() {
           onResetData={handleResetData}
           onToggleDbMode={handleToggleDbMode}
           onLogout={() => {
-            sessionStorage.removeItem('snack_auth');
+            clearSession();
+            setCurrentUser(null);
             setIsAuthenticated(false);
-            addToast('Signed out of session.', 'info');
+            setCurrentRoute('dashboard');
+            addToast('Signed out of secure session.', 'info');
           }}
         />
+
 
         <main className="page-body">
           {loading ? (
@@ -436,23 +462,24 @@ export default function App() {
                 <DashboardPage
                   plans={plans}
                   skus={skus}
-                  onNavigate={setCurrentRoute}
+                  onNavigate={handleNavigate}
                   onSelectPlan={(plan) => {
                     setSelectedPlan(plan);
-                    setCurrentRoute('plan-details');
+                    handleNavigate('plan-details');
                   }}
                 />
               )}
 
-              {currentRoute === 'create-plan' && (
+              {currentRoute === 'create-plan' && currentUser?.role !== 'viewer' && (
                 <CreatePlanPage
                   countries={countries}
                   skus={skus}
                   capacityList={capacityList}
                   recipeBomList={recipeBom}
                   packagingBomList={packagingBom}
+                  staffList={staff}
                   onSavePlan={handleSavePlan}
-                  onNavigate={setCurrentRoute}
+                  onNavigate={handleNavigate}
                 />
               )}
 
@@ -463,10 +490,10 @@ export default function App() {
                   skus={skus}
                   onSelectPlan={(plan) => {
                     setSelectedPlan(plan);
-                    setCurrentRoute('plan-details');
+                    handleNavigate('plan-details');
                   }}
                   onUpdateStatus={handleUpdatePlanStatus}
-                  onNavigate={setCurrentRoute}
+                  onNavigate={handleNavigate}
                   currentUser={currentUser}
                 />
               )}
@@ -474,7 +501,7 @@ export default function App() {
               {currentRoute === 'plan-details' && (
                 <PlanDetailsPage
                   plan={selectedPlan}
-                  onBack={() => setCurrentRoute('production-plans')}
+                  onBack={() => handleNavigate('production-plans')}
                   onUpdateStatus={handleUpdatePlanStatus}
                   currentUser={currentUser}
                 />
@@ -483,6 +510,8 @@ export default function App() {
               {currentRoute === 'sku-master' && (
                 <SkuMasterPage
                   skus={skus}
+                  recipeBom={recipeBom}
+                  capacityList={capacityList}
                   onSaveSku={handleSaveSku}
                   onDeleteSku={handleDeleteSku}
                   currentUser={currentUser}
@@ -493,6 +522,7 @@ export default function App() {
                 <RecipeBomPage
                   recipeBom={recipeBom}
                   skus={skus}
+                  capacityList={capacityList}
                   onSaveItem={handleSaveRecipeItem}
                   onDeleteItem={handleDeleteRecipeItem}
                   currentUser={currentUser}
@@ -536,14 +566,14 @@ export default function App() {
                 />
               )}
 
-              {currentRoute === 'import-data' && (
+              {currentRoute === 'import-data' && currentUser?.role === 'admin' && (
                 <ImportDataPage
                   onBulkImport={handleBulkImport}
-                  onNavigate={setCurrentRoute}
+                  onNavigate={handleNavigate}
                 />
               )}
 
-              {currentRoute === 'users-roles' && (
+              {currentRoute === 'users-roles' && currentUser?.role === 'admin' && (
                 <UsersRolesPage
                   users={users}
                   onSaveUser={handleSaveUser}
@@ -551,6 +581,7 @@ export default function App() {
                   currentUser={currentUser}
                 />
               )}
+
             </>
           )}
         </main>

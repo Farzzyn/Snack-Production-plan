@@ -15,10 +15,35 @@ export const INITIAL_COUNTRIES = [
 ];
 
 export const INITIAL_USERS = [
-  { id: 'usr-01', full_name: 'David Miller', email: 'admin@snackplanner.com', role: 'admin', is_active: true, avatar: 'DM' },
-  { id: 'usr-02', full_name: 'Sarah Jenkins', email: 'manager@snackplanner.com', role: 'production_manager', is_active: true, avatar: 'SJ' },
-  { id: 'usr-03', full_name: 'Raj Patel', email: 'viewer@snackplanner.com', role: 'viewer', is_active: true, avatar: 'RP' }
+  { 
+    id: 'usr-01', 
+    full_name: 'David Miller', 
+    email: 'admin@snackplanner.com', 
+    role: 'admin', 
+    is_active: true, 
+    avatar: 'DM',
+    password_hash: 'ad89b64d66caa8e30e5d5ce4a9763f4ecc205814c412175f3e2c50027471426d' // Admin@123456
+  },
+  { 
+    id: 'usr-02', 
+    full_name: 'Sarah Jenkins', 
+    email: 'manager@snackplanner.com', 
+    role: 'production_manager', 
+    is_active: true, 
+    avatar: 'SJ',
+    password_hash: 'dab7d42d92ec776106b87e867d0d0c8a55b62d8bf04aff87cf75ac5fca64572e' // Editor@123456
+  },
+  { 
+    id: 'usr-03', 
+    full_name: 'Raj Patel', 
+    email: 'viewer@snackplanner.com', 
+    role: 'viewer', 
+    is_active: true, 
+    avatar: 'RP',
+    password_hash: '3e9d68599f64d77ce16d4cb1d93f8fa2e3b8d5a5b77d4e3541235174a51c13a4' // Viewer@123456
+  }
 ];
+
 
 export const INITIAL_SKUS = [
   {

@@ -8,10 +8,11 @@ import {
   Weight, 
   Clock, 
   Users, 
-  DollarSign, 
+  IndianRupee, 
   CheckCircle2, 
   Layers 
 } from 'lucide-react';
+import AppLogo from '../components/common/AppLogo';
 
 export default function PlanDetailsPage({ 
   plan, 
@@ -36,10 +37,13 @@ export default function PlanDetailsPage({
 
   const rawMaterials = plan.raw_materials || plan.raw_material_snapshots || [];
   const packaging = plan.packaging || plan.packaging_snapshots || [];
+  const staffBreakdown = plan.staff_cost_breakdown || [];
 
   const rawCost = Number(plan.estimated_raw_material_cost) || rawMaterials.reduce((s, i) => s + (Number(i.estimated_cost) || 0), 0);
   const packCost = Number(plan.estimated_packaging_cost) || packaging.reduce((s, i) => s + (Number(i.estimated_cost) || 0), 0);
-  const totalCost = Number(plan.total_material_cost) || (rawCost + packCost);
+  const staffCost = Number(plan.estimated_staff_cost) || staffBreakdown.reduce((s, i) => s + (Number(i.estimated_cost) || 0), 0);
+  const totalProductionCost = Number(plan.total_production_cost) || (rawCost + packCost + staffCost);
+  const totalMaterialCost = Number(plan.total_material_cost) || (rawCost + packCost);
 
   const canEdit = currentUser?.role !== 'viewer';
 
@@ -84,15 +88,18 @@ export default function PlanDetailsPage({
         
         {/* Document Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid var(--navy-900)', paddingBottom: '20px', marginBottom: '24px' }}>
-          <div>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--primary-600)', fontWeight: 700 }}>
-              Snack Manufacturing Facility • Production Order Dossier
-            </div>
-            <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--navy-900)', marginTop: '4px' }}>
-              {plan.plan_number}
-            </h1>
-            <div style={{ fontSize: '13px', color: 'var(--slate-500)', marginTop: '2px' }}>
-              Destination Country: <strong>{plan.country_name || 'Export'}</strong> | Customer Order Ref: <strong>{plan.order_number || 'N/A'}</strong>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+            <AppLogo variant="icon" size={48} theme="light" />
+            <div>
+              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--primary-600)', fontWeight: 700 }}>
+                Snack Manufacturing Facility • Production Order Dossier
+              </div>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--navy-900)', marginTop: '4px' }}>
+                {plan.plan_number}
+              </h1>
+              <div style={{ fontSize: '13px', color: 'var(--slate-500)', marginTop: '2px' }}>
+                Destination Country: <strong>{plan.country_name || 'Export'}</strong> | Customer Order Ref: <strong>{plan.order_number || 'N/A'}</strong>
+              </div>
             </div>
           </div>
 
@@ -203,7 +210,7 @@ export default function PlanDetailsPage({
               1. Raw Material Requirements (Historical BOM Snapshot)
             </h3>
             <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy-900)' }}>
-              Subtotal: ${rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              Subtotal: ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
 
@@ -213,7 +220,7 @@ export default function PlanDetailsPage({
                 <th>Raw Material Ingredient</th>
                 <th>UOM</th>
                 <th style={{ textAlign: 'right' }}>Calculated Qty</th>
-                <th style={{ textAlign: 'right' }}>Unit Cost</th>
+                <th style={{ textAlign: 'right' }}>Unit Cost (₹)</th>
                 <th style={{ textAlign: 'right' }}>Estimated Cost</th>
               </tr>
             </thead>
@@ -226,10 +233,10 @@ export default function PlanDetailsPage({
                     {Number(item.quantity).toLocaleString()}
                   </td>
                   <td style={{ textAlign: 'right' }} className="num-tabular">
-                    ${Number(item.unit_cost || 0).toFixed(2)}
+                    ₹{Number(item.unit_cost || 0).toFixed(2)}
                   </td>
                   <td style={{ textAlign: 'right', fontWeight: 600 }} className="num-tabular">
-                    ${Number(item.estimated_cost || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    ₹{Number(item.estimated_cost || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </td>
                 </tr>
               ))}
@@ -251,7 +258,7 @@ export default function PlanDetailsPage({
               2. Packaging Material Requirements (Historical BOM Snapshot)
             </h3>
             <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy-900)' }}>
-              Subtotal: ${packCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              Subtotal: ₹{packCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
 
@@ -261,7 +268,7 @@ export default function PlanDetailsPage({
                 <th>Packaging Material</th>
                 <th>UOM</th>
                 <th style={{ textAlign: 'right' }}>Calculated Qty</th>
-                <th style={{ textAlign: 'right' }}>Unit Cost</th>
+                <th style={{ textAlign: 'right' }}>Unit Cost (₹)</th>
                 <th style={{ textAlign: 'right' }}>Estimated Cost</th>
               </tr>
             </thead>
@@ -274,10 +281,10 @@ export default function PlanDetailsPage({
                     {Number(item.quantity).toLocaleString()}
                   </td>
                   <td style={{ textAlign: 'right' }} className="num-tabular">
-                    ${Number(item.unit_cost || 0).toFixed(2)}
+                    ₹{Number(item.unit_cost || 0).toFixed(2)}
                   </td>
                   <td style={{ textAlign: 'right', fontWeight: 600 }} className="num-tabular">
-                    ${Number(item.estimated_cost || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    ₹{Number(item.estimated_cost || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </td>
                 </tr>
               ))}
@@ -285,6 +292,60 @@ export default function PlanDetailsPage({
                 <tr>
                   <td colSpan="5" style={{ textAlign: 'center', padding: '16px', color: 'var(--slate-400)' }}>
                     No packaging snapshot recorded for this plan.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Crew & Labor Allocation Snapshot Table */}
+        <div style={{ marginBottom: '28px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--navy-900)' }}>
+              3. Crew & Staff Labor Allocation (Schedule & Direct Wages)
+            </h3>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy-900)' }}>
+              Subtotal: ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+            </span>
+          </div>
+
+          <table className="data-table" style={{ border: '1px solid var(--slate-200)' }}>
+            <thead>
+              <tr>
+                <th>Labor Role / Crew Category</th>
+                <th style={{ textAlign: 'center' }}>Headcount</th>
+                <th style={{ textAlign: 'right' }}>Operating Hours</th>
+                <th style={{ textAlign: 'right' }}>Daily Wage (₹)</th>
+                <th style={{ textAlign: 'right' }}>Hourly Rate (₹)</th>
+                <th style={{ textAlign: 'right' }}>Estimated Labor Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              {staffBreakdown.map((item, i) => (
+                <tr key={i}>
+                  <td style={{ fontWeight: 600 }}>{item.role}</td>
+                  <td style={{ textAlign: 'center' }}>
+                    <span className="badge badge-draft">{item.headcount} Staff</span>
+                  </td>
+                  <td style={{ textAlign: 'right' }} className="num-tabular">
+                    {item.hours} hrs
+                  </td>
+                  <td style={{ textAlign: 'right' }} className="num-tabular">
+                    ₹{Number(item.daily_wage || 0).toFixed(2)}
+                  </td>
+                  <td style={{ textAlign: 'right' }} className="num-tabular">
+                    ₹{Number(item.hourly_rate || 0).toFixed(2)}/hr
+                  </td>
+                  <td style={{ textAlign: 'right', fontWeight: 600 }} className="num-tabular">
+                    ₹{Number(item.estimated_cost || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                  </td>
+                </tr>
+              ))}
+              {staffBreakdown.length === 0 && (
+                <tr>
+                  <td colSpan="6" style={{ textAlign: 'center', padding: '16px', color: 'var(--slate-400)' }}>
+                    Standard crew allocation: {plan.selected_chef_quantity || 1} Chef(s) + {Math.max(0, (plan.required_staff || 1) - (plan.selected_chef_quantity || 1))} Floor Crew ({plan.production_hours || 0} plant hours).
                   </td>
                 </tr>
               )}
@@ -305,11 +366,20 @@ export default function PlanDetailsPage({
         )}
 
         {/* Total Cost Summary & Signoff Blocks */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', paddingTop: '16px', borderTop: '2px solid var(--slate-300)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', paddingTop: '18px', borderTop: '2px solid var(--slate-300)', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>Total Estimated Material Cost:</div>
-            <div className="num-tabular" style={{ fontSize: '24px', fontWeight: 800, color: 'var(--navy-900)' }}>
-              ${totalCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+            <div style={{ display: 'flex', gap: '18px', fontSize: '12px', color: 'var(--slate-600)', marginBottom: '6px' }}>
+              <span>Raw Materials: <strong>₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
+              <span>•</span>
+              <span>Packaging: <strong>₹{packCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
+              <span>•</span>
+              <span>Staff Labor: <strong>₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
+            </div>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--primary-600)', fontWeight: 700 }}>
+              Total Estimated Manufacturing Cost (Materials + Crew Labor):
+            </div>
+            <div className="num-tabular" style={{ fontSize: '26px', fontWeight: 800, color: 'var(--navy-900)', marginTop: '2px' }}>
+              ₹{totalProductionCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
           </div>
 

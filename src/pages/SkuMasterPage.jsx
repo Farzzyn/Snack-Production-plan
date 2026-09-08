@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Package, Plus, Trash2, Edit2, Check, X } from 'lucide-react';
 import DataTable from '../components/common/DataTable';
 import Modal from '../components/common/Modal';
 
 export default function SkuMasterPage({
   skus = [],
+  recipeBom = [],
+  capacityList = [],
   onSaveSku,
   onDeleteSku,
   currentUser
@@ -12,10 +14,21 @@ export default function SkuMasterPage({
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  // Extract unique base products from Capacity Master, Recipe BOM, and SKUs
+  const availableBaseProducts = useMemo(() => {
+    const set = new Set();
+    capacityList.forEach(c => c.base_product && set.add(c.base_product.trim()));
+    recipeBom.forEach(r => r.base_product && set.add(r.base_product.trim()));
+    skus.forEach(s => s.base_product && set.add(s.base_product.trim()));
+    const list = Array.from(set).sort((a, b) => a.localeCompare(b));
+    return list.length > 0 ? list : ['RG HOT MIXTURE'];
+  }, [capacityList, recipeBom, skus]);
+
   const [newSku, setNewSku] = useState({
     sku_id: '',
     sku_name: '',
-    base_product: 'Roasted Gram Healthy Mix',
+    base_product: '',
     pack_size_g: 150,
     packet_per_box: 20,
     is_active: true
@@ -33,15 +46,31 @@ export default function SkuMasterPage({
     setEditingId(null);
   };
 
+  const handleOpenAddModal = () => {
+    setNewSku({
+      sku_id: '',
+      sku_name: '',
+      base_product: availableBaseProducts[0] || 'RG HOT MIXTURE',
+      pack_size_g: 150,
+      packet_per_box: 20,
+      is_active: true
+    });
+    setIsAddModalOpen(true);
+  };
+
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     if (!newSku.sku_id.trim() || !newSku.sku_name.trim()) return;
-    await onSaveSku(newSku);
+    const finalBaseProduct = newSku.base_product || availableBaseProducts[0] || 'RG HOT MIXTURE';
+    await onSaveSku({
+      ...newSku,
+      base_product: finalBaseProduct
+    });
     setIsAddModalOpen(false);
     setNewSku({
       sku_id: '',
       sku_name: '',
-      base_product: 'Roasted Gram Healthy Mix',
+      base_product: availableBaseProducts[0] || 'RG HOT MIXTURE',
       pack_size_g: 150,
       packet_per_box: 20,
       is_active: true
@@ -89,14 +118,22 @@ export default function SkuMasterPage({
       key: 'base_product',
       render: (val, row) => {
         if (editingId === (row.id || row.sku_id)) {
+          const currentVal = editForm.base_product || '';
+          const options = availableBaseProducts.includes(currentVal)
+            ? availableBaseProducts
+            : (currentVal ? [currentVal, ...availableBaseProducts] : availableBaseProducts);
+
           return (
-            <input
-              type="text"
-              className="input"
-              style={{ minWidth: '180px', padding: '4px 8px' }}
-              value={editForm.base_product || ''}
+            <select
+              className="select"
+              style={{ minWidth: '180px', padding: '4px 8px', fontSize: '12px' }}
+              value={currentVal}
               onChange={e => setEditForm({ ...editForm, base_product: e.target.value })}
-            />
+            >
+              {options.map(bp => (
+                <option key={bp} value={bp}>{bp}</option>
+              ))}
+            </select>
           );
         }
         return <span style={{ fontWeight: 600, color: 'var(--primary-600)' }}>{val}</span>;
@@ -205,7 +242,7 @@ export default function SkuMasterPage({
         searchable={true}
         searchPlaceholder="Filter SKUs by code, product..."
         actionButton={canEdit ? (
-          <button className="btn btn-primary btn-sm" onClick={() => setIsAddModalOpen(true)}>
+          <button className="btn btn-primary btn-sm" onClick={handleOpenAddModal}>
             <Plus size={14} /> Add SKU
           </button>
         ) : null}
@@ -249,15 +286,22 @@ export default function SkuMasterPage({
           </div>
 
           <div className="form-group">
-            <label className="form-label">Base Product (Recipe & Capacity Join Key) *</label>
-            <input
-              type="text"
-              className="input"
-              placeholder="E.g., Roasted Gram Healthy Mix"
-              value={newSku.base_product}
+            <label className="form-label">Base Product (From Recipe BOM) *</label>
+            <select
+              className="select"
+              value={newSku.base_product || availableBaseProducts[0] || ''}
               onChange={e => setNewSku({ ...newSku, base_product: e.target.value })}
               required
-            />
+            >
+              {availableBaseProducts.map(bp => (
+                <option key={bp} value={bp}>
+                  {bp}
+                </option>
+              ))}
+            </select>
+            <div className="form-hint" style={{ marginTop: '4px', fontSize: '11px', color: 'var(--text-muted)' }}>
+              Populated dynamically from base products defined in the Recipe BOM.
+            </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
