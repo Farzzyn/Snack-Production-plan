@@ -337,7 +337,8 @@ export const dataService = {
         .order('production_date', { ascending: false });
       if (!error && data) return data;
     }
-    return getLocal(STORAGE_KEYS.PLANS, INITIAL_PLANS);
+    const stored = getLocal(STORAGE_KEYS.PLANS, INITIAL_PLANS);
+    return stored.filter(p => p.id !== 'pln-1001' && p.id !== 'pln-1002');
   },
 
   async getProductionPlanById(id) {

@@ -5,8 +5,8 @@ import { dataService } from '../services/dataService';
 import { authenticateUser, checkLockout, clearLockout } from '../services/authService';
 
 export default function LoginPage({ onLoginSuccess }) {
-  const [username, setUsername] = useState('admin@snackplanner.com');
-  const [password, setPassword] = useState('Admin@123456');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

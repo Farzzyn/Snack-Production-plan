@@ -439,8 +439,6 @@ export default function App() {
           currentRoute={currentRoute}
           currentUser={currentUser}
           onRoleChange={handleRoleChange}
-          onResetData={handleResetData}
-          onToggleDbMode={handleToggleDbMode}
           onLogout={() => {
             clearSession();
             setCurrentUser(null);

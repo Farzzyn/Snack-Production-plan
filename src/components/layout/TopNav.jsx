@@ -1,13 +1,10 @@
 import React from 'react';
-import { RotateCcw, Shield, LogOut, ChevronRight } from 'lucide-react';
-import { isUsingMock } from '../../services/dataService';
+import { Shield, LogOut, ChevronRight } from 'lucide-react';
 
 export default function TopNav({ 
   currentRoute, 
   currentUser, 
   onRoleChange, 
-  onResetData, 
-  onToggleDbMode,
   onLogout 
 }) {
   const routeTitles = {
@@ -57,18 +54,6 @@ export default function TopNav({
           </span>
         </div>
 
-
-        {/* Reset Mock Data */}
-        {usingMock && (
-          <button 
-            className="btn btn-secondary btn-sm"
-            onClick={onResetData}
-            title="Reset data back to factory default seed"
-          >
-            <RotateCcw size={12} />
-            Reset Data
-          </button>
-        )}
 
         {/* Logout */}
         <button 
