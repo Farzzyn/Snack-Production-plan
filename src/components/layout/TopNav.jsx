@@ -22,8 +22,6 @@ export default function TopNav({
     'users-roles': 'Users & Permissions'
   };
 
-  const usingMock = isUsingMock();
-
   return (
     <header className="top-navbar no-print">
       <div className="top-nav-left">

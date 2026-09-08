@@ -17,7 +17,7 @@ import CountriesPage from './pages/CountriesPage';
 import ImportDataPage from './pages/ImportDataPage';
 import UsersRolesPage from './pages/UsersRolesPage';
 
-import { dataService, resetLocalDatabase, isUsingMock, setForceMock } from './services/dataService';
+import { dataService } from './services/dataService';
 import { getSessionUser, clearSession } from './services/authService';
 
 export default function App() {
@@ -108,22 +108,6 @@ export default function App() {
   const handleRoleChange = (newRole) => {
     setCurrentUser(prev => ({ ...prev, role: newRole }));
     addToast(`Switched active role to "${newRole.replace('_', ' ')}". Permissions updated.`, 'info');
-  };
-
-  // Reset Demo Data
-  const handleResetData = () => {
-    if (window.confirm('Reset all demo data back to default factory seed? Any added plans or edits will be restored.')) {
-      resetLocalDatabase();
-      loadData();
-      addToast('Demo database successfully reset to factory seed values.', 'success');
-    }
-  };
-
-  const handleToggleDbMode = () => {
-    const currentlyMock = isUsingMock();
-    setForceMock(!currentlyMock);
-    loadData();
-    addToast(currentlyMock ? 'Switched to Live Supabase DB connection.' : 'Switched to Local Demo Mode.', 'info');
   };
 
   // ==================== ACTIONS ====================
