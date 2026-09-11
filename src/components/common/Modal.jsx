@@ -12,10 +12,10 @@ export default function Modal({ isOpen, onClose, title, children, footer, maxWid
         onClick={e => e.stopPropagation()}
       >
         <div className="modal-header">
-          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--navy-900)' }}>{title}</h3>
+          <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>{title}</h3>
           <button 
             onClick={onClose}
-            style={{ background: 'transparent', border: 'none', color: 'var(--slate-500)', cursor: 'pointer', padding: '4px' }}
+            style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
           >
             <X size={20} />
           </button>

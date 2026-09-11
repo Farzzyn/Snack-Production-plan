@@ -57,7 +57,7 @@ export default function ProductionPlansPage({
       key: 'plan_number',
       render: (val, row) => (
         <span 
-          style={{ fontWeight: 700, color: 'var(--primary-600)', cursor: 'pointer' }}
+          style={{ fontWeight: 700, color: 'var(--brand-500)', cursor: 'pointer' }}
           onClick={() => onSelectPlan(row)}
         >
           {val}
@@ -149,8 +149,9 @@ export default function ProductionPlansPage({
               fontWeight: 600,
               width: 'auto',
               borderRadius: '12px',
-              backgroundColor: val === 'Completed' ? '#d1fae5' : val === 'In Production' ? '#fef3c7' : val === 'Cancelled' ? '#fee2e2' : '#e0f2fe',
-              color: val === 'Completed' ? '#065f46' : val === 'In Production' ? '#92400e' : val === 'Cancelled' ? '#991b1b' : '#0369a1'
+              backgroundColor: val === 'Completed' ? 'rgba(34, 197, 94, 0.2)' : val === 'In Production' ? 'rgba(245, 158, 11, 0.2)' : val === 'Cancelled' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(14, 165, 233, 0.2)',
+              color: val === 'Completed' ? '#86efac' : val === 'In Production' ? '#fcd34d' : val === 'Cancelled' ? '#fca5a5' : '#7dd3fc',
+              border: `1px solid ${val === 'Completed' ? 'rgba(34, 197, 94, 0.4)' : val === 'In Production' ? 'rgba(245, 158, 11, 0.4)' : val === 'Cancelled' ? 'rgba(239, 68, 68, 0.4)' : 'rgba(14, 165, 233, 0.4)'}`
             }}
           >
             <option value="Draft">Draft</option>

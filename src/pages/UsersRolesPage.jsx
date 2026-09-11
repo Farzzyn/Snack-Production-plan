@@ -346,39 +346,40 @@ export default function UsersRolesPage({
         <div className="card">
           <div className="card-header">
             <h3 className="card-title">
-              <ShieldCheck size={18} color="var(--primary-600)" />
+              <ShieldCheck size={18} color="var(--brand-500)" />
               Security Role Matrix
             </h3>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '13px' }}>
-            <div style={{ borderLeft: '3px solid #dc2626', paddingLeft: '12px' }}>
-              <div style={{ fontWeight: 700, color: 'var(--navy-900)' }}>1. Plant Admin</div>
-              <div style={{ color: 'var(--slate-600)', fontSize: '12px', marginTop: '2px' }}>
+            <div style={{ borderLeft: '3px solid #ef4444', paddingLeft: '12px' }}>
+              <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>1. Plant Admin</div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '2px' }}>
                 Full CRUD permissions: manage user accounts, assign initial passwords, reset passwords, edit recipe BOMs, unit costs, machine capacity, and generate plans.
               </div>
             </div>
 
-            <div style={{ borderLeft: '3px solid #0284c7', paddingLeft: '12px' }}>
-              <div style={{ fontWeight: 700, color: 'var(--navy-900)' }}>2. Production Editor</div>
-              <div style={{ color: 'var(--slate-600)', fontSize: '12px', marginTop: '2px' }}>
+            <div style={{ borderLeft: '3px solid #38bdf8', paddingLeft: '12px' }}>
+              <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>2. Production Editor</div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '2px' }}>
                 Create & generate production plans, adjust shift schedules, and update production statuses. Read-only on recipe BOMs, cost structures, and user administration.
               </div>
             </div>
 
-            <div style={{ borderLeft: '3px solid #64748b', paddingLeft: '12px' }}>
-              <div style={{ fontWeight: 700, color: 'var(--navy-900)' }}>3. Floor Viewer</div>
-              <div style={{ color: 'var(--slate-600)', fontSize: '12px', marginTop: '2px' }}>
+            <div style={{ borderLeft: '3px solid #94a3b8', paddingLeft: '12px' }}>
+              <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>3. Floor Viewer</div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '12px', marginTop: '2px' }}>
                 Strict read-only observation. Can inspect production schedules, view ingredient batches, and download reports. Cannot modify data or access user administration.
               </div>
             </div>
 
             <div style={{ 
-              background: 'var(--slate-50)', 
+              background: 'var(--bg-subtle)', 
+              border: '1px solid var(--border-default)',
               padding: '10px 12px', 
               borderRadius: 'var(--radius-md)', 
               fontSize: '11.5px', 
-              color: 'var(--slate-600)',
+              color: 'var(--text-muted)',
               marginTop: '8px'
             }}>
               🔒 <strong>Security Policy:</strong> Passwords are cryptographic SHA-256 hashed. Disabled accounts are immediately blocked from authenticating.
@@ -403,8 +404,8 @@ export default function UsersRolesPage({
           {addError && (
             <div style={{ 
               backgroundColor: 'rgba(239, 68, 68, 0.15)', 
-              border: '1px solid rgba(239, 68, 68, 0.3)', 
-              color: '#dc2626', 
+              border: '1px solid rgba(239, 68, 68, 0.35)', 
+              color: '#fca5a5', 
               padding: '8px 12px', 
               borderRadius: 'var(--radius-sm)', 
               fontSize: '12px', 
@@ -413,7 +414,7 @@ export default function UsersRolesPage({
               alignItems: 'center',
               gap: '6px'
             }}>
-              <AlertCircle size={14} />
+              <AlertCircle size={14} color="#f87171" />
               <span>{addError}</span>
             </div>
           )}
@@ -525,15 +526,15 @@ export default function UsersRolesPage({
         }
       >
         <form onSubmit={handleResetPasswordSubmit}>
-          <div style={{ fontSize: '12.5px', color: 'var(--slate-600)', marginBottom: '16px' }}>
-            Assign a new password for <strong>{resetModalUser?.email}</strong>. The password will be immediately encrypted using SHA-256.
+          <div style={{ fontSize: '12.5px', color: 'var(--text-muted)', marginBottom: '16px' }}>
+            Assign a new password for <strong style={{ color: 'var(--text-primary)' }}>{resetModalUser?.email}</strong>. The password will be immediately encrypted using SHA-256.
           </div>
 
           {resetError && (
             <div style={{ 
               backgroundColor: 'rgba(239, 68, 68, 0.15)', 
-              border: '1px solid rgba(239, 68, 68, 0.3)', 
-              color: '#dc2626', 
+              border: '1px solid rgba(239, 68, 68, 0.35)', 
+              color: '#fca5a5', 
               padding: '8px 12px', 
               borderRadius: 'var(--radius-sm)', 
               fontSize: '12px', 
@@ -542,16 +543,16 @@ export default function UsersRolesPage({
               alignItems: 'center',
               gap: '6px'
             }}>
-              <AlertCircle size={14} />
+              <AlertCircle size={14} color="#f87171" />
               <span>{resetError}</span>
             </div>
           )}
 
           {resetSuccess && (
             <div style={{ 
-              backgroundColor: 'rgba(22, 163, 74, 0.15)', 
-              border: '1px solid rgba(22, 163, 74, 0.3)', 
-              color: '#16a34a', 
+              backgroundColor: 'rgba(34, 197, 94, 0.15)', 
+              border: '1px solid rgba(34, 197, 94, 0.35)', 
+              color: '#86efac', 
               padding: '8px 12px', 
               borderRadius: 'var(--radius-sm)', 
               fontSize: '12px', 
@@ -560,7 +561,7 @@ export default function UsersRolesPage({
               alignItems: 'center',
               gap: '6px'
             }}>
-              <CheckCircle2 size={14} />
+              <CheckCircle2 size={14} color="#4ade80" />
               <span>{resetSuccess}</span>
             </div>
           )}

@@ -147,7 +147,7 @@ export default function ImportDataPage({
         <div className="card">
           <div className="card-header">
             <h3 className="card-title">
-              <FileUp size={18} color="var(--primary-600)" />
+              <FileUp size={18} color="var(--brand-500)" />
               Upload CSV File for {activeSchema.name}
             </h3>
             <button 
@@ -163,21 +163,21 @@ export default function ImportDataPage({
           {/* Drag & Drop / File Input Box */}
           <div 
             style={{
-              border: '2px dashed var(--slate-300)',
+              border: '2px dashed var(--border-strong)',
               borderRadius: 'var(--radius-lg)',
               padding: '32px 24px',
               textAlign: 'center',
-              backgroundColor: 'var(--slate-50)',
+              backgroundColor: 'var(--bg-subtle)',
               cursor: 'pointer',
               marginBottom: '16px'
             }}
             onClick={() => document.getElementById('csv-file-input').click()}
           >
-            <FileUp size={32} color="var(--primary-600)" style={{ margin: '0 auto 12px' }} />
-            <div style={{ fontWeight: 600, color: 'var(--navy-900)', fontSize: '14px' }}>
+            <FileUp size={32} color="var(--brand-500)" style={{ margin: '0 auto 12px' }} />
+            <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '14px' }}>
               {fileName ? fileName : 'Click to browse or drag and drop your CSV here'}
             </div>
-            <div style={{ fontSize: '12px', color: 'var(--slate-400)', marginTop: '4px' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
               UTF-8 encoded .csv files with headers
             </div>
             <input
@@ -194,7 +194,7 @@ export default function ImportDataPage({
             <label className="form-label" style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>Or paste raw CSV text directly:</span>
               <span 
-                style={{ color: 'var(--primary-600)', cursor: 'pointer', fontSize: '11px', fontWeight: 600 }}
+                style={{ color: 'var(--brand-500)', cursor: 'pointer', fontSize: '11px', fontWeight: 600 }}
                 onClick={() => handleTextareaChange(activeSchema.sample)}
               >
                 Load Sample Data
@@ -215,13 +215,13 @@ export default function ImportDataPage({
         <div className="card">
           <div className="card-header">
             <h3 className="card-title">
-              <CheckCircle2 size={18} color="var(--primary-600)" />
+              <CheckCircle2 size={18} color="var(--brand-500)" />
               Schema Requirements & Validation
             </h3>
           </div>
 
           <div style={{ marginBottom: '16px' }}>
-            <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--navy-800)', marginBottom: '6px' }}>
+            <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '6px' }}>
               Required Column Headers:
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
@@ -236,31 +236,31 @@ export default function ImportDataPage({
           {validationResult && (
             <div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', marginBottom: '16px' }}>
-                <div style={{ background: 'var(--slate-100)', padding: '8px', borderRadius: 'var(--radius-sm)', textAlign: 'center' }}>
-                  <div style={{ fontSize: '10px', color: 'var(--slate-500)', textTransform: 'uppercase' }}>Total</div>
-                  <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700 }}>{validationResult.totalRows}</div>
+                <div style={{ background: 'var(--bg-subtle)', border: '1px solid var(--border-default)', padding: '8px', borderRadius: 'var(--radius-sm)', textAlign: 'center' }}>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Total</div>
+                  <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)' }}>{validationResult.totalRows}</div>
                 </div>
-                <div style={{ background: '#ecfdf5', padding: '8px', borderRadius: 'var(--radius-sm)', textAlign: 'center' }}>
-                  <div style={{ fontSize: '10px', color: '#065f46', textTransform: 'uppercase' }}>Valid</div>
-                  <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: '#059669' }}>{validationResult.validRows}</div>
+                <div style={{ background: 'rgba(34, 197, 94, 0.15)', border: '1px solid rgba(34, 197, 94, 0.35)', padding: '8px', borderRadius: 'var(--radius-sm)', textAlign: 'center' }}>
+                  <div style={{ fontSize: '10px', color: '#86efac', textTransform: 'uppercase' }}>Valid</div>
+                  <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: '#4ade80' }}>{validationResult.validRows}</div>
                 </div>
-                <div style={{ background: '#fef2f2', padding: '8px', borderRadius: 'var(--radius-sm)', textAlign: 'center' }}>
-                  <div style={{ fontSize: '10px', color: '#991b1b', textTransform: 'uppercase' }}>Invalid</div>
-                  <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: '#dc2626' }}>{validationResult.invalidRows}</div>
+                <div style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.35)', padding: '8px', borderRadius: 'var(--radius-sm)', textAlign: 'center' }}>
+                  <div style={{ fontSize: '10px', color: '#fca5a5', textTransform: 'uppercase' }}>Invalid</div>
+                  <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: '#f87171' }}>{validationResult.invalidRows}</div>
                 </div>
-                <div style={{ background: '#fffbeb', padding: '8px', borderRadius: 'var(--radius-sm)', textAlign: 'center' }}>
-                  <div style={{ fontSize: '10px', color: '#92400e', textTransform: 'uppercase' }}>Duplicates</div>
-                  <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: '#d97706' }}>{validationResult.duplicateRows}</div>
+                <div style={{ background: 'rgba(245, 158, 11, 0.15)', border: '1px solid rgba(245, 158, 11, 0.35)', padding: '8px', borderRadius: 'var(--radius-sm)', textAlign: 'center' }}>
+                  <div style={{ fontSize: '10px', color: '#fcd34d', textTransform: 'uppercase' }}>Duplicates</div>
+                  <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: '#fbbf24' }}>{validationResult.duplicateRows}</div>
                 </div>
               </div>
 
               {validationResult.errors.length > 0 && (
-                <div style={{ maxHeight: '140px', overflowY: 'auto', background: '#fff1f2', border: '1px solid #fecdd3', borderRadius: 'var(--radius-md)', padding: '10px 14px', marginBottom: '16px' }}>
-                  <div style={{ fontWeight: 700, fontSize: '12px', color: '#9f1239', marginBottom: '4px' }}>
+                <div style={{ maxHeight: '140px', overflowY: 'auto', background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.35)', borderRadius: 'var(--radius-md)', padding: '10px 14px', marginBottom: '16px' }}>
+                  <div style={{ fontWeight: 700, fontSize: '12px', color: '#fca5a5', marginBottom: '4px' }}>
                     Validation Issues ({validationResult.errors.length}):
                   </div>
                   {validationResult.errors.map((err, idx) => (
-                    <div key={idx} style={{ fontSize: '11px', color: '#881337', marginBottom: '2px' }}>
+                    <div key={idx} style={{ fontSize: '11px', color: '#fecaca', marginBottom: '2px' }}>
                       • Row {err.row}: {err.message}
                     </div>
                   ))}
@@ -281,7 +281,7 @@ export default function ImportDataPage({
           )}
 
           {!validationResult && (
-            <div style={{ color: 'var(--slate-500)', fontSize: '13px', textAlign: 'center', padding: '24px 0' }}>
+            <div style={{ color: 'var(--text-muted)', fontSize: '13px', textAlign: 'center', padding: '24px 0' }}>
               Upload or paste a CSV file to inspect validation results.
             </div>
           )}
@@ -291,12 +291,12 @@ export default function ImportDataPage({
       {/* Data Preview Table */}
       {validationResult && validationResult.previewData.length > 0 && (
         <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-          <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--slate-200)', background: 'var(--slate-50)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--navy-900)' }}>
+          <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--border-default)', background: 'var(--bg-subtle)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)' }}>
               Data Ingestion Preview ({validationResult.previewData.length} records analyzed)
             </h3>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>
-              Rows marked with <span style={{ color: '#059669', fontWeight: 700 }}>✓</span> will be committed to the database.
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+              Rows marked with <span style={{ color: '#4ade80', fontWeight: 700 }}>✓</span> will be committed to the database.
             </div>
           </div>
 
@@ -313,15 +313,15 @@ export default function ImportDataPage({
               </thead>
               <tbody>
                 {validationResult.previewData.map((row, idx) => (
-                  <tr key={idx} style={{ backgroundColor: row._valid ? 'transparent' : '#fff1f2' }}>
+                  <tr key={idx} style={{ backgroundColor: row._valid ? 'transparent' : 'rgba(239, 68, 68, 0.12)' }}>
                     <td style={{ textAlign: 'center' }}>
                       {row._valid ? (
-                        <CheckCircle2 size={16} color="#059669" />
+                        <CheckCircle2 size={16} color="#4ade80" />
                       ) : (
-                        <AlertCircle size={16} color="#dc2626" />
+                        <AlertCircle size={16} color="#f87171" />
                       )}
                     </td>
-                    <td style={{ color: 'var(--slate-500)', fontSize: '12px' }}>{row._row}</td>
+                    <td style={{ color: 'var(--text-muted)', fontSize: '12px' }}>{row._row}</td>
                     {activeSchema.required.map(col => (
                       <td key={col} style={{ fontWeight: col === activeSchema.required[0] ? 600 : 400 }}>
                         {String(row[col] !== undefined ? row[col] : '')}

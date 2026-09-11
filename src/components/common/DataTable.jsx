@@ -62,8 +62,8 @@ export default function DataTable({
       {(title || searchable || actionButton) && (
         <div className="table-toolbar">
           <div>
-            {title && <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--navy-900)' }}>{title}</h3>}
-            {description && <div style={{ fontSize: '12px', color: 'var(--slate-500)', marginTop: '2px' }}>{description}</div>}
+            {title && <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>{title}</h3>}
+            {description && <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '2px' }}>{description}</div>}
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -110,7 +110,7 @@ export default function DataTable({
           <tbody>
             {paginatedData.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} style={{ textAlign: 'center', padding: '36px 16px', color: 'var(--slate-500)' }}>
+                <td colSpan={columns.length} style={{ textAlign: 'center', padding: '36px 16px', color: 'var(--text-muted)' }}>
                   {emptyMessage}
                 </td>
               </tr>
@@ -134,8 +134,8 @@ export default function DataTable({
       </div>
 
       {totalPages > 1 && (
-        <div style={{ padding: '12px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--slate-200)', background: 'var(--slate-50)', fontSize: '13px' }}>
-          <div style={{ color: 'var(--slate-600)' }}>
+        <div style={{ padding: '12px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--border-default)', background: 'var(--bg-subtle)', fontSize: '13px' }}>
+          <div style={{ color: 'var(--text-secondary)' }}>
             Showing <strong className="num-tabular">{(currentPage - 1) * rowsPerPage + 1}</strong> to <strong className="num-tabular">{Math.min(currentPage * rowsPerPage, sortedData.length)}</strong> of <strong className="num-tabular">{sortedData.length}</strong> records
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -146,7 +146,7 @@ export default function DataTable({
             >
               <ChevronLeft size={14} /> Previous
             </button>
-            <span style={{ fontWeight: 600, color: 'var(--navy-800)', padding: '0 8px' }}>
+            <span style={{ fontWeight: 600, color: 'var(--text-primary)', padding: '0 8px' }}>
               Page {currentPage} of {totalPages}
             </span>
             <button

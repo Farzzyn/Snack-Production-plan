@@ -15,16 +15,16 @@ export default function CapacityBar({
     <div className="capacity-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <TrendingUp size={16} color="var(--primary-600)" />
-          <span style={{ fontWeight: 600, fontSize: '13px', color: 'var(--navy-900)' }}>
+          <TrendingUp size={16} color="var(--brand-500)" />
+          <span style={{ fontWeight: 600, fontSize: '13px', color: 'var(--text-primary)' }}>
             Plant Capacity Utilization
           </span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span className="num-tabular" style={{ fontWeight: 700, fontSize: '15px', color: isExceeded ? 'var(--danger-600)' : 'var(--navy-900)' }}>
+          <span className="num-tabular" style={{ fontWeight: 700, fontSize: '15px', color: isExceeded ? '#ef4444' : 'var(--text-primary)' }}>
             {utilization}%
           </span>
-          <span style={{ fontSize: '12px', color: 'var(--slate-500)' }}>
+          <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
             ({requiredKg.toLocaleString()} / {availableKg.toLocaleString()} KG)
           </span>
         </div>
@@ -52,9 +52,9 @@ export default function CapacityBar({
           </div>
         </div>
       ) : (
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '12px', color: 'var(--slate-500)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px', fontSize: '12px', color: 'var(--text-muted)' }}>
           <span>Assigned: {chefCount} Chef(s)</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--success-600)', fontWeight: 500 }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#4ade80', fontWeight: 500 }}>
             <CheckCircle2 size={13} />
             Within daily production limits
           </span>

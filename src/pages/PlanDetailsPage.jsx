@@ -87,17 +87,17 @@ export default function PlanDetailsPage({
       <div className="card" style={{ padding: '32px 36px' }}>
         
         {/* Document Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid var(--navy-900)', paddingBottom: '20px', marginBottom: '24px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid var(--border-strong)', paddingBottom: '20px', marginBottom: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-            <AppLogo variant="icon" size={48} theme="light" />
+            <AppLogo variant="icon" size={48} theme="dark" />
             <div>
-              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--primary-600)', fontWeight: 700 }}>
+              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--brand-500)', fontWeight: 700 }}>
                 Snack Manufacturing Facility • Production Order Dossier
               </div>
-              <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--navy-900)', marginTop: '4px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, color: 'var(--text-primary)', marginTop: '4px' }}>
                 {plan.plan_number}
               </h1>
-              <div style={{ fontSize: '13px', color: 'var(--slate-500)', marginTop: '2px' }}>
+              <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '2px' }}>
                 Destination Country: <strong>{plan.country_name || 'Export'}</strong> | Customer Order Ref: <strong>{plan.order_number || 'N/A'}</strong>
               </div>
             </div>
@@ -107,42 +107,42 @@ export default function PlanDetailsPage({
             <span className={`badge badge-${(plan.status || '').toLowerCase().replace(' ', '_')}`} style={{ fontSize: '13px', padding: '4px 12px' }}>
               {plan.status}
             </span>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)', marginTop: '6px' }}>
-              Scheduled Date: <strong style={{ color: 'var(--navy-900)' }}>{plan.production_date}</strong>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '6px' }}>
+              Scheduled Date: <strong style={{ color: 'var(--text-primary)' }}>{plan.production_date}</strong>
             </div>
           </div>
         </div>
 
         {/* Product & Order Configuration Section */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', background: 'var(--slate-50)', padding: '18px 20px', borderRadius: 'var(--radius-md)', border: '1px solid var(--slate-200)', marginBottom: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', background: 'var(--bg-subtle)', padding: '18px 20px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)', marginBottom: '24px' }}>
           <div>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--slate-500)', fontWeight: 600 }}>SKU Code</div>
-            <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--navy-900)' }}>{plan.sku_id}</div>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>{plan.sku_name}</div>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>SKU Code</div>
+            <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>{plan.sku_id}</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{plan.sku_name}</div>
           </div>
 
           <div>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--slate-500)', fontWeight: 600 }}>Pack Spec</div>
-            <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--navy-900)' }}>{plan.pack_size_g} Grams</div>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>Base: {plan.base_product}</div>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>Pack Spec</div>
+            <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>{plan.pack_size_g} Grams</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Base: {plan.base_product}</div>
           </div>
 
           <div>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--slate-500)', fontWeight: 600 }}>Order Quantity</div>
-            <div className="num-tabular" style={{ fontSize: '15px', fontWeight: 700, color: 'var(--navy-900)' }}>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>Order Quantity</div>
+            <div className="num-tabular" style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
               {Number(plan.order_quantity_boxes).toLocaleString()} Boxes
             </div>
-            <div className="num-tabular" style={{ fontSize: '12px', color: 'var(--primary-600)', fontWeight: 600 }}>
+            <div className="num-tabular" style={{ fontSize: '12px', color: 'var(--brand-500)', fontWeight: 600 }}>
               {Number(plan.packets_required).toLocaleString()} Packets
             </div>
           </div>
 
           <div>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--slate-500)', fontWeight: 600 }}>Target Net Weight</div>
-            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 800, color: 'var(--navy-900)' }}>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>Target Net Weight</div>
+            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 800, color: 'var(--text-primary)' }}>
               {Number(plan.finished_goods_weight_kg).toLocaleString()} KG
             </div>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               {(Number(plan.finished_goods_weight_kg) / 1000).toFixed(2)} Metric Tons
             </div>
           </div>
@@ -150,54 +150,54 @@ export default function PlanDetailsPage({
 
         {/* Manufacturing Operations & Labor Schedule */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '28px' }}>
-          <div style={{ border: '1px solid var(--slate-200)', borderRadius: 'var(--radius-md)', padding: '14px 16px' }}>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--slate-500)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <ChefHat size={14} color="var(--primary-600)" />
+          <div style={{ border: '1px solid var(--border-default)', background: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', padding: '14px 16px' }}>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <ChefHat size={14} color="var(--brand-500)" />
               Chefs Assigned
             </div>
-            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, marginTop: '4px' }}>
+            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>
               {plan.selected_chef_quantity} Chefs
             </div>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               Capacity: {Number(plan.available_capacity_per_day).toLocaleString()} KG/day
             </div>
           </div>
 
-          <div style={{ border: '1px solid var(--slate-200)', borderRadius: 'var(--radius-md)', padding: '14px 16px' }}>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--slate-500)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Layers size={14} color="var(--primary-600)" />
+          <div style={{ border: '1px solid var(--border-default)', background: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', padding: '14px 16px' }}>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Layers size={14} color="var(--brand-500)" />
               Production Batches
             </div>
-            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, marginTop: '4px' }}>
+            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>
               {plan.production_batches} Batches
             </div>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               Scheduled sequentially
             </div>
           </div>
 
-          <div style={{ border: '1px solid var(--slate-200)', borderRadius: 'var(--radius-md)', padding: '14px 16px' }}>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--slate-500)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Clock size={14} color="var(--primary-600)" />
+          <div style={{ border: '1px solid var(--border-default)', background: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', padding: '14px 16px' }}>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Clock size={14} color="var(--brand-500)" />
               Total Plant Hours
             </div>
-            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, marginTop: '4px' }}>
+            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>
               {plan.production_hours} Hours
             </div>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               Operating time
             </div>
           </div>
 
-          <div style={{ border: '1px solid var(--slate-200)', borderRadius: 'var(--radius-md)', padding: '14px 16px' }}>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--slate-500)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Users size={14} color="var(--primary-600)" />
+          <div style={{ border: '1px solid var(--border-default)', background: 'var(--bg-subtle)', borderRadius: 'var(--radius-md)', padding: '14px 16px' }}>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Users size={14} color="var(--brand-500)" />
               Total Required Crew
             </div>
-            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, marginTop: '4px' }}>
+            <div className="num-tabular" style={{ fontSize: '18px', fontWeight: 700, color: 'var(--text-primary)', marginTop: '4px' }}>
               {plan.required_staff} Staff
             </div>
-            <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
               {plan.selected_chef_quantity} Chefs + {Math.max(0, (plan.required_staff || 0) - (plan.selected_chef_quantity || 0))} Floor crew
             </div>
           </div>
@@ -206,15 +206,15 @@ export default function PlanDetailsPage({
         {/* Raw Material Requirements Snapshot Table */}
         <div style={{ marginBottom: '28px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--navy-900)' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
               1. Raw Material Requirements (Historical BOM Snapshot)
             </h3>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy-900)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>
               Subtotal: ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
 
-          <table className="data-table" style={{ border: '1px solid var(--slate-200)' }}>
+          <table className="data-table" style={{ border: '1px solid var(--border-default)' }}>
             <thead>
               <tr>
                 <th>Raw Material Ingredient</th>
@@ -235,14 +235,14 @@ export default function PlanDetailsPage({
                   <td style={{ textAlign: 'right' }} className="num-tabular">
                     ₹{Number(item.unit_cost || 0).toFixed(2)}
                   </td>
-                  <td style={{ textAlign: 'right', fontWeight: 600 }} className="num-tabular">
+                  <td style={{ textAlign: 'right', fontWeight: 600, color: 'var(--brand-500)' }} className="num-tabular">
                     ₹{Number(item.estimated_cost || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </td>
                 </tr>
               ))}
               {rawMaterials.length === 0 && (
                 <tr>
-                  <td colSpan="5" style={{ textAlign: 'center', padding: '16px', color: 'var(--slate-400)' }}>
+                  <td colSpan="5" style={{ textAlign: 'center', padding: '16px', color: 'var(--text-muted)' }}>
                     No raw materials snapshot recorded for this plan.
                   </td>
                 </tr>
@@ -254,15 +254,15 @@ export default function PlanDetailsPage({
         {/* Packaging Requirements Snapshot Table */}
         <div style={{ marginBottom: '28px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--navy-900)' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
               2. Packaging Material Requirements (Historical BOM Snapshot)
             </h3>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy-900)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>
               Subtotal: ₹{packCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
 
-          <table className="data-table" style={{ border: '1px solid var(--slate-200)' }}>
+          <table className="data-table" style={{ border: '1px solid var(--border-default)' }}>
             <thead>
               <tr>
                 <th>Packaging Material</th>
@@ -283,14 +283,14 @@ export default function PlanDetailsPage({
                   <td style={{ textAlign: 'right' }} className="num-tabular">
                     ₹{Number(item.unit_cost || 0).toFixed(2)}
                   </td>
-                  <td style={{ textAlign: 'right', fontWeight: 600 }} className="num-tabular">
+                  <td style={{ textAlign: 'right', fontWeight: 600, color: 'var(--brand-500)' }} className="num-tabular">
                     ₹{Number(item.estimated_cost || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </td>
                 </tr>
               ))}
               {packaging.length === 0 && (
                 <tr>
-                  <td colSpan="5" style={{ textAlign: 'center', padding: '16px', color: 'var(--slate-400)' }}>
+                  <td colSpan="5" style={{ textAlign: 'center', padding: '16px', color: 'var(--text-muted)' }}>
                     No packaging snapshot recorded for this plan.
                   </td>
                 </tr>
@@ -302,15 +302,15 @@ export default function PlanDetailsPage({
         {/* Crew & Labor Allocation Snapshot Table */}
         <div style={{ marginBottom: '28px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--navy-900)' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
               3. Crew & Staff Labor Allocation (Schedule & Direct Wages)
             </h3>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--navy-900)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>
               Subtotal: ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
 
-          <table className="data-table" style={{ border: '1px solid var(--slate-200)' }}>
+          <table className="data-table" style={{ border: '1px solid var(--border-default)' }}>
             <thead>
               <tr>
                 <th>Labor Role / Crew Category</th>
@@ -337,14 +337,14 @@ export default function PlanDetailsPage({
                   <td style={{ textAlign: 'right' }} className="num-tabular">
                     ₹{Number(item.hourly_rate || 0).toFixed(2)}/hr
                   </td>
-                  <td style={{ textAlign: 'right', fontWeight: 600 }} className="num-tabular">
+                  <td style={{ textAlign: 'right', fontWeight: 600, color: 'var(--brand-500)' }} className="num-tabular">
                     ₹{Number(item.estimated_cost || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </td>
                 </tr>
               ))}
               {staffBreakdown.length === 0 && (
                 <tr>
-                  <td colSpan="6" style={{ textAlign: 'center', padding: '16px', color: 'var(--slate-400)' }}>
+                  <td colSpan="6" style={{ textAlign: 'center', padding: '16px', color: 'var(--text-muted)' }}>
                     Standard crew allocation: {plan.selected_chef_quantity || 1} Chef(s) + {Math.max(0, (plan.required_staff || 1) - (plan.selected_chef_quantity || 1))} Floor Crew ({plan.production_hours || 0} plant hours).
                   </td>
                 </tr>
@@ -355,40 +355,40 @@ export default function PlanDetailsPage({
 
         {/* Notes & Authorizations */}
         {plan.notes && (
-          <div style={{ background: 'var(--slate-50)', padding: '14px 18px', borderRadius: 'var(--radius-md)', border: '1px solid var(--slate-200)', marginBottom: '28px' }}>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--slate-500)', fontWeight: 600 }}>
+          <div style={{ background: 'var(--bg-subtle)', padding: '14px 18px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)', marginBottom: '28px' }}>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>
               Production Notes & Instructions
             </div>
-            <div style={{ fontSize: '13px', color: 'var(--navy-900)', marginTop: '4px' }}>
+            <div style={{ fontSize: '13px', color: 'var(--text-primary)', marginTop: '4px' }}>
               {plan.notes}
             </div>
           </div>
         )}
 
         {/* Total Cost Summary & Signoff Blocks */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', paddingTop: '18px', borderTop: '2px solid var(--slate-300)', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', paddingTop: '18px', borderTop: '2px solid var(--border-strong)', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <div style={{ display: 'flex', gap: '18px', fontSize: '12px', color: 'var(--slate-600)', marginBottom: '6px' }}>
+            <div style={{ display: 'flex', gap: '18px', fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '6px' }}>
               <span>Raw Materials: <strong>₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
               <span>•</span>
               <span>Packaging: <strong>₹{packCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
               <span>•</span>
               <span>Staff Labor: <strong>₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
             </div>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--primary-600)', fontWeight: 700 }}>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--brand-500)', fontWeight: 700 }}>
               Total Estimated Manufacturing Cost (Materials + Crew Labor):
             </div>
-            <div className="num-tabular" style={{ fontSize: '26px', fontWeight: 800, color: 'var(--navy-900)', marginTop: '2px' }}>
+            <div className="num-tabular" style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-primary)', marginTop: '2px' }}>
               ₹{totalProductionCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
           </div>
 
           <div style={{ display: 'flex', gap: '32px' }}>
-            <div style={{ textAlign: 'center', borderTop: '1px solid var(--slate-400)', width: '160px', paddingTop: '6px' }}>
-              <div style={{ fontSize: '11px', color: 'var(--slate-500)' }}>Production Head Signature</div>
+            <div style={{ textAlign: 'center', borderTop: '1px solid var(--border-strong)', width: '160px', paddingTop: '6px' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Production Head Signature</div>
             </div>
-            <div style={{ textAlign: 'center', borderTop: '1px solid var(--slate-400)', width: '160px', paddingTop: '6px' }}>
-              <div style={{ fontSize: '11px', color: 'var(--slate-500)' }}>Quality Lead Signoff</div>
+            <div style={{ textAlign: 'center', borderTop: '1px solid var(--border-strong)', width: '160px', paddingTop: '6px' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Quality Lead Signoff</div>
             </div>
           </div>
         </div>

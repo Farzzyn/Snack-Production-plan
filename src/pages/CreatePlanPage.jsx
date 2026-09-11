@@ -419,7 +419,7 @@ export default function CreatePlanPage({
           {/* BOM Tabbed Breakdown Card */}
           <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
             {/* Header Tabs */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', background: '#fafbfc', padding: '10px 16px', flexWrap: 'wrap', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', background: 'var(--bg-subtle)', padding: '10px 16px', flexWrap: 'wrap', gap: '8px' }}>
               <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                 <button
                   type="button"
@@ -606,17 +606,17 @@ export default function CreatePlanPage({
           <div 
             className="card" 
             style={{ 
-              background: 'linear-gradient(145deg, #090e1a 0%, #111827 100%)', 
+              background: 'linear-gradient(145deg, #09140e 0%, #112419 100%)', 
               color: '#ffffff', 
-              border: '1.5px solid #1e293b',
+              border: '1.5px solid var(--border-default)',
               borderRadius: '16px',
               padding: '24px 28px',
-              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.35)',
+              boxShadow: '0 12px 36px rgba(0, 0, 0, 0.5)',
               marginTop: '20px'
             }}
           >
             {/* Top Primary Row */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid #1e293b' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid var(--border-default)' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -626,7 +626,7 @@ export default function CreatePlanPage({
                     <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#38bdf8', fontWeight: 700 }}>
                       Estimated Manufacturing Cost Total
                     </div>
-                    <div style={{ fontSize: '12px', color: '#94a3b8' }}>
+                    <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                       Commercial production cost (Materials + Crew Labor) for {packets.toLocaleString()} packets ({boxes} boxes)
                     </div>
                   </div>
@@ -636,7 +636,7 @@ export default function CreatePlanPage({
                   <div className="num-tabular" style={{ fontFamily: 'var(--font-heading)', fontSize: '36px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em' }}>
                     ₹{totalCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
-                  <span style={{ fontSize: '12px', color: '#10b981', fontWeight: 700, background: 'rgba(16, 185, 129, 0.15)', padding: '3px 10px', borderRadius: '6px', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+                  <span style={{ fontSize: '12px', color: '#4ade80', fontWeight: 700, background: 'rgba(34, 197, 94, 0.15)', padding: '3px 10px', borderRadius: '6px', border: '1px solid rgba(34, 197, 94, 0.35)' }}>
                     BOM & Crew Verified
                   </span>
                 </div>
@@ -647,7 +647,7 @@ export default function CreatePlanPage({
                   type="button"
                   onClick={() => setIsCostingExpanded(prev => !prev)}
                   className="btn btn-secondary btn-sm"
-                  style={{ background: '#1e293b', color: '#cbd5e1', border: '1px solid #334155', display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 14px' }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 14px' }}
                 >
                   <Sliders size={14} />
                   {isCostingExpanded ? 'Hide Detailed Ledger' : 'Show Detailed Ledger'}
@@ -658,7 +658,7 @@ export default function CreatePlanPage({
                   className="btn btn-primary btn-lg"
                   onClick={handleSave}
                   disabled={isSubmitting || orderBoxes <= 0}
-                  style={{ padding: '12px 28px', background: '#059669', borderColor: '#059669', fontWeight: 700 }}
+                  style={{ padding: '12px 28px', fontWeight: 700 }}
                 >
                   <CheckCircle2 size={18} />
                   {isSubmitting ? 'Scheduling Plan...' : 'Approve & Save Plan'}
@@ -668,9 +668,9 @@ export default function CreatePlanPage({
 
             {/* Visual Distribution Split Bar (3-Pillar) */}
             <div style={{ marginTop: '18px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '8px', color: '#cbd5e1', flexWrap: 'wrap', gap: '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '8px', color: 'var(--text-secondary)', flexWrap: 'wrap', gap: '12px' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: '#10b981', display: 'inline-block' }}></span>
+                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: '#22c55e', display: 'inline-block' }}></span>
                   <strong>Raw Ingredients:</strong> ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })} ({rawPercent}%)
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -683,8 +683,8 @@ export default function CreatePlanPage({
                 </span>
               </div>
 
-              <div style={{ height: '9px', width: '100%', background: '#1e293b', borderRadius: '999px', overflow: 'hidden', display: 'flex' }}>
-                <div style={{ width: `${rawPercent}%`, background: '#10b981', transition: 'width 0.4s ease' }} title={`Raw Materials: ${rawPercent}%`}></div>
+              <div style={{ height: '9px', width: '100%', background: 'rgba(255, 255, 255, 0.1)', borderRadius: '999px', overflow: 'hidden', display: 'flex' }}>
+                <div style={{ width: `${rawPercent}%`, background: '#22c55e', transition: 'width 0.4s ease' }} title={`Raw Materials: ${rawPercent}%`}></div>
                 <div style={{ width: `${pkgPercent}%`, background: '#38bdf8', transition: 'width 0.4s ease' }} title={`Packaging: ${pkgPercent}%`}></div>
                 <div style={{ width: `${staffPercent}%`, background: '#f59e0b', transition: 'width 0.4s ease' }} title={`Staff Labor: ${staffPercent}%`}></div>
               </div>
@@ -694,22 +694,22 @@ export default function CreatePlanPage({
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', marginTop: '20px' }}>
               
               {/* 1. RAW MATERIALS SUB-TOTAL */}
-              <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid #1e293b', borderRadius: '12px', padding: '14px 16px' }}>
-                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#10b981', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div style={{ background: 'rgba(15, 31, 22, 0.75)', border: '1px solid var(--border-default)', borderRadius: '12px', padding: '14px 16px' }}>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#4ade80', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <ChefHat size={14} />
                   Raw Materials Subtotal
                 </div>
                 <div className="num-tabular" style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', marginTop: '6px' }}>
                   ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <span>• ₹{rawCostPerPacket} / packet</span>
                   <span>• ₹{rawCostPerBox} / box</span>
                 </div>
               </div>
 
               {/* 2. PACKAGING MATERIALS SUB-TOTAL */}
-              <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid #1e293b', borderRadius: '12px', padding: '14px 16px' }}>
+              <div style={{ background: 'rgba(15, 31, 22, 0.75)', border: '1px solid var(--border-default)', borderRadius: '12px', padding: '14px 16px' }}>
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#38bdf8', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Package size={14} />
                   Packaging Subtotal
@@ -717,52 +717,52 @@ export default function CreatePlanPage({
                 <div className="num-tabular" style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', marginTop: '6px' }}>
                   ₹{pkgCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <span>• ₹{pkgCostPerPacket} / packet</span>
                   <span>• ₹{pkgCostPerBox} / box</span>
                 </div>
               </div>
 
               {/* 3. STAFF & LABOR SUB-TOTAL */}
-              <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid #1e293b', borderRadius: '12px', padding: '14px 16px' }}>
-                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#f59e0b', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div style={{ background: 'rgba(15, 31, 22, 0.75)', border: '1px solid var(--border-default)', borderRadius: '12px', padding: '14px 16px' }}>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#fbbf24', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Users size={14} />
                   Staff Labor Subtotal
                 </div>
                 <div className="num-tabular" style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', marginTop: '6px' }}>
                   ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <span>• ₹{staffCostPerPacket} / packet</span>
                   <span>• {calculation?.required_staff || 0} crew @ {calculation?.production_hours || 0} hrs</span>
                 </div>
               </div>
 
               {/* 4. TOTAL UNIT ECONOMICS */}
-              <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid #1e293b', borderRadius: '12px', padding: '14px 16px' }}>
-                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#a78bfa', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div style={{ background: 'rgba(15, 31, 22, 0.75)', border: '1px solid var(--border-default)', borderRadius: '12px', padding: '14px 16px' }}>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#c084fc', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Layers size={14} />
                   Finished Unit Economics
                 </div>
                 <div className="num-tabular" style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', marginTop: '6px' }}>
-                  ₹{costPerPacket} <span style={{ fontSize: '12px', fontWeight: 500, color: '#94a3b8' }}>/ packet</span>
+                  ₹{costPerPacket} <span style={{ fontSize: '12px', fontWeight: 500, color: 'var(--text-muted)' }}>/ packet</span>
                 </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <span>• ₹{costPerBox} / box ({selectedSku?.packet_per_box || 0} pkts)</span>
                   <span>• Order: {boxes} boxes ({packets.toLocaleString()} pkts)</span>
                 </div>
               </div>
 
               {/* 5. BULK YIELD COST RATE */}
-              <div style={{ background: 'rgba(15, 23, 42, 0.75)', border: '1px solid #1e293b', borderRadius: '12px', padding: '14px 16px' }}>
-                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#ec4899', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div style={{ background: 'rgba(15, 31, 22, 0.75)', border: '1px solid var(--border-default)', borderRadius: '12px', padding: '14px 16px' }}>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#f472b6', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Weight size={14} />
                   Bulk Yield Cost Rate
                 </div>
                 <div className="num-tabular" style={{ fontSize: '20px', fontWeight: 800, color: '#ffffff', marginTop: '6px' }}>
-                  ₹{costPerKg} <span style={{ fontSize: '12px', fontWeight: 500, color: '#94a3b8' }}>/ KG FG</span>
+                  ₹{costPerKg} <span style={{ fontSize: '12px', fontWeight: 500, color: 'var(--text-muted)' }}>/ KG FG</span>
                 </div>
-                <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                   <span>• Net FG: {fgKg.toFixed(2)} KG</span>
                   <span>• {calculation?.production_batches || 0} Batches @ {calculation?.production_hours || 0} hrs</span>
                 </div>
@@ -772,8 +772,8 @@ export default function CreatePlanPage({
 
             {/* Expanded Itemized Cost Ledger (Toggled) */}
             {isCostingExpanded && (
-              <div style={{ marginTop: '22px', paddingTop: '20px', borderTop: '1px solid #1e293b' }}>
-                <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.07em', color: '#94a3b8', fontWeight: 700, marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ marginTop: '22px', paddingTop: '20px', borderTop: '1px solid var(--border-default)' }}>
+                <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--text-muted)', fontWeight: 700, marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Clock size={14} color="#38bdf8" />
                   Itemized Cost Contribution Ledger
                 </div>
@@ -781,18 +781,18 @@ export default function CreatePlanPage({
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
                   
                   {/* 1. Raw Materials Cost Breakdown */}
-                  <div style={{ background: '#0f172a', borderRadius: '12px', padding: '14px 16px', border: '1px solid #1e293b' }}>
-                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#10b981', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #1e293b', paddingBottom: '6px' }}>
+                  <div style={{ background: '#0a1a11', borderRadius: '12px', padding: '14px 16px', border: '1px solid var(--border-default)' }}>
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#4ade80', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', paddingBottom: '6px' }}>
                       <span>Raw Materials ({calculation?.raw_material_requirements?.length || 0} items)</span>
                       <span>Subtotal: ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                     </div>
                     <div style={{ maxHeight: '200px', overflowY: 'auto', fontSize: '12px' }}>
                       {(calculation?.raw_material_requirements || []).map((item, idx) => (
-                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px 0', borderBottom: '1px solid #1a2234', color: '#cbd5e1' }}>
+                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px 0', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', color: 'var(--text-secondary)' }}>
                           <span style={{ maxWidth: '170px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={item.raw_material}>
                             {item.raw_material}
                           </span>
-                          <span className="num-tabular" style={{ color: '#94a3b8', fontSize: '11px' }}>
+                          <span className="num-tabular" style={{ color: 'var(--text-muted)', fontSize: '11px' }}>
                             {item.quantity} {item.uom} @ ₹{item.unit_cost}
                           </span>
                           <strong className="num-tabular" style={{ color: '#ffffff' }}>
@@ -804,18 +804,18 @@ export default function CreatePlanPage({
                   </div>
 
                   {/* 2. Packaging Materials Cost Breakdown */}
-                  <div style={{ background: '#0f172a', borderRadius: '12px', padding: '14px 16px', border: '1px solid #1e293b' }}>
-                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#38bdf8', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #1e293b', paddingBottom: '6px' }}>
+                  <div style={{ background: '#0a1a11', borderRadius: '12px', padding: '14px 16px', border: '1px solid var(--border-default)' }}>
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#38bdf8', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', paddingBottom: '6px' }}>
                       <span>Packaging Materials ({calculation?.packaging_requirements?.length || 0} items)</span>
                       <span>Subtotal: ₹{pkgCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                     </div>
                     <div style={{ maxHeight: '200px', overflowY: 'auto', fontSize: '12px' }}>
                       {(calculation?.packaging_requirements || []).map((item, idx) => (
-                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px 0', borderBottom: '1px solid #1a2234', color: '#cbd5e1' }}>
+                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px 0', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', color: 'var(--text-secondary)' }}>
                           <span style={{ maxWidth: '170px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={item.packaging_material}>
                             {item.packaging_material}
                           </span>
-                          <span className="num-tabular" style={{ color: '#94a3b8', fontSize: '11px' }}>
+                          <span className="num-tabular" style={{ color: 'var(--text-muted)', fontSize: '11px' }}>
                             {item.quantity} {item.uom} @ ₹{item.unit_cost}
                           </span>
                           <strong className="num-tabular" style={{ color: '#ffffff' }}>
@@ -827,18 +827,18 @@ export default function CreatePlanPage({
                   </div>
 
                   {/* 3. Crew Labor Cost Breakdown */}
-                  <div style={{ background: '#0f172a', borderRadius: '12px', padding: '14px 16px', border: '1px solid #1e293b' }}>
-                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#f59e0b', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #1e293b', paddingBottom: '6px' }}>
+                  <div style={{ background: '#0a1a11', borderRadius: '12px', padding: '14px 16px', border: '1px solid var(--border-default)' }}>
+                    <div style={{ fontSize: '12px', fontWeight: 700, color: '#fbbf24', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', paddingBottom: '6px' }}>
                       <span>Crew & Staff Labor ({calculation?.staff_cost_breakdown?.length || 2} roles)</span>
                       <span>Subtotal: ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                     </div>
                     <div style={{ maxHeight: '200px', overflowY: 'auto', fontSize: '12px' }}>
                       {(calculation?.staff_cost_breakdown || []).map((stf, idx) => (
-                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px 0', borderBottom: '1px solid #1a2234', color: '#cbd5e1' }}>
+                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5px 0', borderBottom: '1px solid rgba(255, 255, 255, 0.06)', color: 'var(--text-secondary)' }}>
                           <span style={{ maxWidth: '170px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={stf.role}>
                             {stf.role}
                           </span>
-                          <span className="num-tabular" style={{ color: '#94a3b8', fontSize: '11px' }}>
+                          <span className="num-tabular" style={{ color: 'var(--text-muted)', fontSize: '11px' }}>
                             {stf.headcount} staff × {stf.hours}h @ ₹{stf.hourly_rate}/h
                           </span>
                           <strong className="num-tabular" style={{ color: '#ffffff' }}>

@@ -351,17 +351,17 @@ export default function RecipeBomPage({
           border: '1.5px solid var(--border-default)', 
           borderRadius: 'var(--radius-lg, 12px)', 
           padding: '20px 24px',
-          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.04)',
-          background: 'var(--bg-card, #ffffff)'
+          boxShadow: 'var(--shadow-card)',
+          background: 'var(--bg-card)'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle, #f1f5f9)', paddingBottom: '14px', marginBottom: '18px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '14px', marginBottom: '18px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'var(--brand-50, #ecfdf5)', color: 'var(--brand-600, #059669)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'var(--brand-50)', color: 'var(--brand-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <ChefHat size={20} />
             </div>
             <div>
-              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700, color: 'var(--brand-600, #059669)' }}>
+              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700, color: 'var(--brand-500)' }}>
                 Recipe BOM Base Product Summary
               </div>
               <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>
@@ -377,9 +377,9 @@ export default function RecipeBomPage({
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
           {/* 1. BASE PRODUCT NAME */}
-          <div style={{ background: 'var(--bg-subtle, #f8fafc)', border: '1.5px solid var(--border-default, #e2e8f0)', borderRadius: '10px', padding: '14px 16px' }}>
+          <div style={{ background: 'var(--bg-subtle)', border: '1px solid var(--border-default)', borderRadius: '10px', padding: '14px 16px' }}>
             <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-muted)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Package size={13} color="var(--brand-600)" />
+              <Package size={13} color="var(--brand-500)" />
               Base Product Name
             </div>
             <div style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-primary)', marginTop: '6px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }} title={activeBaseProduct}>
@@ -391,9 +391,9 @@ export default function RecipeBomPage({
           </div>
 
           {/* 2. TOTAL INGREDIENTS NOS */}
-          <div style={{ background: 'var(--bg-subtle, #f8fafc)', border: '1.5px solid var(--border-default, #e2e8f0)', borderRadius: '10px', padding: '14px 16px' }}>
+          <div style={{ background: 'var(--bg-subtle)', border: '1px solid var(--border-default)', borderRadius: '10px', padding: '14px 16px' }}>
             <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-muted)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Layers size={13} color="var(--brand-600)" />
+              <Layers size={13} color="var(--brand-500)" />
               Total Ingredients Nos
             </div>
             <div className="num-tabular" style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)', marginTop: '4px' }}>
@@ -405,9 +405,9 @@ export default function RecipeBomPage({
           </div>
 
           {/* 3. TOTAL RAW MATERIAL QTY FOR A BATCH */}
-          <div style={{ background: 'var(--bg-subtle, #f8fafc)', border: '1.5px solid var(--border-default, #e2e8f0)', borderRadius: '10px', padding: '14px 16px' }}>
+          <div style={{ background: 'var(--bg-subtle)', border: '1px solid var(--border-default)', borderRadius: '10px', padding: '14px 16px' }}>
             <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-muted)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Scale size={13} color="var(--brand-600)" />
+              <Scale size={13} color="var(--brand-500)" />
               TOTAL RAW MATERIAL QTY FOR A BATCH
             </div>
             <div className="num-tabular" style={{ fontSize: '20px', fontWeight: 800, color: 'var(--text-primary)', marginTop: '4px' }}>
@@ -419,12 +419,12 @@ export default function RecipeBomPage({
           </div>
 
           {/* 4. SUM OF COST UP TO THE BASE PRODUCT */}
-          <div style={{ background: 'var(--bg-subtle, #f8fafc)', border: '1.5px solid var(--border-default, #e2e8f0)', borderRadius: '10px', padding: '14px 16px' }}>
+          <div style={{ background: 'var(--bg-subtle)', border: '1px solid var(--border-default)', borderRadius: '10px', padding: '14px 16px' }}>
             <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-muted)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <IndianRupee size={13} color="var(--brand-600)" />
+              <IndianRupee size={13} color="var(--brand-500)" />
               Sum of Cost Up to Base Product
             </div>
-            <div className="num-tabular" style={{ fontSize: '20px', fontWeight: 800, color: 'var(--brand-700, #047857)', marginTop: '4px' }}>
+            <div className="num-tabular" style={{ fontSize: '20px', fontWeight: 800, color: 'var(--brand-500)', marginTop: '4px' }}>
               ₹{totalBatchCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
             <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '3px' }}>
@@ -503,8 +503,8 @@ export default function RecipeBomPage({
             gridTemplateColumns: '26px minmax(180px, 2.5fr) 90px 90px 105px 75px 32px',
             gap: '8px',
             padding: '6px 12px',
-            background: 'var(--bg-subtle, #f8fafc)',
-            border: '1px solid var(--border-subtle, #e2e8f0)',
+            background: 'var(--bg-subtle)',
+            border: '1px solid var(--border-default)',
             borderRadius: '6px',
             fontSize: '11px',
             fontWeight: 700,
@@ -532,10 +532,10 @@ export default function RecipeBomPage({
                   gridTemplateColumns: '26px minmax(180px, 2.5fr) 90px 90px 105px 75px 32px',
                   gap: '8px',
                   alignItems: 'center',
-                  background: idx % 2 === 0 ? '#ffffff' : '#fcfdfd',
+                  background: idx % 2 === 0 ? 'var(--bg-surface)' : 'var(--bg-subtle)',
                   padding: '6px 12px',
                   borderRadius: '6px',
-                  border: '1px solid var(--border-subtle, #e2e8f0)',
+                  border: '1px solid var(--border-subtle)',
                   marginBottom: '6px'
                 }}
               >
@@ -612,7 +612,7 @@ export default function RecipeBomPage({
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: ingredientRows.length <= 1 ? '#cbd5e1' : '#ef4444',
+                      color: ingredientRows.length <= 1 ? 'rgba(255, 255, 255, 0.2)' : '#ef4444',
                       cursor: ingredientRows.length <= 1 ? 'not-allowed' : 'pointer',
                       padding: '4px',
                       borderRadius: '4px'
@@ -658,8 +658,8 @@ export default function RecipeBomPage({
           <div style={{
             marginTop: '16px',
             padding: '12px 18px',
-            background: 'var(--brand-50, #ecfdf5)',
-            border: '1.5px solid var(--brand-200, #a7f3d0)',
+            background: 'rgba(34, 197, 94, 0.12)',
+            border: '1px solid rgba(34, 197, 94, 0.35)',
             borderRadius: '8px',
             display: 'flex',
             justifyContent: 'space-between',
@@ -671,7 +671,7 @@ export default function RecipeBomPage({
             </div>
             <div style={{ display: 'flex', gap: '18px' }}>
               <span>Total Weight: <strong>{newBatchWeightKg.toFixed(2)} KG</strong></span>
-              <span>Total Cost: <strong style={{ color: 'var(--brand-700, #047857)' }}>₹{newBatchCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong></span>
+              <span>Total Cost: <strong style={{ color: 'var(--brand-500)' }}>₹{newBatchCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong></span>
             </div>
           </div>
         </form>

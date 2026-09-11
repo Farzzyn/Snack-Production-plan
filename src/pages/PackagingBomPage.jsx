@@ -80,7 +80,7 @@ export default function PackagingBomPage({
     {
       header: 'SKU Code',
       key: 'sku_id',
-      render: (val) => <strong style={{ color: 'var(--brand-700, #047857)', fontFamily: 'monospace' }}>{val}</strong>
+      render: (val) => <strong style={{ color: 'var(--brand-500)', fontFamily: 'monospace' }}>{val}</strong>
     },
     {
       header: 'SKU Name',
@@ -102,7 +102,7 @@ export default function PackagingBomPage({
             />
           );
         }
-        return <span style={{ fontWeight: 600, color: 'var(--navy-900)' }}>{val}</span>;
+        return <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{val}</span>;
       }
     },
     {

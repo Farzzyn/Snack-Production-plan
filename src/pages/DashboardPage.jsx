@@ -67,7 +67,7 @@ export default function DashboardPage({
       key: 'plan_number',
       render: (val, row) => (
         <span 
-          style={{ fontWeight: 600, color: 'var(--brand-600)', cursor: 'pointer' }}
+          style={{ fontWeight: 600, color: 'var(--brand-500)', cursor: 'pointer' }}
           onClick={() => onSelectPlan(row)}
         >
           {val}
@@ -116,8 +116,8 @@ export default function DashboardPage({
       numeric: true,
       align: 'center',
       render: (val) => (
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'var(--bg-subtle)', padding: '2px 8px', borderRadius: 'var(--radius-sm)', fontWeight: 600, fontSize: '12px' }}>
-          <ChefHat size={12} color="var(--brand-600)" /> {val}
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'var(--bg-subtle)', padding: '2px 8px', borderRadius: 'var(--radius-sm)', fontWeight: 600, fontSize: '12px', border: '1px solid var(--border-subtle)' }}>
+          <ChefHat size={12} color="var(--brand-500)" /> {val}
         </span>
       )
     },
@@ -222,20 +222,20 @@ export default function DashboardPage({
                     border: isSelected 
                       ? '2px solid var(--brand-500)' 
                       : day.isToday 
-                        ? '1px solid #0284c7' 
+                        ? '1px solid rgba(56, 189, 248, 0.6)' 
                         : '1px solid var(--border-default)',
                     backgroundColor: isSelected 
-                      ? 'var(--brand-50)' 
+                      ? 'rgba(34, 197, 94, 0.2)' 
                       : day.isToday 
-                        ? '#f0f9ff' 
-                        : 'var(--bg-surface)',
+                        ? 'rgba(14, 165, 233, 0.12)' 
+                        : 'var(--bg-subtle)',
                     cursor: 'pointer',
                     textAlign: 'center',
                     transition: 'all 0.15s ease',
                     boxShadow: isSelected ? '0 0 0 3px var(--brand-glow)' : 'none'
                   }}
                 >
-                  <div style={{ fontSize: '10.5px', fontWeight: 600, color: day.isToday ? 'var(--brand-600)' : 'var(--text-muted)' }}>
+                  <div style={{ fontSize: '10.5px', fontWeight: 600, color: day.isToday ? '#38bdf8' : 'var(--text-muted)' }}>
                     {day.dayName}
                   </div>
                   <div style={{ fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)', margin: '2px 0' }}>
@@ -248,8 +248,8 @@ export default function DashboardPage({
                       fontWeight: 700, 
                       padding: '1px 6px',
                       borderRadius: 'var(--radius-full)',
-                      backgroundColor: day.count > 0 ? 'var(--brand-100)' : 'var(--bg-subtle)',
-                      color: day.count > 0 ? 'var(--brand-600)' : 'var(--text-muted)'
+                      backgroundColor: day.count > 0 ? 'rgba(34, 197, 94, 0.25)' : 'rgba(255, 255, 255, 0.06)',
+                      color: day.count > 0 ? '#86efac' : 'var(--text-muted)'
                     }}>
                       {day.count} {day.count === 1 ? 'plan' : 'plans'}
                     </span>
