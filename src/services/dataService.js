@@ -12,8 +12,8 @@ import {
 } from './mockData';
 import { hashPassword } from './authService';
 
-// Local storage keys (v2 with real Google Sheets master data)
-const STORAGE_PREFIX = 'snack_planner_v2_';
+// Local storage keys (v3 with refreshed Google Sheets master data)
+const STORAGE_PREFIX = 'snack_planner_v3_';
 const STORAGE_KEYS = {
   COUNTRIES: `${STORAGE_PREFIX}countries`,
   USERS: `${STORAGE_PREFIX}users`,
@@ -26,6 +26,17 @@ const STORAGE_KEYS = {
   FORCE_MOCK: `${STORAGE_PREFIX}force_mock`,
   CREDENTIALS: `${STORAGE_PREFIX}credentials`
 };
+
+// Automatically purge legacy v1/v2 cache to ensure latest Google Sheet data is always shown
+try {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    Object.keys(localStorage).forEach(k => {
+      if (k.startsWith('snack_planner_') && !k.startsWith(STORAGE_PREFIX)) {
+        localStorage.removeItem(k);
+      }
+    });
+  }
+} catch (_) {}
 
 export const DEFAULT_CREDENTIALS = {
   'admin@snackplanner.com': 'ad89b64d66caa8e30e5d5ce4a9763f4ecc205814c412175f3e2c50027471426d', // Admin@123456
