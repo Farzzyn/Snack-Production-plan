@@ -6,8 +6,8 @@ export const CSV_SCHEMAS = {
   sku: {
     name: 'SKU Master',
     required: ['sku_id', 'sku_name', 'base_product', 'pack_size_g', 'packet_per_box'],
-    types: { pack_size_g: 'number', packet_per_box: 'number' },
-    sample: "sku_id,sku_name,base_product,pack_size_g,packet_per_box\nPERI75,Peri Peri Potato Crisps 75g,Potato Crisps,75,24\nMASALA50,Spicy Masala Sticks 50g,Masala Sticks,50,30"
+    types: { pack_size_g: 'number', packet_per_box: 'number', packing_qty_per_hour: 'number', packing_staff_count: 'number' },
+    sample: "sku_id,sku_name,base_product,pack_size_g,packet_per_box,packing_qty_per_hour,packing_staff_count\nRGHMIX150,RG HOT MIXTURE 150 GM PKT,RG HOT MIXTURE,150,30,214,3\nMASALA50,Spicy Masala Sticks 50g,Masala Sticks,50,30,200,3"
   },
   recipe_bom: {
     name: 'Recipe BOM',

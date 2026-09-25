@@ -2,6 +2,7 @@
  * Real Master Data from Google Sheets
  * Source: https://docs.google.com/spreadsheets/d/1o8n-sYenrBWNsSmBSnkp-cRdIcuXvwXyV8Ap9tPhuMI/
  * Snack Production Planner
+ * Updated: 2026-09-25
  */
 
 export const INITIAL_COUNTRIES = [
@@ -44,7 +45,6 @@ export const INITIAL_USERS = [
   }
 ];
 
-
 export const INITIAL_SKUS = [
   {
     "id": "sku-01",
@@ -53,6 +53,8 @@ export const INITIAL_SKUS = [
     "base_product": "RG HOT MIXTURE",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
@@ -62,6 +64,8 @@ export const INITIAL_SKUS = [
     "base_product": "RG HOT MIXTURE",
     "pack_size_g": 454,
     "packet_per_box": 24,
+    "packing_qty_per_hour": 144,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
@@ -71,15 +75,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG HOT MIXTURE",
     "pack_size_g": 908,
     "packet_per_box": 12,
+    "packing_qty_per_hour": 121,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-04",
     "sku_id": "RGHMIX300",
-    "sku_name": "RG HOT MIXTURE 300 GM PKT",
+    "sku_name": "RG HOT MIXTURE 300 GM BOTTLE",
     "base_product": "RG HOT MIXTURE",
     "pack_size_g": 300,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -89,6 +97,8 @@ export const INITIAL_SKUS = [
     "base_product": "RG KERALA MIXTURE",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
@@ -98,6 +108,8 @@ export const INITIAL_SKUS = [
     "base_product": "RG KERALA MIXTURE",
     "pack_size_g": 454,
     "packet_per_box": 24,
+    "packing_qty_per_hour": 144,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
@@ -107,15 +119,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG KERALA MIXTURE",
     "pack_size_g": 908,
     "packet_per_box": 12,
+    "packing_qty_per_hour": 121,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-08",
     "sku_id": "RGKMIX300",
-    "sku_name": "RG KERALA MIXTURE 300 GM PKT",
+    "sku_name": "RG KERALA MIXTURE 300 GM BOTTLE",
     "base_product": "RG KERALA MIXTURE",
     "pack_size_g": 300,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -125,6 +141,8 @@ export const INITIAL_SKUS = [
     "base_product": "RG BANANA CHIPS",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
@@ -134,6 +152,8 @@ export const INITIAL_SKUS = [
     "base_product": "RG BANANA CHIPS",
     "pack_size_g": 400,
     "packet_per_box": 24,
+    "packing_qty_per_hour": 144,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
@@ -143,15 +163,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG BANANA CHIPS",
     "pack_size_g": 800,
     "packet_per_box": 12,
+    "packing_qty_per_hour": 121,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-12",
     "sku_id": "RGBNC200",
-    "sku_name": "RG BANANA CHIPS 200 GM PKT",
+    "sku_name": "RG BANANA CHIPS 200 GM BOTTLE",
     "base_product": "RG BANANA CHIPS",
     "pack_size_g": 200,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -161,15 +185,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG PALAK MURUKKU",
     "pack_size_g": 454,
     "packet_per_box": 24,
+    "packing_qty_per_hour": 144,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-14",
     "sku_id": "RGPLK250",
-    "sku_name": "RG PALAK MURUKKU 250 GM PKT",
+    "sku_name": "RG PALAK MURUKKU 250 GM BOTTLE",
     "base_product": "RG PALAK MURUKKU",
     "pack_size_g": 250,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -179,6 +207,8 @@ export const INITIAL_SKUS = [
     "base_product": "RG MURUKKU",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
@@ -188,15 +218,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG MURUKKU",
     "pack_size_g": 454,
     "packet_per_box": 24,
+    "packing_qty_per_hour": 144,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-17",
     "sku_id": "RGMUK250",
-    "sku_name": "RG MURUKKU 250 GM PKT",
+    "sku_name": "RG MURUKKU 250 GM BOTTLE",
     "base_product": "RG MURUKKU",
     "pack_size_g": 250,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -206,15 +240,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG BABY MURUKKU",
     "pack_size_g": 454,
     "packet_per_box": 24,
+    "packing_qty_per_hour": 144,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-19",
     "sku_id": "RGBBMUK250",
-    "sku_name": "RG BABY MURUKKU 250 GM PKT",
+    "sku_name": "RG BABY MURUKKU 250 GM BOTTLE",
     "base_product": "RG BABY MURUKKU",
     "pack_size_g": 250,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -224,15 +262,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG CASSAVA CHIPS",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-21",
     "sku_id": "RGCAC125",
-    "sku_name": "RG CASSAVA CHIPS 125 GM PKT",
+    "sku_name": "RG CASSAVA CHIPS 125 GM BOTTLE",
     "base_product": "RG CASSAVA CHIPS",
     "pack_size_g": 125,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -242,15 +284,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG SPICY CASSAVA CHIPS",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-23",
     "sku_id": "RGSCAC125",
-    "sku_name": "RG SPICY CASSAVA CHIPS 125 GM PKT",
+    "sku_name": "RG SPICY CASSAVA CHIPS 125 GM BOTTLE",
     "base_product": "RG SPICY CASSAVA CHIPS",
     "pack_size_g": 125,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -260,15 +306,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG CASSAVA STICK",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-25",
     "sku_id": "RGCAS200",
-    "sku_name": "RG CASSAVA STICK 200 GM PKT",
+    "sku_name": "RG CASSAVA STICK 200 GM BOTTLE",
     "base_product": "RG CASSAVA STICK",
     "pack_size_g": 200,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -278,15 +328,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG SPICY CASSAVA STICK",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-27",
     "sku_id": "RGSCAS200",
-    "sku_name": "RG SPICY CASSAVA STICK 200 GM PKT",
+    "sku_name": "RG SPICY CASSAVA STICK 200 GM BOTTLE",
     "base_product": "RG SPICY CASSAVA STICK",
     "pack_size_g": 200,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -296,15 +350,8 @@ export const INITIAL_SKUS = [
     "base_product": "RG SHARKARAVARATTY",
     "pack_size_g": 200,
     "packet_per_box": 20,
-    "is_active": true
-  },
-  {
-    "id": "sku-28b",
-    "sku_id": "RGSKVTY200B",
-    "sku_name": "RG SHARKARAVARATTY 200 GM BOTTLE",
-    "base_product": "RG SHARKARAVARATTY",
-    "pack_size_g": 200,
-    "packet_per_box": 20,
+    "packing_qty_per_hour": 300,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -314,15 +361,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG RIBBON PAKKAVADA",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-30",
     "sku_id": "RGRPV200",
-    "sku_name": "RG RIBBON PAKKAVADA 200 GM PKT",
+    "sku_name": "RG RIBBON PAKKAVADA 200 GM BOTTLE",
     "base_product": "RG RIBBON PAKKAVADA",
     "pack_size_g": 200,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -332,15 +383,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG SWEET BANANA CHIPS",
     "pack_size_g": 150,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 214,
+    "packing_staff_count": 3,
     "is_active": true
   },
   {
     "id": "sku-32",
     "sku_id": "RGSBNC200",
-    "sku_name": "RG SWEET BANANA CHIPS 200 GM PKT",
+    "sku_name": "RG SWEET BANANA CHIPS 200 BOTTLE",
     "base_product": "RG SWEET BANANA CHIPS",
     "pack_size_g": 200,
     "packet_per_box": 30,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -350,6 +405,8 @@ export const INITIAL_SKUS = [
     "base_product": "RG ANDHRA MURUKKU",
     "pack_size_g": 250,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   },
   {
@@ -359,6 +416,19 @@ export const INITIAL_SKUS = [
     "base_product": "RG MALABAR MIXTURE",
     "pack_size_g": 300,
     "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
+    "is_active": true
+  },
+  {
+    "id": "sku-35",
+    "sku_id": "RGSKVTY200B",
+    "sku_name": "RG SHARKARAVARATTY 200 GM BOTTLE",
+    "base_product": "RG SHARKARAVARATTY",
+    "pack_size_g": 200,
+    "packet_per_box": 20,
+    "packing_qty_per_hour": 250,
+    "packing_staff_count": 4,
     "is_active": true
   }
 ];
@@ -367,38 +437,38 @@ export const INITIAL_CAPACITY = [
   {
     "id": "cap-01",
     "base_product": "RG HOT MIXTURE",
-    "max_capacity_per_day": 266.7,
+    "max_capacity_per_day": 250,
     "uom": "KG",
     "batch_count": 10,
     "operating_hours": 9.15,
     "count_of_chef": 1,
     "count_of_staff": 14,
-    "capacity_per_batch": 26.67,
+    "capacity_per_batch": 25,
     "hours_per_batch": 0.92
   },
   {
     "id": "cap-02",
     "base_product": "RG KERALA MIXTURE",
-    "max_capacity_per_day": 266.7,
+    "max_capacity_per_day": 250,
     "uom": "KG",
     "batch_count": 10,
-    "operating_hours": 10.15,
+    "operating_hours": 9.15,
     "count_of_chef": 1,
     "count_of_staff": 14,
-    "capacity_per_batch": 26.67,
-    "hours_per_batch": 1.02
+    "capacity_per_batch": 25,
+    "hours_per_batch": 0.92
   },
   {
     "id": "cap-03",
     "base_product": "RG BANANA CHIPS",
-    "max_capacity_per_day": 288.2,
+    "max_capacity_per_day": 193,
     "uom": "KG",
-    "batch_count": 8,
-    "operating_hours": 9.15,
+    "batch_count": 25,
+    "operating_hours": 9.45,
     "count_of_chef": 1,
-    "count_of_staff": 14,
-    "capacity_per_batch": 36.02,
-    "hours_per_batch": 1.14
+    "count_of_staff": 11,
+    "capacity_per_batch": 7.72,
+    "hours_per_batch": 0.38
   },
   {
     "id": "cap-04",
@@ -408,21 +478,21 @@ export const INITIAL_CAPACITY = [
     "batch_count": 18,
     "operating_hours": 9.45,
     "count_of_chef": 1,
-    "count_of_staff": 14,
+    "count_of_staff": 12,
     "capacity_per_batch": 12,
     "hours_per_batch": 0.52
   },
   {
     "id": "cap-05",
     "base_product": "RG MURUKKU",
-    "max_capacity_per_day": 285.2,
+    "max_capacity_per_day": 216,
     "uom": "KG",
-    "batch_count": 23,
+    "batch_count": 18,
     "operating_hours": 9.45,
     "count_of_chef": 1,
-    "count_of_staff": 14,
-    "capacity_per_batch": 12.4,
-    "hours_per_batch": 0.41
+    "count_of_staff": 12,
+    "capacity_per_batch": 12,
+    "hours_per_batch": 0.52
   },
   {
     "id": "cap-06",
@@ -432,117 +502,117 @@ export const INITIAL_CAPACITY = [
     "batch_count": 18,
     "operating_hours": 9.45,
     "count_of_chef": 1,
-    "count_of_staff": 14,
+    "count_of_staff": 12,
     "capacity_per_batch": 12,
     "hours_per_batch": 0.52
   },
   {
     "id": "cap-07",
     "base_product": "RG CASSAVA CHIPS",
-    "max_capacity_per_day": 185,
+    "max_capacity_per_day": 183,
     "uom": "KG",
-    "batch_count": 6,
-    "operating_hours": 9.15,
+    "batch_count": 26,
+    "operating_hours": 9,
     "count_of_chef": 1,
     "count_of_staff": 14,
-    "capacity_per_batch": 30.83,
-    "hours_per_batch": 1.53
+    "capacity_per_batch": 7.04,
+    "hours_per_batch": 0.35
   },
   {
     "id": "cap-08",
     "base_product": "RG SPICY CASSAVA CHIPS",
-    "max_capacity_per_day": 185,
+    "max_capacity_per_day": 183,
     "uom": "KG",
-    "batch_count": 6,
-    "operating_hours": 9.15,
+    "batch_count": 26,
+    "operating_hours": 9,
     "count_of_chef": 1,
     "count_of_staff": 14,
-    "capacity_per_batch": 30.83,
-    "hours_per_batch": 1.53
+    "capacity_per_batch": 7.04,
+    "hours_per_batch": 0.35
   },
   {
     "id": "cap-09",
     "base_product": "RG CASSAVA STICK",
-    "max_capacity_per_day": 185,
+    "max_capacity_per_day": 183,
     "uom": "KG",
-    "batch_count": 6,
-    "operating_hours": 9.15,
+    "batch_count": 26,
+    "operating_hours": 9,
     "count_of_chef": 1,
     "count_of_staff": 14,
-    "capacity_per_batch": 30.83,
-    "hours_per_batch": 1.53
+    "capacity_per_batch": 7.04,
+    "hours_per_batch": 0.35
   },
   {
     "id": "cap-10",
     "base_product": "RG SPICY CASSAVA STICK",
-    "max_capacity_per_day": 185,
+    "max_capacity_per_day": 183,
     "uom": "KG",
-    "batch_count": 6,
-    "operating_hours": 9.15,
+    "batch_count": 26,
+    "operating_hours": 9,
     "count_of_chef": 1,
     "count_of_staff": 14,
-    "capacity_per_batch": 30.83,
-    "hours_per_batch": 1.53
+    "capacity_per_batch": 7.04,
+    "hours_per_batch": 0.35
   },
   {
     "id": "cap-11",
     "base_product": "RG SHARKARAVARATTY",
-    "max_capacity_per_day": 471,
+    "max_capacity_per_day": 120,
     "uom": "KG",
-    "batch_count": 21,
-    "operating_hours": 6,
+    "batch_count": 5,
+    "operating_hours": 1,
     "count_of_chef": 1,
-    "count_of_staff": 14,
-    "capacity_per_batch": 22.43,
-    "hours_per_batch": 0.29
+    "count_of_staff": 5,
+    "capacity_per_batch": 24,
+    "hours_per_batch": 0.2
   },
   {
     "id": "cap-12",
     "base_product": "RG RIBBON PAKKAVADA",
-    "max_capacity_per_day": 195,
+    "max_capacity_per_day": 216,
     "uom": "KG",
-    "batch_count": 15,
+    "batch_count": 18,
     "operating_hours": 9.3,
     "count_of_chef": 1,
-    "count_of_staff": 14,
-    "capacity_per_batch": 13,
-    "hours_per_batch": 0.62
+    "count_of_staff": 12,
+    "capacity_per_batch": 12,
+    "hours_per_batch": 0.52
   },
   {
     "id": "cap-13",
     "base_product": "RG SWEET BANANA CHIPS",
     "max_capacity_per_day": 181,
     "uom": "KG",
-    "batch_count": 6,
+    "batch_count": 23,
     "operating_hours": 9.3,
     "count_of_chef": 1,
     "count_of_staff": 14,
-    "capacity_per_batch": 30.17,
-    "hours_per_batch": 1.55
+    "capacity_per_batch": 7.87,
+    "hours_per_batch": 0.4
   },
   {
     "id": "cap-14",
     "base_product": "RG MALABAR MIXTURE",
-    "max_capacity_per_day": 266.7,
+    "max_capacity_per_day": 250,
     "uom": "KG",
     "batch_count": 10,
     "operating_hours": 9.15,
     "count_of_chef": 1,
     "count_of_staff": 14,
-    "capacity_per_batch": 26.67,
+    "capacity_per_batch": 25,
     "hours_per_batch": 0.92
   },
   {
     "id": "cap-15",
     "base_product": "RG ANDHRA MURUKKU",
-    "max_capacity_per_day": 181,
+    "max_capacity_per_day": 216,
     "uom": "KG",
-    "batch_count": 16,
-    "operating_hours": 9.15,
+    "batch_count": 18,
+    "operating_hours": 9.45,
     "count_of_chef": 1,
-    "count_of_staff": 14,
-    "capacity_per_batch": 11.31,
-    "hours_per_batch": 0.57
+    "count_of_staff": 12,
+    "capacity_per_batch": 12,
+    "hours_per_batch": 0.52
   }
 ];
 
@@ -596,7 +666,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-006",
     "base_product": "RG HOT MIXTURE",
     "raw_material": "Kayam powder",
-    "quantity": 112,
+    "quantity": 86,
     "uom": "G",
     "unit_cost": 0.77,
     "wastage_percentage": 1
@@ -605,7 +675,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-007",
     "base_product": "RG HOT MIXTURE",
     "raw_material": "Kadala",
-    "quantity": 2.5,
+    "quantity": 2,
     "uom": "KG",
     "unit_cost": 140,
     "wastage_percentage": 1
@@ -623,7 +693,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-009",
     "base_product": "RG HOT MIXTURE",
     "raw_material": "Pottukadala",
-    "quantity": 2.6,
+    "quantity": 2,
     "uom": "KG",
     "unit_cost": 90,
     "wastage_percentage": 1
@@ -632,7 +702,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-010",
     "base_product": "RG HOT MIXTURE",
     "raw_material": "Kashmiri Chilli",
-    "quantity": 400,
+    "quantity": 380,
     "uom": "G",
     "unit_cost": 0.504,
     "wastage_percentage": 1
@@ -641,7 +711,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-011",
     "base_product": "RG HOT MIXTURE",
     "raw_material": "Chilli powder",
-    "quantity": 400,
+    "quantity": 350,
     "uom": "G",
     "unit_cost": 0.261,
     "wastage_percentage": 1
@@ -666,15 +736,6 @@ export const INITIAL_RECIPE_BOM = [
   },
   {
     "id": "rcp-014",
-    "base_product": "RG HOT MIXTURE",
-    "raw_material": "Pink salt",
-    "quantity": 10,
-    "uom": "G",
-    "unit_cost": 0.05,
-    "wastage_percentage": 1
-  },
-  {
-    "id": "rcp-015",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Kadala mavu",
     "quantity": 9,
@@ -683,7 +744,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-016",
+    "id": "rcp-015",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Rice powder",
     "quantity": 4,
@@ -692,7 +753,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-017",
+    "id": "rcp-016",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Turmeric",
     "quantity": 10,
@@ -701,7 +762,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-018",
+    "id": "rcp-017",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Paal kayam",
     "quantity": 120,
@@ -710,7 +771,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-019",
+    "id": "rcp-018",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Vattal Mulak",
     "quantity": 100,
@@ -719,7 +780,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-020",
+    "id": "rcp-019",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Kayam powder",
     "quantity": 86,
@@ -728,7 +789,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-021",
+    "id": "rcp-020",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Kadala",
     "quantity": 2.5,
@@ -737,7 +798,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-022",
+    "id": "rcp-021",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Garlic",
     "quantity": 300,
@@ -746,7 +807,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-023",
+    "id": "rcp-022",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Curry Leaves",
     "quantity": 500,
@@ -755,7 +816,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-024",
+    "id": "rcp-023",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Pottukadala",
     "quantity": 2.6,
@@ -764,7 +825,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-025",
+    "id": "rcp-024",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Kashmiri Chilli",
     "quantity": 300,
@@ -773,16 +834,16 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-026",
+    "id": "rcp-025",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Chilli powder",
-    "quantity": 430,
+    "quantity": 380,
     "uom": "G",
     "unit_cost": 0.261,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-027",
+    "id": "rcp-026",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Meat Masala",
     "quantity": 270,
@@ -791,34 +852,25 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-028",
+    "id": "rcp-027",
     "base_product": "RG KERALA MIXTURE",
     "raw_material": "Salt",
-    "quantity": 142,
+    "quantity": 260,
     "uom": "G",
     "unit_cost": 0.025,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-029",
-    "base_product": "RG KERALA MIXTURE",
-    "raw_material": "Pink salt",
-    "quantity": 10,
-    "uom": "G",
-    "unit_cost": 0.05,
-    "wastage_percentage": 1
-  },
-  {
-    "id": "rcp-030",
+    "id": "rcp-028",
     "base_product": "RG BANANA CHIPS",
     "raw_material": "Raw banana",
-    "quantity": 1012.7,
+    "quantity": 715.4,
     "uom": "KG",
     "unit_cost": 59,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-031",
+    "id": "rcp-029",
     "base_product": "RG BANANA CHIPS",
     "raw_material": "Turmeric",
     "quantity": 2.95,
@@ -827,7 +879,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-032",
+    "id": "rcp-030",
     "base_product": "RG BANANA CHIPS",
     "raw_material": "Stone salt",
     "quantity": 2.42,
@@ -836,7 +888,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-033",
+    "id": "rcp-031",
     "base_product": "RG PALAK MURUKKU",
     "raw_material": "uzhunnu",
     "quantity": 600,
@@ -845,7 +897,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-034",
+    "id": "rcp-032",
     "base_product": "RG PALAK MURUKKU",
     "raw_material": "Rice powder",
     "quantity": 7,
@@ -854,7 +906,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-035",
+    "id": "rcp-033",
     "base_product": "RG PALAK MURUKKU",
     "raw_material": "Kadala mavu",
     "quantity": 1.8,
@@ -863,12 +915,30 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-036",
+    "id": "rcp-034",
     "base_product": "RG PALAK MURUKKU",
     "raw_material": "chilli powder",
     "quantity": 86,
     "uom": "G",
     "unit_cost": 0.261,
+    "wastage_percentage": 1
+  },
+  {
+    "id": "rcp-035",
+    "base_product": "RG PALAK MURUKKU",
+    "raw_material": "Meast masal",
+    "quantity": 26,
+    "uom": "G",
+    "unit_cost": 0,
+    "wastage_percentage": 1
+  },
+  {
+    "id": "rcp-036",
+    "base_product": "RG PALAK MURUKKU",
+    "raw_material": "Kashmiri Chili",
+    "quantity": 26,
+    "uom": "G",
+    "unit_cost": 0,
     "wastage_percentage": 1
   },
   {
@@ -884,7 +954,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-038",
     "base_product": "RG PALAK MURUKKU",
     "raw_material": "Salt",
-    "quantity": 184,
+    "quantity": 188,
     "uom": "G",
     "unit_cost": 0.025,
     "wastage_percentage": 1
@@ -893,7 +963,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-039",
     "base_product": "RG PALAK MURUKKU",
     "raw_material": "Paal kayam",
-    "quantity": 50,
+    "quantity": 26,
     "uom": "G",
     "unit_cost": 0.6,
     "wastage_percentage": 1
@@ -912,34 +982,34 @@ export const INITIAL_RECIPE_BOM = [
     "base_product": "RG PALAK MURUKKU",
     "raw_material": "Food color (symega color)",
     "quantity": 15,
-    "uom": "G",
+    "uom": "ML",
     "unit_cost": 1.98,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-042",
     "base_product": "RG PALAK MURUKKU",
-    "raw_material": "Food color(tiger apple green)",
-    "quantity": 10,
+    "raw_material": "Karim jeerakam",
+    "quantity": 30,
     "uom": "G",
-    "unit_cost": 1.5,
+    "unit_cost": 0.25,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-043",
     "base_product": "RG PALAK MURUKKU",
-    "raw_material": "Karim jeerakam",
-    "quantity": 35,
+    "raw_material": "Paal kayam",
+    "quantity": 26,
     "uom": "G",
-    "unit_cost": 0.25,
+    "unit_cost": 0.6,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-044",
     "base_product": "RG PALAK MURUKKU",
     "raw_material": "Hot oil",
-    "quantity": 0.7,
-    "uom": "G",
+    "quantity": 700,
+    "uom": "ML",
     "unit_cost": 0.16,
     "wastage_percentage": 1
   },
@@ -947,7 +1017,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-045",
     "base_product": "RG MURUKKU",
     "raw_material": "Uzhunnu",
-    "quantity": 1.3,
+    "quantity": 1.2,
     "uom": "KG",
     "unit_cost": 118,
     "wastage_percentage": 1
@@ -956,7 +1026,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-046",
     "base_product": "RG MURUKKU",
     "raw_material": "Rice powder",
-    "quantity": 7.6,
+    "quantity": 7,
     "uom": "KG",
     "unit_cost": 36,
     "wastage_percentage": 1
@@ -965,7 +1035,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-047",
     "base_product": "RG MURUKKU",
     "raw_material": "Kadala mavu",
-    "quantity": 1.9,
+    "quantity": 1.8,
     "uom": "KG",
     "unit_cost": 89,
     "wastage_percentage": 1
@@ -974,8 +1044,8 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-048",
     "base_product": "RG MURUKKU",
     "raw_material": "Chilli powder",
-    "quantity": 0.09,
-    "uom": "KG",
+    "quantity": 62,
+    "uom": "G",
     "unit_cost": 261,
     "wastage_percentage": 1
   },
@@ -983,16 +1053,16 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-049",
     "base_product": "RG MURUKKU",
     "raw_material": "Kashmiri chilli powder",
-    "quantity": 28,
+    "quantity": 26,
     "uom": "G",
-    "unit_cost": 0.504,
+    "unit_cost": 504,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-050",
     "base_product": "RG MURUKKU",
     "raw_material": "Salt",
-    "quantity": 205,
+    "quantity": 190,
     "uom": "G",
     "unit_cost": 0.025,
     "wastage_percentage": 1
@@ -1001,8 +1071,8 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-051",
     "base_product": "RG MURUKKU",
     "raw_material": "Sesame",
-    "quantity": 0.06,
-    "uom": "KG",
+    "quantity": 60,
+    "uom": "G",
     "unit_cost": 250,
     "wastage_percentage": 1
   },
@@ -1010,7 +1080,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-052",
     "base_product": "RG MURUKKU",
     "raw_material": "Meat masala",
-    "quantity": 28,
+    "quantity": 26,
     "uom": "G",
     "unit_cost": 0.315,
     "wastage_percentage": 1
@@ -1019,8 +1089,8 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-053",
     "base_product": "RG MURUKKU",
     "raw_material": "Cumin",
-    "quantity": 0.06,
-    "uom": "KG",
+    "quantity": 50,
+    "uom": "G",
     "unit_cost": 239,
     "wastage_percentage": 1
   },
@@ -1028,8 +1098,8 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-054",
     "base_product": "RG MURUKKU",
     "raw_material": "Karim jeerakam",
-    "quantity": 0.07,
-    "uom": "KG",
+    "quantity": 60,
+    "uom": "G",
     "unit_cost": 250,
     "wastage_percentage": 1
   },
@@ -1037,8 +1107,8 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-055",
     "base_product": "RG MURUKKU",
     "raw_material": "Hot oil",
-    "quantity": 0.7,
-    "uom": "G",
+    "quantity": 700,
+    "uom": "ML",
     "unit_cost": 0.16,
     "wastage_percentage": 1
   },
@@ -1046,8 +1116,8 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-056",
     "base_product": "RG BABY MURUKKU",
     "raw_material": "uzhunnu",
-    "quantity": 0.8,
-    "uom": "KG",
+    "quantity": 800,
+    "uom": "G",
     "unit_cost": 118,
     "wastage_percentage": 1
   },
@@ -1055,7 +1125,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-057",
     "base_product": "RG BABY MURUKKU",
     "raw_material": "Rice powder",
-    "quantity": 7.6,
+    "quantity": 7,
     "uom": "KG",
     "unit_cost": 36,
     "wastage_percentage": 1
@@ -1064,7 +1134,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-058",
     "base_product": "RG BABY MURUKKU",
     "raw_material": "Kadala mavu",
-    "quantity": 1.9,
+    "quantity": 1.8,
     "uom": "KG",
     "unit_cost": 89,
     "wastage_percentage": 1
@@ -1073,7 +1143,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-059",
     "base_product": "RG BABY MURUKKU",
     "raw_material": "Kashmiri Chilli powder",
-    "quantity": 28,
+    "quantity": 26,
     "uom": "G",
     "unit_cost": 0.504,
     "wastage_percentage": 1
@@ -1081,87 +1151,96 @@ export const INITIAL_RECIPE_BOM = [
   {
     "id": "rcp-060",
     "base_product": "RG BABY MURUKKU",
-    "raw_material": "Karim jeerakam",
-    "quantity": 0.07,
-    "uom": "KG",
-    "unit_cost": 250,
+    "raw_material": "Chilli Powder",
+    "quantity": 62,
+    "uom": "G",
+    "unit_cost": 0,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-061",
     "base_product": "RG BABY MURUKKU",
-    "raw_material": "sesame",
-    "quantity": 0.07,
-    "uom": "KG",
+    "raw_material": "Karim jeerakam",
+    "quantity": 70,
+    "uom": "G",
     "unit_cost": 250,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-062",
     "base_product": "RG BABY MURUKKU",
-    "raw_material": "Meat masala",
-    "quantity": 28,
+    "raw_material": "sesame",
+    "quantity": 60,
     "uom": "G",
-    "unit_cost": 0.315,
+    "unit_cost": 250,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-063",
     "base_product": "RG BABY MURUKKU",
-    "raw_material": "Hot oil",
-    "quantity": 0.7,
+    "raw_material": "Meat masala",
+    "quantity": 26,
     "uom": "G",
-    "unit_cost": 0.16,
+    "unit_cost": 0.315,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-064",
     "base_product": "RG BABY MURUKKU",
-    "raw_material": "Salt",
-    "quantity": 200,
-    "uom": "G",
-    "unit_cost": 0.025,
+    "raw_material": "Hot oil",
+    "quantity": 700,
+    "uom": "ML",
+    "unit_cost": 0.16,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-065",
-    "base_product": "RG CASSAVA CHIPS",
-    "raw_material": "Raw cassava",
-    "quantity": 500,
-    "uom": "KG",
-    "unit_cost": 25,
+    "base_product": "RG BABY MURUKKU",
+    "raw_material": "Salt",
+    "quantity": 188,
+    "uom": "G",
+    "unit_cost": 0.025,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-066",
     "base_product": "RG CASSAVA CHIPS",
-    "raw_material": "Salt Crystal",
-    "quantity": 4,
-    "uom": "G",
-    "unit_cost": 0.023,
-    "wastage_percentage": 1
-  },
-  {
-    "id": "rcp-067",
-    "base_product": "RG SPICY CASSAVA CHIPS",
     "raw_material": "Raw cassava",
     "quantity": 500,
     "uom": "KG",
     "unit_cost": 25,
+    "wastage_percentage": 1
+  },
+  {
+    "id": "rcp-067",
+    "base_product": "RG CASSAVA CHIPS",
+    "raw_material": "Salt Crystal",
+    "quantity": 4,
+    "uom": "G",
+    "unit_cost": 0.023,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-068",
     "base_product": "RG SPICY CASSAVA CHIPS",
-    "raw_material": "Asafoetida",
-    "quantity": 185,
-    "uom": "G",
-    "unit_cost": 0.77,
+    "raw_material": "Raw cassava",
+    "quantity": 500,
+    "uom": "KG",
+    "unit_cost": 25,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-069",
     "base_product": "RG SPICY CASSAVA CHIPS",
+    "raw_material": "Asafoetida",
+    "quantity": 185,
+    "uom": "G",
+    "unit_cost": 0.77,
+    "wastage_percentage": 1
+  },
+  {
+    "id": "rcp-070",
+    "base_product": "RG SPICY CASSAVA CHIPS",
     "raw_material": "Chilly powder",
     "quantity": 2.78,
     "uom": "KG",
@@ -1169,7 +1248,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-070",
+    "id": "rcp-071",
     "base_product": "RG SPICY CASSAVA CHIPS",
     "raw_material": "Kashmiri chilly powder",
     "quantity": 1.85,
@@ -1178,7 +1257,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-071",
+    "id": "rcp-072",
     "base_product": "RG SPICY CASSAVA CHIPS",
     "raw_material": "Salt",
     "quantity": 375,
@@ -1187,7 +1266,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-072",
+    "id": "rcp-073",
     "base_product": "RG SPICY CASSAVA CHIPS",
     "raw_material": "Salt Crystal",
     "quantity": 4,
@@ -1196,7 +1275,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-073",
+    "id": "rcp-074",
     "base_product": "RG CASSAVA STICK",
     "raw_material": "Raw cassava",
     "quantity": 500,
@@ -1205,7 +1284,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-074",
+    "id": "rcp-075",
     "base_product": "RG CASSAVA STICK",
     "raw_material": "Salt Crystal",
     "quantity": 4,
@@ -1214,7 +1293,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-075",
+    "id": "rcp-076",
     "base_product": "RG SPICY CASSAVA STICK",
     "raw_material": "Raw cassava",
     "quantity": 500,
@@ -1223,7 +1302,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-076",
+    "id": "rcp-077",
     "base_product": "RG SPICY CASSAVA STICK",
     "raw_material": "Asafoetida",
     "quantity": 185,
@@ -1232,7 +1311,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-077",
+    "id": "rcp-078",
     "base_product": "RG SPICY CASSAVA STICK",
     "raw_material": "Chilly powder",
     "quantity": 2.78,
@@ -1241,7 +1320,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-078",
+    "id": "rcp-079",
     "base_product": "RG SPICY CASSAVA STICK",
     "raw_material": "Kashmiri chilly powder",
     "quantity": 1.85,
@@ -1250,16 +1329,16 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-079",
+    "id": "rcp-080",
     "base_product": "RG SPICY CASSAVA STICK",
     "raw_material": "Salt",
     "quantity": 375,
-    "uom": "G",
+    "uom": "KG",
     "unit_cost": 0.025,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-080",
+    "id": "rcp-081",
     "base_product": "RG SPICY CASSAVA STICK",
     "raw_material": "Salt Crystal",
     "quantity": 4,
@@ -1268,52 +1347,52 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-081",
+    "id": "rcp-082",
     "base_product": "RG SHARKARAVARATTY",
     "raw_material": "Banana chips",
     "quantity": 12,
     "uom": "KG",
-    "unit_cost": 140,
-    "wastage_percentage": 1
-  },
-  {
-    "id": "rcp-082",
-    "base_product": "RG SHARKARAVARATTY",
-    "raw_material": "Sharkara",
-    "quantity": 10,
-    "uom": "KG",
-    "unit_cost": 53,
+    "unit_cost": 0,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-083",
     "base_product": "RG SHARKARAVARATTY",
-    "raw_material": "Chukkupodi",
-    "quantity": 0.375,
+    "raw_material": "Sharkara",
+    "quantity": 12,
     "uom": "KG",
-    "unit_cost": 600,
+    "unit_cost": 53,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-084",
     "base_product": "RG SHARKARAVARATTY",
-    "raw_material": "Pepper",
-    "quantity": 165,
+    "raw_material": "Chukkupodi",
+    "quantity": 380,
     "uom": "G",
-    "unit_cost": 1,
+    "unit_cost": 600,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-085",
     "base_product": "RG SHARKARAVARATTY",
-    "raw_material": "Cumin",
-    "quantity": 165,
+    "raw_material": "Pepper",
+    "quantity": 164,
     "uom": "G",
-    "unit_cost": 0.239,
+    "unit_cost": 1,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-086",
+    "base_product": "RG SHARKARAVARATTY",
+    "raw_material": "Cumin",
+    "quantity": 190,
+    "uom": "G",
+    "unit_cost": 239,
+    "wastage_percentage": 1
+  },
+  {
+    "id": "rcp-087",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Rice powder",
     "quantity": 5,
@@ -1322,7 +1401,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-087",
+    "id": "rcp-088",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Tapioca powder",
     "quantity": 1,
@@ -1331,7 +1410,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-088",
+    "id": "rcp-089",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Kadala podi",
     "quantity": 3,
@@ -1340,7 +1419,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-089",
+    "id": "rcp-090",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Ayamodhakam",
     "quantity": 50,
@@ -1349,7 +1428,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-090",
+    "id": "rcp-091",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Kashmiri powder",
     "quantity": 200,
@@ -1358,25 +1437,25 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-091",
+    "id": "rcp-092",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Chilli powder",
-    "quantity": 250,
+    "quantity": 220,
     "uom": "G",
     "unit_cost": 0.261,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-092",
+    "id": "rcp-093",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Turmeric",
-    "quantity": 20,
+    "quantity": 30,
     "uom": "G",
     "unit_cost": 0.21,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-093",
+    "id": "rcp-094",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Salt",
     "quantity": 250,
@@ -1385,7 +1464,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-094",
+    "id": "rcp-095",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Pottukadala powder",
     "quantity": 1,
@@ -1394,7 +1473,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-095",
+    "id": "rcp-096",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Paalkayam",
     "quantity": 150,
@@ -1403,16 +1482,16 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-096",
+    "id": "rcp-097",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Hot oil",
-    "quantity": 0.7,
-    "uom": "G",
+    "quantity": 700,
+    "uom": "ML",
     "unit_cost": 0.16,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-097",
+    "id": "rcp-098",
     "base_product": "RG RIBBON PAKKAVADA",
     "raw_material": "Cumin powder",
     "quantity": 50,
@@ -1421,34 +1500,34 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-098",
+    "id": "rcp-099",
     "base_product": "RG SWEET BANANA CHIPS",
     "raw_material": "Sweet banana",
     "quantity": 508,
     "uom": "KG",
-    "unit_cost": 55,
-    "wastage_percentage": 1
-  },
-  {
-    "id": "rcp-099",
-    "base_product": "RG MALABAR MIXTURE",
-    "raw_material": "Kadala mavu",
-    "quantity": 9,
-    "uom": "KG",
-    "unit_cost": 89,
+    "unit_cost": 0,
     "wastage_percentage": 1
   },
   {
     "id": "rcp-100",
     "base_product": "RG MALABAR MIXTURE",
-    "raw_material": "Rice powder",
+    "raw_material": "Kadala mavu",
     "quantity": 4,
+    "uom": "KG",
+    "unit_cost": 89,
+    "wastage_percentage": 1
+  },
+  {
+    "id": "rcp-101",
+    "base_product": "RG MALABAR MIXTURE",
+    "raw_material": "Rice powder",
+    "quantity": 9,
     "uom": "KG",
     "unit_cost": 36,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-101",
+    "id": "rcp-102",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Turmeric",
     "quantity": 10,
@@ -1457,7 +1536,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-102",
+    "id": "rcp-103",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Paal kayam",
     "quantity": 120,
@@ -1466,7 +1545,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-103",
+    "id": "rcp-104",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Vattal Mulak",
     "quantity": 100,
@@ -1475,7 +1554,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-104",
+    "id": "rcp-105",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Kayam powder",
     "quantity": 86,
@@ -1484,7 +1563,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-105",
+    "id": "rcp-106",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Kadala",
     "quantity": 1,
@@ -1493,7 +1572,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-106",
+    "id": "rcp-107",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Garlic",
     "quantity": 300,
@@ -1502,7 +1581,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-107",
+    "id": "rcp-108",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Curry Leaves",
     "quantity": 500,
@@ -1511,7 +1590,7 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-108",
+    "id": "rcp-109",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Pottukadala",
     "quantity": 2.6,
@@ -1520,48 +1599,39 @@ export const INITIAL_RECIPE_BOM = [
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-109",
+    "id": "rcp-110",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Kashmiri Chilli",
-    "quantity": 350,
+    "quantity": 334,
     "uom": "G",
     "unit_cost": 0.504,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-110",
+    "id": "rcp-111",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Chilli powder",
-    "quantity": 480,
+    "quantity": 446,
     "uom": "G",
     "unit_cost": 0.261,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-111",
+    "id": "rcp-112",
     "base_product": "RG MALABAR MIXTURE",
     "raw_material": "Meat Masala",
-    "quantity": 570,
+    "quantity": 370,
     "uom": "G",
     "unit_cost": 0.315,
     "wastage_percentage": 1
   },
   {
-    "id": "rcp-112",
-    "base_product": "RG MALABAR MIXTURE",
-    "raw_material": "Salt",
-    "quantity": 405,
-    "uom": "G",
-    "unit_cost": 0.025,
-    "wastage_percentage": 1
-  },
-  {
     "id": "rcp-113",
     "base_product": "RG MALABAR MIXTURE",
-    "raw_material": "Pink salt",
-    "quantity": 10,
+    "raw_material": "Salt",
+    "quantity": 308,
     "uom": "G",
-    "unit_cost": 0.05,
+    "unit_cost": 0.025,
     "wastage_percentage": 1
   },
   {
@@ -1597,7 +1667,7 @@ export const INITIAL_RECIPE_BOM = [
     "raw_material": "uzhunnu powder",
     "quantity": 800,
     "uom": "G",
-    "unit_cost": 0.158,
+    "unit_cost": 158,
     "wastage_percentage": 1
   },
   {
@@ -1613,7 +1683,7 @@ export const INITIAL_RECIPE_BOM = [
     "id": "rcp-119",
     "base_product": "RG ANDHRA MURUKKU",
     "raw_material": "Chilli powder",
-    "quantity": 200,
+    "quantity": 178,
     "uom": "G",
     "unit_cost": 0.261,
     "wastage_percentage": 1
@@ -1659,7 +1729,7 @@ export const INITIAL_RECIPE_BOM = [
     "base_product": "RG ANDHRA MURUKKU",
     "raw_material": "hot oil",
     "quantity": 700,
-    "uom": "G",
+    "uom": "ML",
     "unit_cost": 0.164,
     "wastage_percentage": 1
   },
@@ -1671,6 +1741,15 @@ export const INITIAL_RECIPE_BOM = [
     "uom": "G",
     "unit_cost": 0.025,
     "wastage_percentage": 1
+  },
+  {
+    "id": "rcp-126",
+    "base_product": "RG ANDHRA MURUKKU",
+    "raw_material": "Food colour",
+    "quantity": 50,
+    "uom": "ML",
+    "unit_cost": 0,
+    "wastage_percentage": 1
   }
 ];
 
@@ -1678,7 +1757,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-001",
     "sku_id": "RGHMIX150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.05,
@@ -1687,7 +1766,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-002",
     "sku_id": "RGHMIX454",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 2.05,
@@ -1696,7 +1775,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-003",
     "sku_id": "RGHMIX908",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 2.48,
@@ -1705,7 +1784,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-004",
     "sku_id": "RGHMIX300",
-    "packaging_material": "PET Bottle 300g with Seal",
+    "packaging_material": "BOTT:PET",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1714,7 +1793,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-005",
     "sku_id": "RGKMIX150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.05,
@@ -1723,7 +1802,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-006",
     "sku_id": "RGKMIX454",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 2.05,
@@ -1732,7 +1811,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-007",
     "sku_id": "RGKMIX908",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 2.44,
@@ -1741,7 +1820,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-008",
     "sku_id": "RGKMIX300",
-    "packaging_material": "PET Bottle 300g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1750,7 +1829,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-009",
     "sku_id": "RGBNC150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.33,
@@ -1759,7 +1838,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-010",
     "sku_id": "RGBNC400",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 2.04,
@@ -1768,7 +1847,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-011",
     "sku_id": "RGBNC800",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 2.92,
@@ -1777,7 +1856,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-012",
     "sku_id": "RGBNC200",
-    "packaging_material": "PET Bottle 200g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1786,7 +1865,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-013",
     "sku_id": "RGPLK454",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 2.04,
@@ -1795,7 +1874,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-014",
     "sku_id": "RGPLK250",
-    "packaging_material": "PET Bottle 250g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1804,7 +1883,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-015",
     "sku_id": "RGMUK150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.03,
@@ -1813,7 +1892,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-016",
     "sku_id": "RGMUK454",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 2.03,
@@ -1822,7 +1901,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-017",
     "sku_id": "RGMUK250",
-    "packaging_material": "PET Bottle 250g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1831,7 +1910,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-018",
     "sku_id": "RGBBMUK454",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 2.06,
@@ -1840,7 +1919,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-019",
     "sku_id": "RGBBMUK250",
-    "packaging_material": "PET Bottle 250g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1849,7 +1928,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-020",
     "sku_id": "RGCAC150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.62,
@@ -1858,7 +1937,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-021",
     "sku_id": "RGCAC125",
-    "packaging_material": "PET Bottle 125g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1867,7 +1946,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-022",
     "sku_id": "RGSCAC150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.62,
@@ -1876,7 +1955,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-023",
     "sku_id": "RGSCAC125",
-    "packaging_material": "PET Bottle 125g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1885,7 +1964,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-024",
     "sku_id": "RGCAS150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.48,
@@ -1894,7 +1973,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-025",
     "sku_id": "RGCAS200",
-    "packaging_material": "PET Bottle 200g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1903,7 +1982,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-026",
     "sku_id": "RGSCAS150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.46,
@@ -1912,7 +1991,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-027",
     "sku_id": "RGSCAS200",
-    "packaging_material": "PET Bottle 200g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1921,7 +2000,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-028",
     "sku_id": "RGSKVTY200",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.46,
@@ -1930,7 +2009,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-029",
     "sku_id": "RGSKVTY200B",
-    "packaging_material": "PET Bottle 200g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 10.54,
@@ -1939,7 +2018,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-030",
     "sku_id": "RGRPV150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.63,
@@ -1948,7 +2027,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-031",
     "sku_id": "RGRPV200",
-    "packaging_material": "PET Bottle 200g with Seal",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1957,7 +2036,7 @@ export const INITIAL_PACKAGING_BOM = [
   {
     "id": "pkg-032",
     "sku_id": "RGSBNC150",
-    "packaging_material": "Printed Pouches: BOPP / PP",
+    "packaging_material": "Pouches : BOP, PP",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 1.34,
@@ -1965,8 +2044,8 @@ export const INITIAL_PACKAGING_BOM = [
   },
   {
     "id": "pkg-033",
-    "sku_id": "RGMMIX300",
-    "packaging_material": "PET Bottle 300g with Seal",
+    "sku_id": "RGSBNC200",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1974,8 +2053,35 @@ export const INITIAL_PACKAGING_BOM = [
   },
   {
     "id": "pkg-034",
+    "sku_id": "RGMMIX300",
+    "packaging_material": "Bottle Label",
+    "quantity": 1,
+    "uom": "PCS",
+    "unit_cost": 3.6,
+    "wastage_percentage": 2
+  },
+  {
+    "id": "pkg-035",
+    "sku_id": "RGMMIX300",
+    "packaging_material": "BOTT",
+    "quantity": 1,
+    "uom": "PCS",
+    "unit_cost": 13.05,
+    "wastage_percentage": 2
+  },
+  {
+    "id": "pkg-036",
     "sku_id": "RGANM250",
-    "packaging_material": "PET Bottle 250g with Seal",
+    "packaging_material": "Bottle Label",
+    "quantity": 1,
+    "uom": "PCS",
+    "unit_cost": 3.6,
+    "wastage_percentage": 2
+  },
+  {
+    "id": "pkg-037",
+    "sku_id": "RGANM250",
+    "packaging_material": "BOTT",
     "quantity": 1,
     "uom": "PCS",
     "unit_cost": 13.05,
@@ -1986,117 +2092,108 @@ export const INITIAL_PACKAGING_BOM = [
 export const INITIAL_STAFF = [
   {
     "id": "stf-01",
-    "staff_name": "RATHEESH",
+    "staff_name": "BIJU",
     "role": "Master Chef",
-    "salary": 36400,
+    "salary": 0,
     "wage_per_day": 1400,
     "is_active": true
   },
   {
     "id": "stf-02",
     "staff_name": "NASEEMA",
-    "role": "Production Floor Staff",
+    "role": "Production Assistant",
     "salary": 10000,
-    "wage_per_day": 400,
+    "wage_per_day": 0,
     "is_active": true
   },
   {
     "id": "stf-03",
     "staff_name": "JYOTHI",
-    "role": "Production Floor Staff",
-    "salary": 10400,
+    "role": "Packaging Specialist",
+    "salary": 0,
     "wage_per_day": 400,
     "is_active": true
   },
   {
     "id": "stf-04",
     "staff_name": "BINDU",
-    "role": "Production Floor Staff",
+    "role": "Senior Operator",
     "salary": 10000,
-    "wage_per_day": 400,
+    "wage_per_day": 0,
     "is_active": true
   },
   {
     "id": "stf-05",
     "staff_name": "BAVINA",
-    "role": "Production Floor Staff",
-    "salary": 10400,
+    "role": "Packaging Specialist",
+    "salary": 0,
     "wage_per_day": 400,
     "is_active": true
   },
   {
     "id": "stf-06",
     "staff_name": "PRAVEENA",
-    "role": "Production Floor Staff",
+    "role": "Senior Operator",
     "salary": 10000,
-    "wage_per_day": 400,
+    "wage_per_day": 0,
     "is_active": true
   },
   {
     "id": "stf-07",
     "staff_name": "SUJINA",
-    "role": "Production Floor Staff",
+    "role": "Production Staff",
     "salary": 10000,
-    "wage_per_day": 400,
+    "wage_per_day": 0,
     "is_active": true
   },
   {
     "id": "stf-08",
     "staff_name": "SHEEJA",
-    "role": "Production Floor Staff",
+    "role": "Production Staff",
     "salary": 10000,
-    "wage_per_day": 400,
+    "wage_per_day": 0,
     "is_active": true
   },
   {
     "id": "stf-09",
     "staff_name": "TEJ BAHADUR",
-    "role": "Senior Chef",
+    "role": "Line Supervisor",
     "salary": 16000,
-    "wage_per_day": 650,
+    "wage_per_day": 0,
     "is_active": true
   },
   {
     "id": "stf-10",
     "staff_name": "SUHARA",
-    "role": "Production Floor Staff",
+    "role": "Production Assistant",
     "salary": 10000,
-    "wage_per_day": 400,
+    "wage_per_day": 0,
     "is_active": true
   },
   {
     "id": "stf-11",
     "staff_name": "NIMITHA",
-    "role": "Production Floor Staff",
+    "role": "Production Staff",
     "salary": 10000,
-    "wage_per_day": 400,
+    "wage_per_day": 0,
     "is_active": true
   },
   {
     "id": "stf-12",
     "staff_name": "VIKASE",
-    "role": "Senior Chef",
+    "role": "Line Supervisor",
     "salary": 16000,
-    "wage_per_day": 650,
+    "wage_per_day": 0,
     "is_active": true
   },
   {
     "id": "stf-13",
-    "staff_name": "UNNI",
-    "role": "Master Chef",
-    "salary": 36400,
-    "wage_per_day": 1400,
-    "is_active": true
-  },
-  {
-    "id": "stf-14",
     "staff_name": "BABY",
-    "role": "Production Floor Staff",
+    "role": "Production Staff",
     "salary": 10000,
-    "wage_per_day": 400,
+    "wage_per_day": 0,
     "is_active": true
   }
 ];
 
 export const INITIAL_PLANS = [];
-

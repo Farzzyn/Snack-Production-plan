@@ -31,6 +31,8 @@ export default function SkuMasterPage({
     base_product: '',
     pack_size_g: 150,
     packet_per_box: 20,
+    packing_qty_per_hour: 200,
+    packing_staff_count: 3,
     is_active: true
   });
 
@@ -53,6 +55,8 @@ export default function SkuMasterPage({
       base_product: availableBaseProducts[0] || 'RG HOT MIXTURE',
       pack_size_g: 150,
       packet_per_box: 20,
+      packing_qty_per_hour: 200,
+      packing_staff_count: 3,
       is_active: true
     });
     setIsAddModalOpen(true);
@@ -73,6 +77,8 @@ export default function SkuMasterPage({
       base_product: availableBaseProducts[0] || 'RG HOT MIXTURE',
       pack_size_g: 150,
       packet_per_box: 20,
+      packing_qty_per_hour: 200,
+      packing_staff_count: 3,
       is_active: true
     });
   };
@@ -177,6 +183,46 @@ export default function SkuMasterPage({
           );
         }
         return <span>{val} pkts</span>;
+      }
+    },
+    {
+      header: 'Packing Qty/Hr',
+      key: 'packing_qty_per_hour',
+      numeric: true,
+      align: 'right',
+      render: (val, row) => {
+        if (editingId === (row.id || row.sku_id)) {
+          return (
+            <input
+              type="number"
+              className="inline-input"
+              style={{ textAlign: 'right' }}
+              value={editForm.packing_qty_per_hour || ''}
+              onChange={e => setEditForm({ ...editForm, packing_qty_per_hour: Number(e.target.value) })}
+            />
+          );
+        }
+        return <span>{val || 0} / hr</span>;
+      }
+    },
+    {
+      header: 'Packing Staff',
+      key: 'packing_staff_count',
+      numeric: true,
+      align: 'right',
+      render: (val, row) => {
+        if (editingId === (row.id || row.sku_id)) {
+          return (
+            <input
+              type="number"
+              className="inline-input"
+              style={{ textAlign: 'right' }}
+              value={editForm.packing_staff_count || ''}
+              onChange={e => setEditForm({ ...editForm, packing_staff_count: Number(e.target.value) })}
+            />
+          );
+        }
+        return <span>{val || 0}</span>;
       }
     },
     {
@@ -326,6 +372,30 @@ export default function SkuMasterPage({
                 value={newSku.packet_per_box}
                 onChange={e => setNewSku({ ...newSku, packet_per_box: Number(e.target.value) })}
                 required
+              />
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div className="form-group">
+              <label className="form-label">Packing Qty / Hour</label>
+              <input
+                type="number"
+                min="0"
+                className="input"
+                value={newSku.packing_qty_per_hour}
+                onChange={e => setNewSku({ ...newSku, packing_qty_per_hour: Number(e.target.value) })}
+              />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Packing Staff Count</label>
+              <input
+                type="number"
+                min="0"
+                className="input"
+                value={newSku.packing_staff_count}
+                onChange={e => setNewSku({ ...newSku, packing_staff_count: Number(e.target.value) })}
               />
             </div>
           </div>

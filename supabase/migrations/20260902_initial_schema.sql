@@ -35,6 +35,8 @@ CREATE TABLE IF NOT EXISTS sku_pack_size_master (
     base_product TEXT NOT NULL,
     pack_size_g NUMERIC NOT NULL CHECK (pack_size_g > 0),
     packet_per_box INTEGER NOT NULL CHECK (packet_per_box > 0),
+    packing_qty_per_hour NUMERIC DEFAULT 0,
+    packing_staff_count INTEGER DEFAULT 0,
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMPTZ DEFAULT now(),
     updated_at TIMESTAMPTZ DEFAULT now()

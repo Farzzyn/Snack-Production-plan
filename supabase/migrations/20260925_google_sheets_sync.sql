@@ -1,28 +1,15 @@
 -- ============================================================================
--- SNACK PRODUCTION PLANNER - SEED DATA (UPDATED FROM GOOGLE SHEETS)
+-- MIGRATION: Update Schema & Sync Data with Google Sheets
+-- Date: 2026-09-25
 -- Source: https://docs.google.com/spreadsheets/d/1o8n-sYenrBWNsSmBSnkp-cRdIcuXvwXyV8Ap9tPhuMI/
--- Safe for repeated runs
 -- ============================================================================
 
--- 1. COUNTRIES
-INSERT INTO countries (country_code, country_name, is_active) VALUES
-('UAE', 'United Arab Emirates', true),
-('SAU', 'Saudi Arabia', true),
-('QAT', 'Qatar', true),
-('OMN', 'Oman', true),
-('IND', 'India', true),
-('KWT', 'Kuwait', true),
-('BHR', 'Bahrain', true)
-ON CONFLICT (country_code) DO NOTHING;
+-- 1. Add new columns to sku_pack_size_master if not existing
+ALTER TABLE sku_pack_size_master 
+ADD COLUMN IF NOT EXISTS packing_qty_per_hour NUMERIC DEFAULT 0,
+ADD COLUMN IF NOT EXISTS packing_staff_count INTEGER DEFAULT 0;
 
--- 2. APP USERS
-INSERT INTO app_users (full_name, email, role, is_active) VALUES
-('David Miller', 'admin@snackplanner.com', 'admin', true),
-('Sarah Jenkins', 'manager@snackplanner.com', 'production_manager', true),
-('Raj Patel', 'viewer@snackplanner.com', 'viewer', true)
-ON CONFLICT (email) DO NOTHING;
-
--- 3. SKU_PACK_SIZE_MASTER (35 SKUs)
+-- 2. Upsert SKU Master Data (35 SKUs)
 INSERT INTO sku_pack_size_master (sku_id, sku_name, base_product, pack_size_g, packet_per_box, packing_qty_per_hour, packing_staff_count, is_active)
 VALUES
 ('RGHMIX150', 'RG HOT MIXTURE 150 GM PKT', 'RG HOT MIXTURE', 150, 30, 214, 3, true),
@@ -66,9 +53,10 @@ ON CONFLICT (sku_id) DO UPDATE SET
   pack_size_g = EXCLUDED.pack_size_g,
   packet_per_box = EXCLUDED.packet_per_box,
   packing_qty_per_hour = EXCLUDED.packing_qty_per_hour,
-  packing_staff_count = EXCLUDED.packing_staff_count;
+  packing_staff_count = EXCLUDED.packing_staff_count,
+  updated_at = now();
 
--- 4. CAPACITY_MASTER (15 Base Product Lines)
+-- 3. Upsert Capacity Master Data (15 Lines)
 INSERT INTO capacity_master (base_product, max_capacity_per_day, uom, batch_count, operating_hours, count_of_chef, count_of_staff, capacity_per_batch, hours_per_batch)
 VALUES
 ('RG HOT MIXTURE', 250, 'KG', 10, 9.15, 1, 14, 25, 0.92),
@@ -94,9 +82,10 @@ ON CONFLICT (base_product) DO UPDATE SET
   count_of_chef = EXCLUDED.count_of_chef,
   count_of_staff = EXCLUDED.count_of_staff,
   capacity_per_batch = EXCLUDED.capacity_per_batch,
-  hours_per_batch = EXCLUDED.hours_per_batch;
+  hours_per_batch = EXCLUDED.hours_per_batch,
+  updated_at = now();
 
--- 5. RECIPE_BOM (126 Ingredients)
+-- 4. Replace Recipe BOM Data (126 Ingredients)
 DELETE FROM recipe_bom;
 INSERT INTO recipe_bom (base_product, raw_material, quantity, uom, unit_cost, wastage_percentage)
 VALUES
@@ -227,7 +216,7 @@ VALUES
 ('RG ANDHRA MURUKKU', 'salt', 196, 'G', 0.025, 1),
 ('RG ANDHRA MURUKKU', 'Food colour', 50, 'ML', 0, 1);
 
--- 6. PACKAGING_BOM (51 Items)
+-- 5. Replace Packaging BOM Data (51 Items)
 DELETE FROM packaging_bom;
 INSERT INTO packaging_bom (sku_id, packaging_material, quantity, uom, unit_cost, wastage_percentage)
 VALUES
@@ -269,7 +258,7 @@ VALUES
 ('RGANM250', 'Bottle Label', 1, 'PCS', 3.6, 2),
 ('RGANM250', 'BOTT', 1, 'PCS', 13.05, 2);
 
--- 7. STAFF_SUMMARY (13 Personnel)
+-- 6. Replace Staff Summary Data (13 Personnel)
 DELETE FROM staff_summary;
 INSERT INTO staff_summary (staff_name, role, salary, wage_per_day, is_active)
 VALUES
