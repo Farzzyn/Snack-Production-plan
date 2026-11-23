@@ -12,11 +12,11 @@ export default function TopNav({
     'create-plan': 'Create Production Plan',
     'production-plans': 'Production Plans Register',
     'plan-details': 'Production Dossier',
-    'sku-master': 'SKU Master',
+    'sku-master': 'SKU & Pack Size Master',
     'recipe-bom': 'Recipe BOM',
     'packaging-bom': 'Packaging BOM',
     'capacity-master': 'Capacity Master',
-    'staff-summary': 'Staff Directory',
+    'staff-summary': 'Staff Summary',
     countries: 'Export Countries',
     'import-data': 'CSV Importer',
     'users-roles': 'Users & Permissions'

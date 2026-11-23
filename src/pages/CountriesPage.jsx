@@ -71,7 +71,7 @@ export default function CountriesPage({
             />
           );
         }
-        return <span style={{ fontWeight: 600, color: 'var(--navy-900)' }}>{val}</span>;
+        return <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{val}</span>;
       }
     },
     {

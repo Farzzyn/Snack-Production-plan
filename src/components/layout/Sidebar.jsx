@@ -30,9 +30,9 @@ export default function Sidebar({ currentRoute, onNavigate, currentUser, pending
     { id: 'countries', label: 'Countries', icon: Globe, desc: 'Export Destinations' },
     { id: 'capacity-master', label: 'Capacity Master', icon: Gauge, desc: 'Line Limits & Speeds' },
     { id: 'recipe-bom', label: 'Recipe BOM', icon: ChefHat, desc: 'Formulas & Batches' },
-    { id: 'sku-master', label: 'Products Master', icon: Package, desc: 'Finished Savouries & SKUs' },
-    { id: 'packaging-bom', label: 'Packaging BOM', icon: Boxes, desc: 'Cartons, Pouches & Film' },
-    { id: 'staff-summary', label: 'Staff Directory', icon: Users, desc: 'Operators & Headcount' },
+    { id: 'sku-master', label: 'SKU & Pack Size Master', icon: Package, desc: 'Finished Savouries & SKUs' },
+    { id: 'packaging-bom', label: 'Packaging BOM', icon: Boxes, desc: 'Packets, Bottles & Pouches' },
+    { id: 'staff-summary', label: 'Staff Summary', icon: Users, desc: 'Payroll & Wage Master' },
     { id: 'import-data', label: 'Import CSV', icon: FileUp, desc: 'Bulk Master Data Ingest', adminOnly: true },
     { id: 'users-roles', label: 'Users & Roles', icon: ShieldCheck, desc: 'Operator Privileges', adminOnly: true }
   ];

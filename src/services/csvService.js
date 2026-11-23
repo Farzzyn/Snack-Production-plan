@@ -4,40 +4,40 @@
 
 export const CSV_SCHEMAS = {
   sku: {
-    name: 'SKU Master',
+    name: 'SKU & Pack Size Master',
     required: ['sku_id', 'sku_name', 'base_product', 'pack_size_g', 'packet_per_box'],
     types: { pack_size_g: 'number', packet_per_box: 'number', packing_qty_per_hour: 'number', packing_staff_count: 'number' },
-    sample: "sku_id,sku_name,base_product,pack_size_g,packet_per_box,packing_qty_per_hour,packing_staff_count\nRGHMIX150,RG HOT MIXTURE 150 GM PKT,RG HOT MIXTURE,150,30,214,3\nMASALA50,Spicy Masala Sticks 50g,Masala Sticks,50,30,200,3"
+    sample: "sku_id,sku_name,base_product,pack_size_g,packet_per_box,packing_qty_per_hour,packing_staff_count\nRGHMIX150,RG HOT MIXTURE 150 GM PKT,RG HOT MIXTURE,150,30,65,2\nRGBNC150,RG BANANA CHIPS 150 GM PKT,RG BANANA CHIPS,150,30,96,3"
   },
   recipe_bom: {
     name: 'Recipe BOM',
     required: ['base_product', 'raw_material', 'quantity', 'uom'],
-    types: { quantity: 'number', unit_cost: 'number', wastage_percentage: 'number' },
-    sample: "base_product,raw_material,quantity,uom,unit_cost,wastage_percentage\nPotato Crisps,Fresh Potatoes,200,KG,0.80,5.0\nPotato Crisps,Cooking Oil,25,LTR,2.10,2.0\nPotato Crisps,Peri Peri Seasoning,4,KG,9.50,1.0"
+    types: { quantity: 'number', cost_per_batch: 'number', unit_cost: 'number' },
+    sample: "base_product,raw_material,quantity,uom,cost_per_batch\nRG HOT MIXTURE,Kadala mavu,9,KG,89\nRG HOT MIXTURE,Rice powder,4,KG,36"
   },
   packaging_bom: {
     name: 'Packaging BOM',
-    required: ['sku_id', 'packaging_material', 'quantity', 'uom'],
-    types: { quantity: 'number', unit_cost: 'number', wastage_percentage: 'number' },
-    sample: "sku_id,packaging_material,quantity,uom,unit_cost,wastage_percentage\nPERI75,Nitrogen Barrier Foil Pouch 75g,1.0,PCS,0.12,3.0\nPERI75,Corrugated Shipper Carton 24ct,0.0417,PCS,0.80,1.0"
+    required: ['sku_id', 'packaging_material', 'quantity', 'unit_cost'],
+    types: { quantity: 'number', unit_cost: 'number' },
+    sample: "sku_id,packaging_material,quantity,unit_cost\nRGHMIX150,packet,1,2.50\nRGHMIX300,Bottle,1,18.70"
   },
   capacity: {
     name: 'Capacity Master',
     required: ['base_product', 'max_capacity_per_day', 'batch_count', 'operating_hours', 'count_of_chef'],
     types: { max_capacity_per_day: 'number', batch_count: 'number', operating_hours: 'number', count_of_chef: 'number', count_of_staff: 'number' },
-    sample: "base_product,max_capacity_per_day,uom,batch_count,operating_hours,count_of_chef,count_of_staff\nPotato Crisps,800,KG,4,8,2,4\nMasala Sticks,600,KG,6,8,2,3"
+    sample: "base_product,max_capacity_per_day,uom,batch_count,operating_hours,count_of_chef,count_of_staff\nRG HOT MIXTURE,225,KG,9,8.05,1,7\nRG BANANA CHIPS,500,KG,25,8.3,1,11"
   },
   staff: {
     name: 'Staff Summary',
-    required: ['staff_name', 'role'],
+    required: ['staff_name'],
     types: { salary: 'number', wage_per_day: 'number' },
-    sample: "staff_name,role,salary,wage_per_day\nRohan Joshi,Head Chef,4000,135\nDeepak Verma,Packaging Tech,2600,90"
+    sample: "staff_name,salary,wage_per_day\nBIJU,,1400\nNASEEMA,10000,\nJYOTHI,,400"
   },
   countries: {
     name: 'Countries',
     required: ['country_code', 'country_name'],
     types: {},
-    sample: "country_code,country_name\nSGP,Singapore\nMYS,Malaysia\nEGY,Egypt"
+    sample: "country_code,country_name\nUAE,United Arab Emirates\nSAU,Saudi Arabia\nIND,India"
   }
 };
 

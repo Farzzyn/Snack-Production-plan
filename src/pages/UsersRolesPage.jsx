@@ -175,7 +175,7 @@ export default function UsersRolesPage({
               {row.avatar || val.substring(0, 2).toUpperCase()}
             </div>
             <div>
-              <div style={{ fontWeight: 600, color: 'var(--navy-900)' }}>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
                 {val}
                 {row.id === currentUser?.id && (
                   <span style={{ fontSize: '10px', marginLeft: '6px', color: 'var(--primary-700)', fontWeight: 700 }}>

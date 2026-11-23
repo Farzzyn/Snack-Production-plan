@@ -106,7 +106,7 @@ export default function ImportDataPage({
       
       {/* Page Header */}
       <div style={{ marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--navy-900)' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-primary)' }}>
           CSV Master Data Importer
         </h2>
         <p style={{ color: 'var(--slate-500)', fontSize: '13px' }}>
@@ -118,7 +118,7 @@ export default function ImportDataPage({
         <div className="alert alert-info" style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <CheckCircle2 size={18} color="var(--success-600)" />
-            <strong style={{ color: 'var(--navy-900)' }}>{importSuccessMessage}</strong>
+            <strong style={{ color: 'var(--text-primary)' }}>{importSuccessMessage}</strong>
           </div>
           <button className="btn btn-secondary btn-sm" onClick={() => setImportSuccessMessage(null)}>
             Dismiss

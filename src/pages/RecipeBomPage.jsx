@@ -163,7 +163,7 @@ export default function RecipeBomPage({
       render: (val) => <strong style={{ color: 'var(--primary-600)' }}>{val}</strong>
     },
     {
-      header: 'Raw Material / Ingredient',
+      header: 'Raw Material',
       key: 'raw_material',
       render: (val, row) => {
         if (editingId === row.id) {
@@ -177,11 +177,11 @@ export default function RecipeBomPage({
             />
           );
         }
-        return <span style={{ fontWeight: 600, color: 'var(--navy-900)' }}>{val}</span>;
+        return <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{val}</span>;
       }
     },
     {
-      header: 'Batch Qty',
+      header: 'Quantity Per Batch',
       key: 'quantity',
       numeric: true,
       align: 'right',
@@ -215,6 +215,7 @@ export default function RecipeBomPage({
               <option value="KG">KG</option>
               <option value="LTR">LTR</option>
               <option value="GM">GM</option>
+              <option value="ML">ML</option>
               <option value="PCS">PCS</option>
             </select>
           );
@@ -223,32 +224,12 @@ export default function RecipeBomPage({
       }
     },
     {
-      header: 'Wastage %',
-      key: 'wastage_percentage',
+      header: 'Cost  Per Batch',
+      key: 'cost_per_batch',
       numeric: true,
       align: 'right',
       render: (val, row) => {
-        if (editingId === row.id) {
-          return (
-            <input
-              type="number"
-              step="0.1"
-              className="inline-input"
-              style={{ textAlign: 'right', width: '70px' }}
-              value={editForm.wastage_percentage}
-              onChange={e => setEditForm({ ...editForm, wastage_percentage: Number(e.target.value) })}
-            />
-          );
-        }
-        return <span>{val || 0}%</span>;
-      }
-    },
-    {
-      header: 'Unit Cost (₹)',
-      key: 'unit_cost',
-      numeric: true,
-      align: 'right',
-      render: (val, row) => {
+        const batchCost = Number(val) || (Number(row.quantity) * Number(row.unit_cost)) || 0;
         if (editingId === row.id) {
           return (
             <input
@@ -256,16 +237,20 @@ export default function RecipeBomPage({
               step="0.01"
               className="inline-input"
               style={{ textAlign: 'right' }}
-              value={editForm.unit_cost}
-              onChange={e => setEditForm({ ...editForm, unit_cost: Number(e.target.value) })}
+              value={editForm.cost_per_batch ?? batchCost}
+              onChange={e => {
+                const c = Number(e.target.value);
+                const q = Number(editForm.quantity) || 1;
+                setEditForm({ ...editForm, cost_per_batch: c, unit_cost: q > 0 ? c / q : c });
+              }}
             />
           );
         }
-        return <span>₹{Number(val || 0).toFixed(2)}</span>;
+        return <strong style={{ color: '#10b981' }}>₹{batchCost.toFixed(2)}</strong>;
       }
     },
     ...(canEdit ? [{
-      header: 'Actions',
+      header: 'ACTIONS',
       align: 'center',
       render: (_, row) => {
         const isEditing = editingId === row.id;
@@ -344,12 +329,12 @@ export default function RecipeBomPage({
       />
 
       {/* Recipe BOM Base Product Summary Section with Visual Border */}
-      <div 
-        className="card" 
-        style={{ 
-          marginTop: '20px', 
-          border: '1.5px solid var(--border-default)', 
-          borderRadius: 'var(--radius-lg, 12px)', 
+      <div
+        className="card"
+        style={{
+          marginTop: '20px',
+          border: '1.5px solid var(--border-default)',
+          borderRadius: 'var(--radius-lg, 12px)',
           padding: '20px 24px',
           boxShadow: 'var(--shadow-card)',
           background: 'var(--bg-card)'
@@ -445,17 +430,17 @@ export default function RecipeBomPage({
             <button type="button" className="btn btn-secondary" onClick={() => setIsAddModalOpen(false)}>
               Cancel
             </button>
-            <button 
-              type="button" 
-              className="btn btn-primary" 
+            <button
+              type="button"
+              className="btn btn-primary"
               onClick={handleAddSubmit}
               disabled={validIngredientCount === 0}
             >
-              {validIngredientCount > 1 
-                ? `Save All ${validIngredientCount} Ingredients` 
-                : validIngredientCount === 1 
-                ? 'Save 1 Ingredient' 
-                : 'Save Ingredients'}
+              {validIngredientCount > 1
+                ? `Save All ${validIngredientCount} Ingredients`
+                : validIngredientCount === 1
+                  ? 'Save 1 Ingredient'
+                  : 'Save Ingredients'}
             </button>
           </>
         }

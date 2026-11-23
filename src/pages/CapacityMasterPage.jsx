@@ -69,6 +69,16 @@ export default function CapacityMasterPage({
 
   const columns = [
     {
+      header: 'SL NO.',
+      key: 'sl_no',
+      align: 'center',
+      render: (val, row, idx) => (
+        <span style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>
+          {val || idx + 1}
+        </span>
+      )
+    },
+    {
       header: 'Base Product',
       key: 'base_product',
       render: (val, row) => {
@@ -83,11 +93,11 @@ export default function CapacityMasterPage({
             />
           );
         }
-        return <strong style={{ color: 'var(--navy-900)' }}>{val}</strong>;
+        return <strong style={{ color: 'var(--text-primary)' }}>{val}</strong>;
       }
     },
     {
-      header: 'Max Daily Cap (KG)',
+      header: 'Capacity/Operating Hours',
       key: 'max_capacity_per_day',
       numeric: true,
       align: 'right',
@@ -103,11 +113,78 @@ export default function CapacityMasterPage({
             />
           );
         }
-        return <strong>{Number(val).toLocaleString()} {row.uom || 'KG'}</strong>;
+        return <strong style={{ color: '#10b981' }}>{Number(val).toLocaleString()}</strong>;
       }
     },
     {
-      header: 'Base Chefs',
+      header: 'UOM',
+      key: 'uom',
+      align: 'center',
+      render: (val, row) => {
+        if (editingId === (row.id || row.base_product)) {
+          return (
+            <input
+              type="text"
+              className="inline-input"
+              style={{ textAlign: 'center', width: '60px' }}
+              value={editForm.uom || 'KG'}
+              onChange={e => setEditForm({ ...editForm, uom: e.target.value })}
+            />
+          );
+        }
+        return <span className="badge badge-draft">{val || 'KG'}</span>;
+      }
+    },
+    {
+      header: 'Batch Count',
+      key: 'batch_count',
+      numeric: true,
+      align: 'center',
+      render: (val, row) => {
+        if (editingId === (row.id || row.base_product)) {
+          return (
+            <input
+              type="number"
+              min="1"
+              className="inline-input"
+              style={{ textAlign: 'center', width: '60px' }}
+              value={editForm.batch_count}
+              onChange={e => setEditForm({ ...editForm, batch_count: Number(e.target.value) })}
+            />
+          );
+        }
+        return <span>{val}</span>;
+      }
+    },
+    {
+      header: 'Operating Hours',
+      key: 'operating_hours',
+      numeric: true,
+      align: 'center',
+      render: (val, row) => {
+        if (editingId === (row.id || row.base_product)) {
+          return (
+            <input
+              type="number"
+              min="1"
+              step="0.05"
+              className="inline-input"
+              style={{ textAlign: 'center', width: '70px' }}
+              value={editForm.operating_hours}
+              onChange={e => setEditForm({ ...editForm, operating_hours: Number(e.target.value) })}
+            />
+          );
+        }
+        return (
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+            <Clock size={12} color="var(--slate-400)" />
+            {val}
+          </span>
+        );
+      }
+    },
+    {
+      header: 'Count Of Chef',
       key: 'count_of_chef',
       numeric: true,
       align: 'center',
@@ -127,76 +204,13 @@ export default function CapacityMasterPage({
         return (
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
             <ChefHat size={13} color="var(--primary-600)" />
-            {val} chefs
+            {val}
           </span>
         );
       }
     },
     {
-      header: 'Cap / Chef',
-      align: 'right',
-      render: (_, row) => {
-        const capPerChef = row.count_of_chef > 0 ? (row.max_capacity_per_day / row.count_of_chef) : 0;
-        return <strong style={{ color: 'var(--primary-600)' }}>{capPerChef.toFixed(0)} KG</strong>;
-      }
-    },
-    {
-      header: 'Daily Batches',
-      key: 'batch_count',
-      numeric: true,
-      align: 'center',
-      render: (val, row) => {
-        if (editingId === (row.id || row.base_product)) {
-          return (
-            <input
-              type="number"
-              min="1"
-              className="inline-input"
-              style={{ textAlign: 'center', width: '60px' }}
-              value={editForm.batch_count}
-              onChange={e => setEditForm({ ...editForm, batch_count: Number(e.target.value) })}
-            />
-          );
-        }
-        return <span>{val} batches</span>;
-      }
-    },
-    {
-      header: 'Cap / Batch',
-      align: 'right',
-      render: (_, row) => {
-        const capPerBatch = row.capacity_per_batch || (row.batch_count > 0 ? (row.max_capacity_per_day / row.batch_count) : 0);
-        return <span>{Number(capPerBatch).toFixed(0)} KG</span>;
-      }
-    },
-    {
-      header: 'Hours / Day',
-      key: 'operating_hours',
-      numeric: true,
-      align: 'center',
-      render: (val, row) => {
-        if (editingId === (row.id || row.base_product)) {
-          return (
-            <input
-              type="number"
-              min="1"
-              className="inline-input"
-              style={{ textAlign: 'center', width: '60px' }}
-              value={editForm.operating_hours}
-              onChange={e => setEditForm({ ...editForm, operating_hours: Number(e.target.value) })}
-            />
-          );
-        }
-        return (
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-            <Clock size={12} color="var(--slate-400)" />
-            {val} hrs
-          </span>
-        );
-      }
-    },
-    {
-      header: 'Support Staff',
+      header: 'Count of Staff',
       key: 'count_of_staff',
       numeric: true,
       align: 'center',
@@ -213,11 +227,11 @@ export default function CapacityMasterPage({
             />
           );
         }
-        return <span>{val} crew</span>;
+        return <span>{val}</span>;
       }
     },
     ...(canEdit ? [{
-      header: 'Actions',
+      header: 'ACTIONS',
       align: 'center',
       render: (_, row) => {
         const isEditing = editingId === (row.id || row.base_product);
@@ -251,8 +265,8 @@ export default function CapacityMasterPage({
   return (
     <div>
       <DataTable
-        title="Manufacturing Capacity & Chef Throughput Master"
-        description="Defines plant production rates, batch sizing, operating hours, and dynamic chef capacity scaling"
+        title="Capacity Master"
+        description="Production line capacities, operating hours, batch counts, and required chefs & staff"
         columns={columns}
         data={capacityList}
         searchable={true}

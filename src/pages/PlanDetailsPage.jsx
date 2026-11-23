@@ -172,7 +172,8 @@ export default function PlanDetailsPage({
               {plan.production_batches} Batches
             </div>
             <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-              Scheduled sequentially
+              {plan.batch_planned_output_kg ? `${plan.batch_planned_output_kg} KG bulk yield` : 'Scheduled sequentially'}
+              {plan.surplus_bulk_weight_kg > 0 ? ` (+${plan.surplus_bulk_weight_kg} KG surplus)` : ''}
             </div>
           </div>
 
@@ -380,6 +381,13 @@ export default function PlanDetailsPage({
             </div>
             <div className="num-tabular" style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-primary)', marginTop: '2px' }}>
               ₹{totalProductionCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+            </div>
+            <div style={{ display: 'flex', gap: '12px', marginTop: '6px', fontSize: '12px', color: 'var(--text-muted)' }}>
+              <span>Cost/Packet: <strong style={{ color: 'var(--text-primary)' }}>₹{Number(plan.packets_required) > 0 ? (totalProductionCost / Number(plan.packets_required)).toFixed(2) : '0.00'}</strong></span>
+              <span>•</span>
+              <span>Cost/Box: <strong style={{ color: 'var(--text-primary)' }}>₹{Number(plan.order_quantity_boxes) > 0 ? (totalProductionCost / Number(plan.order_quantity_boxes)).toFixed(2) : '0.00'}</strong></span>
+              <span>•</span>
+              <span>Cost/Finished KG: <strong style={{ color: 'var(--text-primary)' }}>₹{Number(plan.finished_goods_weight_kg) > 0 ? (totalProductionCost / Number(plan.finished_goods_weight_kg)).toFixed(2) : '0.00'}</strong></span>
             </div>
           </div>
 

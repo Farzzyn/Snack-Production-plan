@@ -85,7 +85,7 @@ export default function SkuMasterPage({
 
   const columns = [
     {
-      header: 'SKU Code',
+      header: 'SKU ID',
       key: 'sku_id',
       render: (val, row) => {
         if (editingId === (row.id || row.sku_id)) {
@@ -98,11 +98,11 @@ export default function SkuMasterPage({
             />
           );
         }
-        return <span style={{ fontWeight: 700, color: 'var(--navy-900)' }}>{val}</span>;
+        return <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{val}</span>;
       }
     },
     {
-      header: 'SKU Description',
+      header: 'SKU NAME',
       key: 'sku_name',
       render: (val, row) => {
         if (editingId === (row.id || row.sku_id)) {
@@ -166,7 +166,7 @@ export default function SkuMasterPage({
       }
     },
     {
-      header: 'Packets / Box',
+      header: 'Packet Per Box',
       key: 'packet_per_box',
       numeric: true,
       align: 'right',
@@ -186,7 +186,7 @@ export default function SkuMasterPage({
       }
     },
     {
-      header: 'Packing Qty/Hr',
+      header: 'Packing Qty / Hour',
       key: 'packing_qty_per_hour',
       numeric: true,
       align: 'right',
@@ -206,7 +206,7 @@ export default function SkuMasterPage({
       }
     },
     {
-      header: 'Packing Staff',
+      header: 'Packing SaffCount',
       key: 'packing_staff_count',
       numeric: true,
       align: 'right',

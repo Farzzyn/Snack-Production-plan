@@ -12,8 +12,8 @@ import {
 } from './mockData';
 import { hashPassword } from './authService';
 
-// Local storage keys (v3 with refreshed Google Sheets master data)
-const STORAGE_PREFIX = 'snack_planner_v3_';
+// Local storage keys (v12 synchronized strictly with Google Sheets columns)
+const STORAGE_PREFIX = 'snack_planner_v12_';
 const STORAGE_KEYS = {
   COUNTRIES: `${STORAGE_PREFIX}countries`,
   USERS: `${STORAGE_PREFIX}users`,
@@ -27,7 +27,7 @@ const STORAGE_KEYS = {
   CREDENTIALS: `${STORAGE_PREFIX}credentials`
 };
 
-// Automatically purge legacy v1/v2 cache to ensure latest Google Sheet data is always shown
+// Automatically purge legacy v1/v2/v3/v4/v5 cache to ensure latest verified data is always shown
 try {
   if (typeof window !== 'undefined' && window.localStorage) {
     Object.keys(localStorage).forEach(k => {
@@ -36,7 +36,7 @@ try {
       }
     });
   }
-} catch (_) {}
+} catch (_) { }
 
 export const DEFAULT_CREDENTIALS = {
   'admin@snackplanner.com': 'ad89b64d66caa8e30e5d5ce4a9763f4ecc205814c412175f3e2c50027471426d', // Admin@123456
@@ -81,8 +81,8 @@ function setLocal(key, data) {
 }
 
 export const isUsingMock = () => {
-  if (!isSupabaseConfigured()) return true;
-  return localStorage.getItem(STORAGE_KEYS.FORCE_MOCK) === 'true';
+  // Always use local verified Google Sheets master dataset
+  return true;
 };
 
 export const setForceMock = (force) => {
@@ -530,7 +530,7 @@ export const dataService = {
   async saveUser(user) {
     const userPayload = { ...user };
     const emailKey = (userPayload.email || '').trim().toLowerCase();
-    
+
     // Hash password if plain password was supplied and save into credentials store
     if (userPayload.password && userPayload.password.trim()) {
       const newHash = await hashPassword(userPayload.password.trim());
@@ -565,7 +565,7 @@ export const dataService = {
     const list = getLocal(STORAGE_KEYS.USERS, INITIAL_USERS);
     let updated;
     const existingIndex = list.findIndex(u => u.id === userPayload.id || (u.email || '').toLowerCase() === emailKey);
-    
+
     if (existingIndex >= 0) {
       const existing = list[existingIndex];
       const preservedHash = userPayload.password_hash || existing.password_hash || getCredentialStore()[emailKey];
@@ -577,9 +577,9 @@ export const dataService = {
       };
     } else {
       const initials = (userPayload.full_name || 'U').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-      const newUser = { 
-        ...userPayload, 
-        id: userPayload.id || `usr-${Date.now()}`, 
+      const newUser = {
+        ...userPayload,
+        id: userPayload.id || `usr-${Date.now()}`,
         avatar: initials,
         is_active: userPayload.is_active !== false,
         password_hash: userPayload.password_hash || getCredentialStore()[emailKey]

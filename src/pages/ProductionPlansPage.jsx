@@ -84,7 +84,7 @@ export default function ProductionPlansPage({
       key: 'sku_name',
       render: (val, row) => (
         <div>
-          <div style={{ fontWeight: 600, color: 'var(--navy-900)' }}>{row.sku_id}</div>
+          <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{row.sku_id}</div>
           <div style={{ fontSize: '11px', color: 'var(--slate-500)' }}>{val} ({row.pack_size_g}g)</div>
         </div>
       )

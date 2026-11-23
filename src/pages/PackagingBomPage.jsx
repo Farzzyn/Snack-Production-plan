@@ -16,11 +16,9 @@ export default function PackagingBomPage({
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [newItem, setNewItem] = useState({
     sku_id: skus[0]?.sku_id || 'RGHMIX150',
-    packaging_material: '',
+    packaging_material: 'packet',
     quantity: 1.0,
-    uom: 'PCS',
-    unit_cost: 0.12,
-    wastage_percentage: 3.0
+    unit_cost: 2.5
   });
 
   const canEdit = currentUser?.role === 'admin';
@@ -78,14 +76,16 @@ export default function PackagingBomPage({
 
   const columns = [
     {
-      header: 'SKU Code',
+      header: 'SKU ID',
       key: 'sku_id',
-      render: (val) => <strong style={{ color: 'var(--brand-500)', fontFamily: 'monospace' }}>{val}</strong>
-    },
-    {
-      header: 'SKU Name',
-      key: 'sku_name',
-      render: (val) => <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{val || '—'}</span>
+      render: (val, row) => (
+        <div>
+          <strong style={{ color: 'var(--brand-500)', fontFamily: 'monospace' }}>{val}</strong>
+          {row.sku_name && (
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{row.sku_name}</div>
+          )}
+        </div>
+      )
     },
     {
       header: 'Packaging Material',
@@ -106,7 +106,7 @@ export default function PackagingBomPage({
       }
     },
     {
-      header: 'Usage Ratio / Qty',
+      header: 'Quantity',
       key: 'quantity',
       numeric: true,
       align: 'right',
@@ -127,50 +127,7 @@ export default function PackagingBomPage({
       }
     },
     {
-      header: 'UOM',
-      key: 'uom',
-      render: (val, row) => {
-        if (editingId === row.id) {
-          return (
-            <select
-              className="select"
-              style={{ width: '80px', padding: '4px 8px' }}
-              value={editForm.uom || 'PCS'}
-              onChange={e => setEditForm({ ...editForm, uom: e.target.value })}
-            >
-              <option value="PCS">PCS</option>
-              <option value="ROLL">ROLL</option>
-              <option value="BOX">BOX</option>
-              <option value="MTR">MTR</option>
-            </select>
-          );
-        }
-        return <span className="badge badge-draft">{val}</span>;
-      }
-    },
-    {
-      header: 'Wastage %',
-      key: 'wastage_percentage',
-      numeric: true,
-      align: 'right',
-      render: (val, row) => {
-        if (editingId === row.id) {
-          return (
-            <input
-              type="number"
-              step="0.1"
-              className="inline-input"
-              style={{ textAlign: 'right', width: '70px' }}
-              value={editForm.wastage_percentage}
-              onChange={e => setEditForm({ ...editForm, wastage_percentage: Number(e.target.value) })}
-            />
-          );
-        }
-        return <span>{val || 0}%</span>;
-      }
-    },
-    {
-      header: 'Unit Cost (₹)',
+      header: 'Unit Cost',
       key: 'unit_cost',
       numeric: true,
       align: 'right',
@@ -187,11 +144,11 @@ export default function PackagingBomPage({
             />
           );
         }
-        return <span>₹{Number(val || 0).toFixed(2)}</span>;
+        return <strong style={{ color: '#10b981' }}>₹{Number(val || 0).toFixed(2)}</strong>;
       }
     },
     ...(canEdit ? [{
-      header: 'Actions',
+      header: 'ACTIONS',
       align: 'center',
       render: (_, row) => {
         const isEditing = editingId === row.id;
@@ -256,19 +213,19 @@ export default function PackagingBomPage({
       </div>
 
       <DataTable
-        title="Packaging Bill of Materials (BOM)"
-        description="Foil pouches, outer shipper boxes, tamper-evident labels, and sealing tape definitions"
+        title="Packaging BOM"
+        description="Packaging materials, quantities, and unit costs matching Google Sheet"
         columns={columns}
         data={enrichedBom}
         searchable={true}
-        searchPlaceholder="Filter by SKU code, SKU name, or packaging materials..."
+        searchPlaceholder="Filter by SKU ID, packaging material..."
       />
 
       {/* Add Modal */}
       <Modal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
-        title="Add Packaging Material to SKU BOM"
+        title="Add Packaging Material"
         footer={
           <>
             <button className="btn btn-secondary" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
@@ -278,7 +235,7 @@ export default function PackagingBomPage({
       >
         <form onSubmit={handleAddSubmit}>
           <div className="form-group">
-            <label className="form-label">SKU Assignment *</label>
+            <label className="form-label">SKU ID *</label>
             <select
               className="select"
               value={newItem.sku_id}
@@ -292,11 +249,11 @@ export default function PackagingBomPage({
           </div>
 
           <div className="form-group">
-            <label className="form-label">Packaging Material Name *</label>
+            <label className="form-label">Packaging Material *</label>
             <input
               type="text"
               className="input"
-              placeholder="E.g., Metallized Barrier Pouch 150g, Corrugated Shipper Carton"
+              placeholder="E.g., packet, Bottle"
               value={newItem.packaging_material}
               onChange={e => setNewItem({ ...newItem, packaging_material: e.target.value })}
               required
@@ -305,54 +262,27 @@ export default function PackagingBomPage({
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div className="form-group">
-              <label className="form-label">Usage Ratio (Qty per packet/box) *</label>
+              <label className="form-label">Quantity</label>
               <input
                 type="number"
                 step="0.001"
                 className="input"
+                placeholder="1"
                 value={newItem.quantity}
                 onChange={e => setNewItem({ ...newItem, quantity: Number(e.target.value) })}
-                required
               />
-              <div className="form-hint">1 for pouch/sachet, 0.05 for 20-pack carton</div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Unit of Measure (UOM) *</label>
-              <select
-                className="select"
-                value={newItem.uom}
-                onChange={e => setNewItem({ ...newItem, uom: e.target.value })}
-              >
-                <option value="PCS">PCS</option>
-                <option value="ROLL">ROLL</option>
-                <option value="BOX">BOX</option>
-                <option value="MTR">MTR</option>
-              </select>
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div className="form-group">
               <label className="form-label">Unit Cost (₹) *</label>
               <input
                 type="number"
                 step="0.01"
                 className="input"
+                placeholder="2.50"
                 value={newItem.unit_cost}
                 onChange={e => setNewItem({ ...newItem, unit_cost: Number(e.target.value) })}
                 required
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Packaging Wastage %</label>
-              <input
-                type="number"
-                step="0.1"
-                className="input"
-                value={newItem.wastage_percentage}
-                onChange={e => setNewItem({ ...newItem, wastage_percentage: Number(e.target.value) })}
               />
             </div>
           </div>

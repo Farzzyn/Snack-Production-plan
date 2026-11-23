@@ -50,7 +50,13 @@ async function syncAll() {
 
   try {
     // 1. Sync SKUs
-    console.log(`\n📦 Upserting ${skus.length} SKUs...`);
+    console.log(`\n📦 Syncing ${skus.length} Active SKUs...`);
+    // Delete obsolete packaging first to avoid FK block
+    await supabase.from('packaging_bom').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+    // Deactivate/delete any SKU not in active list
+    const activeSkuIds = skus.map(s => s.sku_id);
+    await supabase.from('sku_pack_size_master').delete().not('sku_id', 'in', `(${activeSkuIds.map(id => `'${id}'`).join(',')})`);
+
     const skuPayload = skus.map(s => ({
       sku_id: s.sku_id,
       sku_name: s.sku_name,
@@ -116,8 +122,8 @@ async function syncAll() {
     console.log(`\n👥 Upserting ${staff.length} Staff members...`);
     await supabase.from('staff_summary').delete().neq('id', '00000000-0000-0000-0000-000000000000');
     const stfPayload = staff.map(s => ({
+      sl_no: s.sl_no,
       staff_name: s.staff_name,
-      role: s.role,
       salary: s.salary,
       wage_per_day: s.wage_per_day,
       is_active: true
