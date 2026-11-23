@@ -39,11 +39,22 @@ export default function PlanDetailsPage({
   const packaging = plan.packaging || plan.packaging_snapshots || [];
   const staffBreakdown = plan.staff_cost_breakdown || [];
 
+  const includeRaw = plan.include_raw_materials !== false;
+  const includePackaging = plan.include_packaging !== false;
+  const includeStaff = plan.include_staff_labor !== false;
+
   const rawCost = Number(plan.estimated_raw_material_cost) || rawMaterials.reduce((s, i) => s + (Number(i.estimated_cost) || 0), 0);
   const packCost = Number(plan.estimated_packaging_cost) || packaging.reduce((s, i) => s + (Number(i.estimated_cost) || 0), 0);
   const staffCost = Number(plan.estimated_staff_cost) || staffBreakdown.reduce((s, i) => s + (Number(i.estimated_cost) || 0), 0);
-  const totalProductionCost = Number(plan.total_production_cost) || (rawCost + packCost + staffCost);
-  const totalMaterialCost = Number(plan.total_material_cost) || (rawCost + packCost);
+
+  const effectiveRawCost = includeRaw ? rawCost : 0;
+  const effectivePackCost = includePackaging ? packCost : 0;
+  const effectiveStaffCost = includeStaff ? staffCost : 0;
+
+  const totalProductionCost = plan.total_production_cost != null
+    ? Number(plan.total_production_cost)
+    : (effectiveRawCost + effectivePackCost + effectiveStaffCost);
+  const totalMaterialCost = Number(plan.total_material_cost) || (effectiveRawCost + effectivePackCost);
 
   const canEdit = currentUser?.role !== 'viewer';
 
@@ -207,10 +218,15 @@ export default function PlanDetailsPage({
         {/* Raw Material Requirements Snapshot Table */}
         <div style={{ marginBottom: '28px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
               1. Raw Material Requirements (Historical BOM Snapshot)
+              {!includeRaw && (
+                <span className="badge" style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)', fontSize: '11px' }}>
+                  Excluded from Total
+                </span>
+              )}
             </h3>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: includeRaw ? 'var(--text-primary)' : '#94a3b8', textDecoration: includeRaw ? 'none' : 'line-through' }}>
               Subtotal: ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
@@ -255,10 +271,15 @@ export default function PlanDetailsPage({
         {/* Packaging Requirements Snapshot Table */}
         <div style={{ marginBottom: '28px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
               2. Packaging Material Requirements (Historical BOM Snapshot)
+              {!includePackaging && (
+                <span className="badge" style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)', fontSize: '11px' }}>
+                  Excluded from Total
+                </span>
+              )}
             </h3>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: includePackaging ? 'var(--text-primary)' : '#94a3b8', textDecoration: includePackaging ? 'none' : 'line-through' }}>
               Subtotal: ₹{packCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
@@ -303,10 +324,15 @@ export default function PlanDetailsPage({
         {/* Crew & Labor Allocation Snapshot Table */}
         <div style={{ marginBottom: '28px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
               3. Crew & Staff Labor Allocation (Schedule & Direct Wages)
+              {!includeStaff && (
+                <span className="badge" style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)', fontSize: '11px' }}>
+                  Excluded from Total
+                </span>
+              )}
             </h3>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-primary)' }}>
+            <span style={{ fontSize: '13px', fontWeight: 700, color: includeStaff ? 'var(--text-primary)' : '#94a3b8', textDecoration: includeStaff ? 'none' : 'line-through' }}>
               Subtotal: ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
@@ -369,15 +395,28 @@ export default function PlanDetailsPage({
         {/* Total Cost Summary & Signoff Blocks */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', paddingTop: '18px', borderTop: '2px solid var(--border-strong)', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <div style={{ display: 'flex', gap: '18px', fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-              <span>Raw Materials: <strong>₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
+            <div style={{ display: 'flex', gap: '18px', fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '6px', flexWrap: 'wrap' }}>
+              <span style={{ opacity: includeRaw ? 1 : 0.5, textDecoration: includeRaw ? 'none' : 'line-through' }}>
+                Raw Materials: <strong>₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong>
+                {!includeRaw && ' (Excluded)'}
+              </span>
               <span>•</span>
-              <span>Packaging: <strong>₹{packCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
+              <span style={{ opacity: includePackaging ? 1 : 0.5, textDecoration: includePackaging ? 'none' : 'line-through' }}>
+                Packaging: <strong>₹{packCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong>
+                {!includePackaging && ' (Excluded)'}
+              </span>
               <span>•</span>
-              <span>Staff Labor: <strong>₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong></span>
+              <span style={{ opacity: includeStaff ? 1 : 0.5, textDecoration: includeStaff ? 'none' : 'line-through' }}>
+                Staff Labor: <strong>₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</strong>
+                {!includeStaff && ' (Excluded)'}
+              </span>
             </div>
             <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--brand-500)', fontWeight: 700 }}>
-              Total Estimated Manufacturing Cost (Materials + Crew Labor):
+              Total Effective Manufacturing Cost ({[
+                includeRaw && 'Raw Materials',
+                includePackaging && 'Packaging',
+                includeStaff && 'Crew Labor'
+              ].filter(Boolean).join(' + ') || 'None selected'}):
             </div>
             <div className="num-tabular" style={{ fontSize: '26px', fontWeight: 800, color: 'var(--text-primary)', marginTop: '2px' }}>
               ₹{totalProductionCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}

@@ -12,8 +12,8 @@ import {
 } from './mockData';
 import { hashPassword } from './authService';
 
-// Local storage keys (v12 synchronized strictly with Google Sheets columns)
-const STORAGE_PREFIX = 'snack_planner_v12_';
+// Local storage keys (v13 synchronized strictly with Google Sheets columns)
+const STORAGE_PREFIX = 'snack_planner_v13_';
 const STORAGE_KEYS = {
   COUNTRIES: `${STORAGE_PREFIX}countries`,
   USERS: `${STORAGE_PREFIX}users`,

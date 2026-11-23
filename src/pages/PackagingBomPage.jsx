@@ -66,11 +66,9 @@ export default function PackagingBomPage({
     setIsAddModalOpen(false);
     setNewItem({
       sku_id: selectedSkuFilter || skus[0]?.sku_id || 'RGHMIX150',
-      packaging_material: '',
+      packaging_material: 'packet',
       quantity: 1.0,
-      uom: 'PCS',
-      unit_cost: 0.12,
-      wastage_percentage: 3.0
+      unit_cost: 2.5
     });
   };
 

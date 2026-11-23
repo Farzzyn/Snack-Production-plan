@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { calculateProductionPlan } from '../services/calculationEngine';
 import CapacityBar from '../components/common/CapacityBar';
+import SwipeSwitch from '../components/common/SwipeSwitch';
 
 export default function CreatePlanPage({
   countries = [],
@@ -44,6 +45,11 @@ export default function CreatePlanPage({
   const [activeBomTab, setActiveBomTab] = useState('raw'); // 'raw' | 'packaging'
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCostingExpanded, setIsCostingExpanded] = useState(true);
+
+  // Swipe toggle states to include/exclude cost components in manufacturing total
+  const [includeRawMaterials, setIncludeRawMaterials] = useState(true);
+  const [includePackaging, setIncludePackaging] = useState(true);
+  const [includeStaffLabor, setIncludeStaffLabor] = useState(true);
 
   // Selected entities
   const selectedCountry = useMemo(() => {
@@ -135,14 +141,17 @@ export default function CreatePlanPage({
         required_staff: calculation.required_staff,
         production_date: calculation.production_date,
         status: 'Planned',
-        estimated_raw_material_cost: calculation.estimated_raw_material_cost,
-        estimated_packaging_cost: calculation.estimated_packaging_cost,
-        total_material_cost: calculation.total_material_cost,
-        estimated_staff_cost: calculation.estimated_staff_cost,
-        total_production_cost: calculation.total_production_cost,
-        cost_per_packet: calculation.cost_per_packet,
-        cost_per_box: calculation.cost_per_box,
-        cost_per_kg: calculation.cost_per_kg,
+        include_raw_materials: includeRawMaterials,
+        include_packaging: includePackaging,
+        include_staff_labor: includeStaffLabor,
+        estimated_raw_material_cost: rawCost,
+        estimated_packaging_cost: pkgCost,
+        total_material_cost: totalMaterialCost,
+        estimated_staff_cost: staffCost,
+        total_production_cost: totalCost,
+        cost_per_packet: Number(costPerPacket),
+        cost_per_box: Number(costPerBox),
+        cost_per_kg: Number(costPerKg),
         staff_cost_breakdown: calculation.staff_cost_breakdown,
         notes: notes,
         raw_material_snapshots: calculation.raw_material_requirements,
@@ -155,18 +164,26 @@ export default function CreatePlanPage({
     }
   };
 
+  // Base costs from calculation engine
   const rawCost = calculation?.estimated_raw_material_cost || 0;
   const pkgCost = calculation?.estimated_packaging_cost || 0;
   const staffCost = calculation?.estimated_staff_cost || 0;
-  const totalCost = calculation?.total_production_cost || (rawCost + pkgCost + staffCost);
-  const totalMaterialCost = calculation?.total_material_cost || (rawCost + pkgCost);
+
+  // Effective costs based on user swipe inclusion toggles
+  const effectiveRawCost = includeRawMaterials ? rawCost : 0;
+  const effectivePkgCost = includePackaging ? pkgCost : 0;
+  const effectiveStaffCost = includeStaffLabor ? staffCost : 0;
+
+  const totalCost = effectiveRawCost + effectivePkgCost + effectiveStaffCost;
+  const totalMaterialCost = effectiveRawCost + effectivePkgCost;
   const packets = calculation?.packets_required || 0;
   const fgKg = calculation?.finished_goods_weight_kg || 0;
   const boxes = calculation?.order_quantity_boxes || 0;
 
-  const rawPercent = totalCost > 0 ? ((rawCost / totalCost) * 100).toFixed(1) : '0';
-  const pkgPercent = totalCost > 0 ? ((pkgCost / totalCost) * 100).toFixed(1) : '0';
-  const staffPercent = totalCost > 0 ? ((staffCost / totalCost) * 100).toFixed(1) : '0';
+  // Active percentages normalized to active totalCost
+  const rawPercent = totalCost > 0 && includeRawMaterials ? ((effectiveRawCost / totalCost) * 100).toFixed(1) : '0';
+  const pkgPercent = totalCost > 0 && includePackaging ? ((effectivePkgCost / totalCost) * 100).toFixed(1) : '0';
+  const staffPercent = totalCost > 0 && includeStaffLabor ? ((effectiveStaffCost / totalCost) * 100).toFixed(1) : '0';
 
   const costPerPacket = packets > 0 ? (totalCost / packets).toFixed(3) : '0.000';
   const costPerBox = boxes > 0 ? (totalCost / boxes).toFixed(2) : '0.00';
@@ -636,7 +653,11 @@ export default function CreatePlanPage({
                   Estimated Manufacturing Cost Total
                 </div>
                 <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                  Commercial production cost (Raw Materials + Packaging + Crew Labor) for <strong style={{ color: '#ffffff' }}>{packets.toLocaleString()}</strong> packets ({boxes} boxes • {fgKg.toLocaleString()} KG)
+                  Commercial production cost ({[
+                    includeRawMaterials && 'Raw Materials',
+                    includePackaging && 'Packaging',
+                    includeStaffLabor && 'Crew Labor'
+                  ].filter(Boolean).join(' + ') || 'None selected'}) for <strong style={{ color: '#ffffff' }}>{packets.toLocaleString()}</strong> packets ({boxes} boxes • {fgKg.toLocaleString()} KG)
                 </div>
               </div>
             </div>
@@ -676,25 +697,72 @@ export default function CreatePlanPage({
             </div>
           </div>
 
+          {/* Swipe Buttons / Cost Component Scope Toolbar */}
+          <div 
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between', 
+              flexWrap: 'wrap', 
+              gap: '14px', 
+              padding: '12px 18px', 
+              background: 'rgba(0, 0, 0, 0.45)', 
+              borderRadius: '12px', 
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              marginTop: '16px'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Sliders size={15} color="#38bdf8" />
+              <span style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', color: '#38bdf8' }}>
+                Cost Component Scope (Swipe to Include / Exclude):
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '22px', flexWrap: 'wrap' }}>
+              <SwipeSwitch
+                checked={includeRawMaterials}
+                onChange={setIncludeRawMaterials}
+                label="Raw Materials"
+                color="#22c55e"
+                badgeText={includeRawMaterials ? 'Included' : 'Excluded'}
+              />
+              <SwipeSwitch
+                checked={includePackaging}
+                onChange={setIncludePackaging}
+                label="Packaging"
+                color="#38bdf8"
+                badgeText={includePackaging ? 'Included' : 'Excluded'}
+              />
+              <SwipeSwitch
+                checked={includeStaffLabor}
+                onChange={setIncludeStaffLabor}
+                label="Crew Labor"
+                color="#f59e0b"
+                badgeText={includeStaffLabor ? 'Included' : 'Excluded'}
+              />
+            </div>
+          </div>
+
           {/* Visual Distribution Split Bar (3-Pillar) */}
           <div style={{ marginTop: '18px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12.5px', marginBottom: '8px', color: 'var(--text-secondary)', flexWrap: 'wrap', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: '#22c55e', display: 'inline-block' }}></span>
-                  <strong>Raw Ingredients:</strong> ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })} ({rawPercent}%)
+                <span style={{ display: 'flex', alignItems: 'center', gap: '7px', opacity: includeRawMaterials ? 1 : 0.45 }}>
+                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: includeRawMaterials ? '#22c55e' : '#64748b', display: 'inline-block' }}></span>
+                  <strong>Raw Ingredients:</strong> ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })} {includeRawMaterials ? `(${rawPercent}%)` : '(Excluded)'}
                 </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: '#38bdf8', display: 'inline-block' }}></span>
-                  <strong>Packaging & Cartons:</strong> ₹{pkgCost.toLocaleString(undefined, { minimumFractionDigits: 2 })} ({pkgPercent}%)
+                <span style={{ display: 'flex', alignItems: 'center', gap: '7px', opacity: includePackaging ? 1 : 0.45 }}>
+                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: includePackaging ? '#38bdf8' : '#64748b', display: 'inline-block' }}></span>
+                  <strong>Packaging & Cartons:</strong> ₹{pkgCost.toLocaleString(undefined, { minimumFractionDigits: 2 })} {includePackaging ? `(${pkgPercent}%)` : '(Excluded)'}
                 </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: '#f59e0b', display: 'inline-block' }}></span>
-                  <strong>Crew & Staff Labor:</strong> ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })} ({staffPercent}%)
+                <span style={{ display: 'flex', alignItems: 'center', gap: '7px', opacity: includeStaffLabor ? 1 : 0.45 }}>
+                  <span style={{ width: '10px', height: '10px', borderRadius: '3px', background: includeStaffLabor ? '#f59e0b' : '#64748b', display: 'inline-block' }}></span>
+                  <strong>Crew & Staff Labor:</strong> ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })} {includeStaffLabor ? `(${staffPercent}%)` : '(Excluded)'}
                 </span>
               </div>
               <div style={{ fontSize: '11.5px', color: 'var(--text-muted)', fontWeight: 500 }}>
-                Combined Materials: ₹{totalMaterialCost.toLocaleString(undefined, { minimumFractionDigits: 2 })} ({(Number(rawPercent) + Number(pkgPercent)).toFixed(1)}%)
+                Combined Materials: ₹{totalMaterialCost.toLocaleString(undefined, { minimumFractionDigits: 2 })} {totalCost > 0 ? `(${((Number(rawPercent) + Number(pkgPercent))).toFixed(1)}%)` : ''}
               </div>
             </div>
 
@@ -709,15 +777,38 @@ export default function CreatePlanPage({
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '14px', marginTop: '20px' }}>
             
             {/* 1. RAW MATERIALS SUB-TOTAL */}
-            <div style={{ background: 'rgba(15, 31, 22, 0.75)', border: '1px solid var(--border-default)', borderRadius: '12px', padding: '16px 18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ 
+              background: includeRawMaterials ? 'rgba(15, 31, 22, 0.75)' : 'rgba(20, 20, 20, 0.45)', 
+              border: includeRawMaterials ? '1px solid var(--border-default)' : '1px dashed rgba(239, 68, 68, 0.4)', 
+              borderRadius: '12px', 
+              padding: '16px 18px', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'space-between',
+              opacity: includeRawMaterials ? 1 : 0.65,
+              transition: 'all 0.25s ease'
+            }}>
               <div>
-                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#4ade80', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <ChefHat size={14} />
-                  Raw Materials Subtotal
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: includeRawMaterials ? '#4ade80' : 'var(--text-muted)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <ChefHat size={14} />
+                    Raw Materials Subtotal
+                  </div>
+                  <SwipeSwitch
+                    checked={includeRawMaterials}
+                    onChange={setIncludeRawMaterials}
+                    size="sm"
+                    color="#22c55e"
+                  />
                 </div>
-                <div className="num-tabular" style={{ fontSize: '22px', fontWeight: 800, color: '#ffffff', marginTop: '8px' }}>
+                <div className="num-tabular" style={{ fontSize: '22px', fontWeight: 800, color: includeRawMaterials ? '#ffffff' : '#94a3b8', marginTop: '8px', textDecoration: includeRawMaterials ? 'none' : 'line-through' }}>
                   ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </div>
+                {!includeRawMaterials && (
+                  <div style={{ fontSize: '11px', color: '#f87171', fontWeight: 700, marginTop: '2px' }}>
+                    Excluded from Total
+                  </div>
+                )}
               </div>
               <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid rgba(255, 255, 255, 0.06)', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                 <span>• ₹{rawCostPerPacket} / packet</span>
@@ -726,15 +817,38 @@ export default function CreatePlanPage({
             </div>
 
             {/* 2. PACKAGING MATERIALS SUB-TOTAL */}
-            <div style={{ background: 'rgba(15, 31, 22, 0.75)', border: '1px solid var(--border-default)', borderRadius: '12px', padding: '16px 18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ 
+              background: includePackaging ? 'rgba(15, 31, 22, 0.75)' : 'rgba(20, 20, 20, 0.45)', 
+              border: includePackaging ? '1px solid var(--border-default)' : '1px dashed rgba(239, 68, 68, 0.4)', 
+              borderRadius: '12px', 
+              padding: '16px 18px', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'space-between',
+              opacity: includePackaging ? 1 : 0.65,
+              transition: 'all 0.25s ease'
+            }}>
               <div>
-                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#38bdf8', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Package size={14} />
-                  Packaging Subtotal
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: includePackaging ? '#38bdf8' : 'var(--text-muted)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Package size={14} />
+                    Packaging Subtotal
+                  </div>
+                  <SwipeSwitch
+                    checked={includePackaging}
+                    onChange={setIncludePackaging}
+                    size="sm"
+                    color="#38bdf8"
+                  />
                 </div>
-                <div className="num-tabular" style={{ fontSize: '22px', fontWeight: 800, color: '#ffffff', marginTop: '8px' }}>
+                <div className="num-tabular" style={{ fontSize: '22px', fontWeight: 800, color: includePackaging ? '#ffffff' : '#94a3b8', marginTop: '8px', textDecoration: includePackaging ? 'none' : 'line-through' }}>
                   ₹{pkgCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </div>
+                {!includePackaging && (
+                  <div style={{ fontSize: '11px', color: '#f87171', fontWeight: 700, marginTop: '2px' }}>
+                    Excluded from Total
+                  </div>
+                )}
               </div>
               <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid rgba(255, 255, 255, 0.06)', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                 <span>• ₹{pkgCostPerPacket} / packet</span>
@@ -743,15 +857,38 @@ export default function CreatePlanPage({
             </div>
 
             {/* 3. STAFF & LABOR SUB-TOTAL */}
-            <div style={{ background: 'rgba(15, 31, 22, 0.75)', border: '1px solid var(--border-default)', borderRadius: '12px', padding: '16px 18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ 
+              background: includeStaffLabor ? 'rgba(15, 31, 22, 0.75)' : 'rgba(20, 20, 20, 0.45)', 
+              border: includeStaffLabor ? '1px solid var(--border-default)' : '1px dashed rgba(239, 68, 68, 0.4)', 
+              borderRadius: '12px', 
+              padding: '16px 18px', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              justifyContent: 'space-between',
+              opacity: includeStaffLabor ? 1 : 0.65,
+              transition: 'all 0.25s ease'
+            }}>
               <div>
-                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#fbbf24', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <Users size={14} />
-                  Staff Labor Subtotal
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em', color: includeStaffLabor ? '#fbbf24' : 'var(--text-muted)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Users size={14} />
+                    Staff Labor Subtotal
+                  </div>
+                  <SwipeSwitch
+                    checked={includeStaffLabor}
+                    onChange={setIncludeStaffLabor}
+                    size="sm"
+                    color="#f59e0b"
+                  />
                 </div>
-                <div className="num-tabular" style={{ fontSize: '22px', fontWeight: 800, color: '#ffffff', marginTop: '8px' }}>
+                <div className="num-tabular" style={{ fontSize: '22px', fontWeight: 800, color: includeStaffLabor ? '#ffffff' : '#94a3b8', marginTop: '8px', textDecoration: includeStaffLabor ? 'none' : 'line-through' }}>
                   ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </div>
+                {!includeStaffLabor && (
+                  <div style={{ fontSize: '11px', color: '#f87171', fontWeight: 700, marginTop: '2px' }}>
+                    Excluded from Total
+                  </div>
+                )}
               </div>
               <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '8px', paddingTop: '8px', borderTop: '1px solid rgba(255, 255, 255, 0.06)', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                 <span>• ₹{staffCostPerPacket} / packet</span>
@@ -811,10 +948,26 @@ export default function CreatePlanPage({
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
                 
                 {/* 1. Raw Materials Cost Breakdown */}
-                <div style={{ background: '#0a1a11', borderRadius: '12px', padding: '14px 16px', border: '1px solid var(--border-default)' }}>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#4ade80', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', paddingBottom: '6px' }}>
-                    <span>Raw Materials ({calculation?.raw_material_requirements?.length || 0} items)</span>
-                    <span>Subtotal: ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                <div style={{ 
+                  background: '#0a1a11', 
+                  borderRadius: '12px', 
+                  padding: '14px 16px', 
+                  border: includeRawMaterials ? '1px solid var(--border-default)' : '1px dashed rgba(239, 68, 68, 0.3)',
+                  opacity: includeRawMaterials ? 1 : 0.6,
+                  transition: 'opacity 0.25s ease'
+                }}>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: includeRawMaterials ? '#4ade80' : '#94a3b8', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', paddingBottom: '6px' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      Raw Materials ({calculation?.raw_material_requirements?.length || 0} items)
+                      {!includeRawMaterials && (
+                        <span style={{ fontSize: '9px', color: '#f87171', background: 'rgba(239, 68, 68, 0.15)', padding: '1px 5px', borderRadius: '3px', textTransform: 'uppercase' }}>
+                          Excluded
+                        </span>
+                      )}
+                    </span>
+                    <span style={{ textDecoration: includeRawMaterials ? 'none' : 'line-through' }}>
+                      Subtotal: ₹{rawCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    </span>
                   </div>
                   <div style={{ maxHeight: '200px', overflowY: 'auto', fontSize: '12px' }}>
                     {(calculation?.raw_material_requirements || []).map((item, idx) => (
@@ -834,10 +987,26 @@ export default function CreatePlanPage({
                 </div>
 
                 {/* 2. Packaging Materials Cost Breakdown */}
-                <div style={{ background: '#0a1a11', borderRadius: '12px', padding: '14px 16px', border: '1px solid var(--border-default)' }}>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#38bdf8', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', paddingBottom: '6px' }}>
-                    <span>Packaging Materials ({calculation?.packaging_requirements?.length || 0} items)</span>
-                    <span>Subtotal: ₹{pkgCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                <div style={{ 
+                  background: '#0a1a11', 
+                  borderRadius: '12px', 
+                  padding: '14px 16px', 
+                  border: includePackaging ? '1px solid var(--border-default)' : '1px dashed rgba(239, 68, 68, 0.3)',
+                  opacity: includePackaging ? 1 : 0.6,
+                  transition: 'opacity 0.25s ease'
+                }}>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: includePackaging ? '#38bdf8' : '#94a3b8', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', paddingBottom: '6px' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      Packaging Materials ({calculation?.packaging_requirements?.length || 0} items)
+                      {!includePackaging && (
+                        <span style={{ fontSize: '9px', color: '#f87171', background: 'rgba(239, 68, 68, 0.15)', padding: '1px 5px', borderRadius: '3px', textTransform: 'uppercase' }}>
+                          Excluded
+                        </span>
+                      )}
+                    </span>
+                    <span style={{ textDecoration: includePackaging ? 'none' : 'line-through' }}>
+                      Subtotal: ₹{pkgCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    </span>
                   </div>
                   <div style={{ maxHeight: '200px', overflowY: 'auto', fontSize: '12px' }}>
                     {(calculation?.packaging_requirements || []).map((item, idx) => (
@@ -857,10 +1026,26 @@ export default function CreatePlanPage({
                 </div>
 
                 {/* 3. Crew Labor Cost Breakdown */}
-                <div style={{ background: '#0a1a11', borderRadius: '12px', padding: '14px 16px', border: '1px solid var(--border-default)' }}>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#fbbf24', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', paddingBottom: '6px' }}>
-                    <span>Crew & Staff Labor ({calculation?.staff_cost_breakdown?.length || 2} roles)</span>
-                    <span>Subtotal: ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                <div style={{ 
+                  background: '#0a1a11', 
+                  borderRadius: '12px', 
+                  padding: '14px 16px', 
+                  border: includeStaffLabor ? '1px solid var(--border-default)' : '1px dashed rgba(239, 68, 68, 0.3)',
+                  opacity: includeStaffLabor ? 1 : 0.6,
+                  transition: 'opacity 0.25s ease'
+                }}>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: includeStaffLabor ? '#fbbf24' : '#94a3b8', marginBottom: '10px', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-default)', paddingBottom: '6px' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      Crew & Staff Labor ({calculation?.staff_cost_breakdown?.length || 2} roles)
+                      {!includeStaffLabor && (
+                        <span style={{ fontSize: '9px', color: '#f87171', background: 'rgba(239, 68, 68, 0.15)', padding: '1px 5px', borderRadius: '3px', textTransform: 'uppercase' }}>
+                          Excluded
+                        </span>
+                      )}
+                    </span>
+                    <span style={{ textDecoration: includeStaffLabor ? 'none' : 'line-through' }}>
+                      Subtotal: ₹{staffCost.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    </span>
                   </div>
                   <div style={{ maxHeight: '200px', overflowY: 'auto', fontSize: '12px' }}>
                     {(calculation?.staff_cost_breakdown || []).map((stf, idx) => (
