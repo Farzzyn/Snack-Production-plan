@@ -273,13 +273,13 @@ export const INITIAL_CAPACITY = [
     "id": "cap-01",
     "sl_no": 1,
     "base_product": "RG HOT MIXTURE",
-    "max_capacity_per_day": 225,
+    "max_capacity_per_day": 255,
     "uom": "KG",
     "batch_count": 9,
     "operating_hours": 8.05,
     "count_of_chef": 1,
     "count_of_staff": 7,
-    "capacity_per_batch": 25,
+    "capacity_per_batch": 28.33,
     "hours_per_batch": 0.89
   },
   {

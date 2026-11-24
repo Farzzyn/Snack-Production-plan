@@ -51,7 +51,7 @@ VALUES
 DELETE FROM capacity_master;
 INSERT INTO capacity_master (base_product, max_capacity_per_day, uom, batch_count, operating_hours, count_of_chef, count_of_staff, capacity_per_batch, hours_per_batch)
 VALUES
-('RG HOT MIXTURE', 225, 'KG', 9, 8.05, 1, 7, 25, 0.89),
+('RG HOT MIXTURE', 255, 'KG', 9, 8.05, 1, 7, 28.33, 0.89),
 ('RG KERALA MIXTURE', 225, 'KG', 9, 8.05, 1, 7, 25, 0.89),
 ('RG BANANA CHIPS', 500, 'KG', 25, 8.5, 1, 11, 20, 0.34),
 ('RG PALAK MURUKKU', 63, 'KG', 14, 8.5, 1, 5, 4.5, 0.61),

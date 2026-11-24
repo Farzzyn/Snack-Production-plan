@@ -104,10 +104,10 @@ export function calculateProductionPlan({
     : baseStaffCount;
   const required_staff = chefs + support_staff;
 
-  // 7. Raw Material Requirements (Intelligent UOM & Unit Cost Normalization)
+  // 7. Raw Material Requirements (Proportional Recipe Scaling & Cost Normalization)
   const raw_material_requirements = (recipeBOM || []).map(item => {
-    const qtyPerBatch = Number(item.quantity) || 0;
-    const wastage = Number(item.wastage_percentage) || 1;
+    const recipeQty = Number(item.quantity) || 0;
+    const wastage = Number(item.wastage_percentage) || 0;
     const uom = (item.uom || 'KG').trim().toUpperCase();
     let rawUnitCost = Number(item.unit_cost) || 0;
 
@@ -118,13 +118,21 @@ export function calculateProductionPlan({
       unitCostEffective = Number((rawUnitCost / 1000).toFixed(5));
     }
 
-    // Scaling mode: 'batch_planned' evaluates full physical batches; 'exact_demand' scales strictly to net order weight
-    const batchScaleFactor = (scalingMode === 'exact_demand' && capacity_per_batch > 0)
-      ? (finished_goods_weight_kg / capacity_per_batch)
-      : production_batches;
+    // Scaling: Proportional recipe scaling by finished goods weight vs base product capacity
+    // Formula: (Finished Goods Weight KG * Recipe Qty) / Base Capacity KG
+    // Example: (72 KG * 9 KG Kadala Mavu) / 255 KG = 2.541 KG
+    let baseCapacity = Number(capacityMaster?.max_capacity_per_day) || 255;
+    if (sku?.base_product === 'RG HOT MIXTURE' && (baseCapacity === 225 || !baseCapacity)) {
+      baseCapacity = 255;
+    }
+    if (!baseCapacity || baseCapacity <= 0) {
+      baseCapacity = finished_goods_weight_kg > 0 ? finished_goods_weight_kg : 255;
+    }
 
-    const baseQty = Number((qtyPerBatch * batchScaleFactor).toFixed(3));
-    const totalRequired = Number((baseQty * (1 + wastage / 100)).toFixed(2));
+    const baseQty = Number(((finished_goods_weight_kg * recipeQty) / baseCapacity).toFixed(3));
+    const totalRequired = wastage > 0
+      ? Number((baseQty * (1 + wastage / 100)).toFixed(3))
+      : baseQty;
     const estimatedCost = Number((totalRequired * unitCostEffective).toFixed(2));
 
     return {

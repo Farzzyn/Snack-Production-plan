@@ -499,7 +499,7 @@ export default function CreatePlanPage({
                         <td style={{ fontWeight: 600 }}>{mat.raw_material}</td>
                         <td><span className="badge badge-draft">{mat.uom}</span></td>
                         <td style={{ textAlign: 'right', fontWeight: 700 }} className="num-tabular">
-                          {mat.quantity.toLocaleString()}
+                          {typeof mat.quantity === 'number' ? mat.quantity.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 3 }) : mat.quantity}
                         </td>
                         <td style={{ textAlign: 'right', color: 'var(--text-tertiary)' }} className="num-tabular">
                           {mat.wastage_percentage}%
